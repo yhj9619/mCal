@@ -6,10 +6,111 @@
 -->
 <html>
 	<head>
-		<title>Prologue by HTML5 UP</title>
+		<title>테스트 텍스트</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
+		// jQuery에서 제공하는 최신 버전의 jQuery URL
+		<script src="http://code.jquery.com/jquery-latest.js"></script> 
+		<link rel="stylesheet" href="https://uicdn.toast.com/grid/latest/tui-grid.css" />
+		<script src="https://uicdn.toast.com/grid/latest/tui-grid.js"></script>
+		<style>
+			.inputInfo{
+				display: table;
+			}
+
+			.pointSpan{
+				color:blue;
+				font-weight: bold;
+			}
+		</style>
+		<script type='text/javascript'>
+			var vPresentMeso;
+			var vPresentMepo;
+			var vPercentMVP;
+			var realMepo;
+			var moneyTransMepo;
+
+			$(document).ready(function() {
+				$("#presentMeso").val('1600');
+				$("#presentMepo").val('2040');
+				$("#percentMVP").val('8000');
+
+				setNumber();
+				createGrid1();
+
+				$(document).find("input,select,textarea,button").on("focus keyup change", function(){
+					setNumber();
+					
+				});
+			});
+
+			function setNumber(){
+				//기본값값
+				vPresentMeso = $("#presentMeso").val();
+				vPresentMepo = $("#presentMepo").val();
+				vPercentMVP = $("#percentMVP").val();
+				//실제 수령메포포
+				realMepo = vPresentMepo - Math.round(vPresentMepo*0.01);
+				//메포로 치면
+				moneyTransMepo = (10000/realMepo/0.97*vPresentMeso).toFixed(2);
+
+				$("#marketParam1").text(moneyTransMepo);
+			}
+
+			function createGrid1(){
+				var gridData = [
+					{
+						id: 1,
+						name: '이름1',
+						username: '유저네임1',
+						email: 'abc@def.ghi',
+						phone: '010-1234-5678'
+					},
+					{
+						id: 2,
+						name: '이름2',
+						username: '유저네임2',
+						email: 'ghi@abc.def',
+						phone: '876-5432-1010'
+					}
+					];
+				var grid = new tui.Grid({
+					el: document.getElementById('grid1'),
+					data: gridData,
+					scrollX: false,
+					scrollY: false,
+					columns: [
+						{
+						header: 'ID',
+						name: 'id'
+						},
+						{
+						header: '이름',
+						name: 'name'
+						},
+						{
+						header: '유저',
+						name: 'username'
+						},
+						{
+						header: '이메일',
+						name: 'email'
+						},
+						{
+						header: '전화번호',
+						name: 'phone'
+						}
+					]
+				});
+			}
+			
+
+			function fn_mesoMarket(){
+				
+			}
+
+		</script>
 	</head>
 	<body class="is-preload">
 
@@ -24,24 +125,28 @@
 							<h1 id="title">메이플 계산기</h1>
 							<p>MapleStory Calculator</p>
 						</div>
+						<div class="inputInfo">
+							<div class="col-3 col-6-mobile"><input type="text" name="presentMeso" id="presentMeso" placeholder="현재 메소 엄거래가가" /></div>
+							<div class="col-3 col-6-mobile"><input type="text" name="presentMepo" id="presentMepo" pplaceholder="현재 메소마켓 거래가가" /></div>
+							<div class="col-3 col-6-mobile"><input type="text" name="percentMVP" id="percentMVP" pplaceholder="현재 MVP 작 비율"/></div>
+							현대카드포인트 구매여부 : <input type="checkbox" name="hyunCaPo" id="hyunCaPo"/>
+						</div>
 
 					<!-- Nav -->
 						<nav id="nav">
 							<ul>
-								<li><a href="#top" id="top-link"><span class="icon solid fa-home">메소정보</span></a></li>
-								<li><a href="#portfolio" id="portfolio-link"><span class="icon solid fa-th">메소마켓효율</span></a></li>
-								<li><a href="#about" id="about-link"><span class="icon solid fa-user">주화효율</span></a></li>
-								<li><a href="#contact" id="contact-link"><span class="icon solid fa-envelope">피방조각효율</span></a></li>
-								<li><a href="#contact" id="contact-link"><span class="icon solid fa-envelope">과거와 현재 아이템</span></a></li>
-								<li><a href="#contact" id="contact-link"><span class="icon solid fa-envelope">아이템의 현금가치</span></a></li>
+								<li><a href="#top" id="top-link"><span class="icon solid fa-home">메이플계산기 소개</span></a></li>
+								<li><a href="#mesoMarket" id="mesoMarket-link"><span class="icon solid fa-shop">메소마켓효율</span></a></li>
+								<li><a href="#juhua" id="juhua-link"><span class="icon solid fa-flower">주화효율</span></a></li>
+								<li><a href="#pcRoom" id="pcRoom-link"><span class="icon solid fa-descktop">피방조각효율</span></a></li>
+								<li><a href="#valueOfPesent" id="valueOfPesent-link"><span class="icon solid fa-th">과거와 현재 아이템</span></a></li>
+								<li><a href="#mesoToWon" id="mesoToWon-link"><span class="icon solid money-check-dallor">아이템의 현금가치</span></a></li>
 							</ul>
 						</nav>
 
 				</div>
 
-				<div class="bottom">
-
-					<!-- Social Icons -->
+				<!-- <div class="bottom">
 						<ul class="icons">
 							<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
 							<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
@@ -50,7 +155,7 @@
 							<li><a href="#" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
 						</ul>
 
-				</div>
+				</div> -->
 
 			</div>
 
@@ -60,35 +165,30 @@
 				<!-- Intro -->
 					<section id="top" class="one dark cover">
 						<div class="container">
-
 							<header>
-								<h2 class="alt">Hi! I'm <strong>Prologue</strong>, a <a href="http://html5up.net/license">free</a> responsive<br />
-								site template designed by <a href="http://html5up.net">HTML5 UP</a>.</h2>
+								<h2 class="alt">안녕하세요. <strong>메이플계산기</strong>입니다. 좌측에 수치를 입력하시고 원하는 결과를 조회하세요.</h2>
 								<p>Ligula scelerisque justo sem accumsan diam quis<br />
-								vitae natoque dictum sollicitudin elementum.</p>
+								문의사항은 <a href="https://open.kakao.com/me/mapleCal">오픈채팅</a>주세요.</p>
 							</header>
 
 							<footer>
-								<a href="#portfolio" class="button scrolly">Magna Aliquam</a>
+								<a href="#mesoMarket" class="button scrolly">지금바로 사용하러가기</a>
 							</footer>
 
 						</div>
 					</section>
 
-				<!-- Portfolio -->
-					<section id="portfolio" class="two">
+				<!-- mesoMarket -->
+					<section id="mesoMarket" class="two">
 						<div class="container">
 
 							<header>
-								<h2>Portfolio</h2>
+								<h2>메소마켓효율</h2>
 							</header>
+							<div id="grid1"></div>
+							<p>메소마켓에서 메포를 구매하는 것은, 메소마켓으로 치면 <span id="marketParam1" class="pointSpan"></span>원에 구매하는 것과 같습니다.</p>
 
-							<p>Vitae natoque dictum etiam semper magnis enim feugiat convallis convallis
-							egestas rhoncus ridiculus in quis risus amet curabitur tempor orci penatibus.
-							Tellus erat mauris ipsum fermentum etiam vivamus eget. Nunc nibh morbi quis
-							fusce hendrerit lacus ridiculus.</p>
-
-							<div class="row">
+							<!-- <div class="row">
 								<div class="col-4 col-12-mobile">
 									<article class="item">
 										<a href="#" class="image fit"><img src="images/pic02.jpg" alt="" /></a>
@@ -131,17 +231,17 @@
 										</header>
 									</article>
 								</div>
-							</div>
+							</div> -->
 
 						</div>
 					</section>
 
-				<!-- About Me -->
-					<section id="about" class="three">
+				<!-- juhua Me -->
+					<section id="juhua" class="three">
 						<div class="container">
 
 							<header>
-								<h2>About Me</h2>
+								<h2>juhua Me</h2>
 							</header>
 
 							<a href="#" class="image featured"><img src="images/pic08.jpg" alt="" /></a>
@@ -156,12 +256,13 @@
 						</div>
 					</section>
 
-				<!-- Contact -->
-					<section id="contact" class="four">
+
+				<!-- valueOfPesent -->
+					<section id="valueOfPesent" class="four">
 						<div class="container">
 
 							<header>
-								<h2>Contact</h2>
+								<h2>과거 아이템의 현재가치치</h2>
 							</header>
 
 							<p>Elementum sem parturient nulla quam placerat viverra
@@ -184,6 +285,36 @@
 
 						</div>
 					</section>
+
+
+				<!-- mesoToWon -->
+				<section id="mesoToWon" class="four">
+					<div class="container">
+
+						<header>
+							<h2>메소의 현금가치</h2>
+						</header>
+
+						<p>Elementum sem parturient nulla quam placerat viverra
+						mauris non cum elit tempus ullamcorper dolor. Libero rutrum ut lacinia
+						donec curae mus. Eleifend id porttitor ac ultricies lobortis sem nunc
+						orci ridiculus faucibus a consectetur. Porttitor curae mauris urna mi dolor.</p>
+
+						<form method="post" action="#">
+							<div class="row">
+								<div class="col-6 col-12-mobile"><input type="text" name="name" placeholder="Name" /></div>
+								<div class="col-6 col-12-mobile"><input type="text" name="email" placeholder="Email" /></div>
+								<div class="col-12">
+									<textarea name="message" placeholder="Message"></textarea>
+								</div>
+								<div class="col-12">
+									<input type="submit" value="Send Message" />
+								</div>
+							</div>
+						</form>
+
+					</div>
+				</section>
 
 			</div>
 
