@@ -76,16 +76,21 @@
 				
 				
 				if(moneyTransMepo > vPercentMVP){
-					$("#buyMeso").text("MVP작 메포판매자에게 구매하세요.");
-					$("#buyMesoProfit").text(Math.round(Number(moneyTransMepo)-Number(vPercentMVP)));
+					$("#buyMepo").text("MVP작 메포판매자에게 구매하세요.");
+					$("#buyMepoProfit").text(Math.round(Number(moneyTransMepo)-Number(vPercentMVP)));
 					
 				}else{
-					$("#buyMeso").text("메소마켓 이용을 권장합니다.");
-					$("#buyMesoProfit").text(Math.round(Number(vPercentMVP)-Number(moneyTransMepo)));
+					$("#buyMepo").text("메소마켓 이용을 권장합니다.");
+					$("#buyMepoProfit").text(Math.round(Number(vPercentMVP)-Number(moneyTransMepo)));
 				}
 
-				if(){
+				if(1/0.97*vPresentMeso > vPresentMepo*0.9){
+					$("#buyMeso").text("직접 현카포로 현질해서 메소마켓 이용하세요");
+					$("#buyMesoProfit").text(Math.round(Number(1/0.97*vPresentMeso)-Number(vPresentMepo*0.9)));
 					
+				}else{
+					$("#buyMeso").text("엄거래를 권장합니다.");
+					$("#buyMesoProfit").text(Math.round(Number(vPresentMepo*0.9)-Number(1/0.97*vPresentMeso)));
 				}
 				
 				$("#sellMeso").text(moneyTransMepo);
@@ -234,17 +239,6 @@
 									</tr>
 									<tr>
 										<th>
-											메소
-										</th>
-										<td>
-											<span id="buyMeso"></span>
-										</td>
-										<td>
-											<span id="buyMesoProfit"></span>
-										</td>
-									</tr>
-									<tr>
-										<th>
 											메포
 										</th>
 										<td>
@@ -252,6 +246,18 @@
 										</td>
 										<td>
 											<span id="buyMepoProfit"></span>
+										</td>
+										
+									</tr>
+									<tr>
+										<th>
+											메소
+										</th>
+										<td>
+											<span id="buyMeso"></span>
+										</td>
+										<td>
+											<span id="buyMesoProfit"></span>
 										</td>
 									</tr>
 									<tr>
