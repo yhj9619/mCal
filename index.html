@@ -36,6 +36,8 @@
 			var vPercentMVP;
 			var realMepo;
 			var moneyTransMepo;
+			var for1MilWithPerson;
+			var for1MilWithMarket;
 
 			$(document).ready(function() {
 				$("#presentMeso").val('1600');
@@ -72,8 +74,12 @@
 				//실제 수령메포포
 				realMepo = vPresentMepo - Math.round(vPresentMepo*0.01);
 				//MVP작대비 비율
-				moneyTransMepo = (10000/realMepo/0.97*vPresentMeso).toFixed(2);
+				moneyTransMepo = Math.round(10000/realMepo/0.97*vPresentMeso);
 				
+				//엄으로 1억구매 비용
+				for1MilWithPerson= Math.round(1/0.97*vPresentMeso);
+				//메포구매로 1억구매 비용
+				for1MilWithMarket= Math.round(vPresentMepo*0.9);
 				
 				if(moneyTransMepo > vPercentMVP){
 					$("#buyMepo").text("MVP작 메포판매자에게 구매하세요.");
@@ -84,17 +90,19 @@
 					$("#buyMepoProfit").text(Math.round(Number(vPercentMVP)-Number(moneyTransMepo)));
 				}
 
-				if(1/0.97*vPresentMeso > vPresentMepo*0.9){
+				if(for1MilWithPerson > for1MilWithMarket){
 					$("#buyMeso").text("직접 현카포로 현질해서 메소마켓 이용하세요");
-					$("#buyMesoProfit").text(Math.round(Number(1/0.97*vPresentMeso)-Number(vPresentMepo*0.9)));
+					$("#buyMesoProfit").text(Math.round(Number(for1MilWithPerson)-Number(for1MilWithMarket)));
 					
 				}else{
-					$("#buyMeso").text("엄거래를 권장합니다.");
-					$("#buyMesoProfit").text(Math.round(Number(vPresentMepo*0.9)-Number(1/0.97*vPresentMeso)));
+					$("#buyMeso").text("사람간 거래를 권장합니다.");
+					$("#buyMesoProfit").text(Math.round(Number(for1MilWithMarket)-Number(for1MilWithPerson)));
 				}
 				
 				$("#sellMeso").text(moneyTransMepo);
-				$("#marketParam5").text(moneyTransMepo);
+				$("#marketParam1").text(moneyTransMepo);
+				$("#marketParam2").text(for1MilWithPerson);
+				$("#marketParam3").text(for1MilWithMarket);
 			}
 
 			function createGrid1(){
@@ -165,8 +173,8 @@
 							<p>MapleStory Calculator</p>
 						</div>
 						<div class="inputInfo">
-							<div class="col-3 col-6-mobile">메소시세 : <input type="text" name="presentMeso" id="presentMeso" placeholder="현재 메소 엄거래가가" /></div>
-							<div class="col-3 col-6-mobile">메소마켓 : <input type="text" name="presentMepo" id="presentMepo" pplaceholder="현재 메소마켓 거래가가" /></div>
+							<div class="col-3 col-6-mobile">메소시세 : <input type="text" name="presentMeso" id="presentMeso" placeholder="현재 메소 라운지 거래가" /></div>
+							<div class="col-3 col-6-mobile">메소마켓 : <input type="text" name="presentMepo" id="presentMepo" pplaceholder="현재 메소마켓 거래가" /></div>
 							<div class="col-3 col-6-mobile">M작시세 : <input type="text" name="percentMVP" id="percentMVP" pplaceholder="현재 MVP 작 비율"/></div>
 						</div>
 
@@ -174,11 +182,11 @@
 						<nav id="nav">
 							<ul>
 								<li><a href="#top" id="top-link"><span class="icon solid fa-home">메이플계산기 소개</span></a></li>
-								<li><a href="#mesoMarket" id="mesoMarket-link"><span class="icon solid fa-shop">메소마켓효율</span></a></li>
-								<li><a href="#juhua" id="juhua-link"><span class="icon solid fa-flower">주화효율</span></a></li>
-								<li><a href="#pcRoom" id="pcRoom-link"><span class="icon solid fa-descktop">피방조각효율</span></a></li>
+								<li><a href="#mesoMarket" id="mesoMarket-link"><span class="icon solid fa-utensil-spoon">메소마켓효율</span></a></li>
+								<li><a href="#juhua" id="juhua-link"><span class="icon solid fa-bezier-curve">주화효율</span></a></li>
+								<li><a href="#pcRoom" id="pcRoom-link"><span class="icon solid fa-users-cog">피방조각효율</span></a></li>
 								<li><a href="#valueOfPesent" id="valueOfPesent-link"><span class="icon solid fa-th">과거와 현재 아이템</span></a></li>
-								<li><a href="#mesoToWon" id="mesoToWon-link"><span class="icon solid money-check-dallor">아이템의 현금가치</span></a></li>
+								<li><a href="#mesoToWon" id="mesoToWon-link"><span class="icon solid fa-money-bill">아이템의 현금가치</span></a></li>
 							</ul>
 						</nav>
 
@@ -273,7 +281,11 @@
 									</tr>
 								</tbody>
 							</table>
-							<p>메소마켓에서 메포를 구매하는 것은, 메소마켓으로 치면 <span id="marketParam5" class="pointSpan"></span>원에 구매하는 것과 같습니다.</p>
+							<p>메소마켓에서 메포를 구매하는 것은, <br>
+								메소마켓으로 치면 <span id="marketParam1" class="pointSpan"></span>원에 구매하는 것과 같습니다.</p>
+							<p>인게임 <strong>1억</strong>을 구매하기 위해서, <br>
+								사람간 거래는 <span id="marketParam2" class="pointSpan"></span>원, <br>
+								메소마켓 <span id="marketParam3" class="pointSpan"></span>원이 필요합니다.</p>
 							
 							<!-- <div class="row">
 								<div class="col-4 col-12-mobile">
@@ -342,6 +354,35 @@
 
 						</div>
 					</section>
+
+				<!-- pcRoom -->
+				<section id="pcRoom" class="four">
+					<div class="container">
+
+						<header>
+							<h2>피시방 효율</h2>
+						</header>
+
+						<p>Elementum sem parturient nulla quam placerat viverra
+						mauris non cum elit tempus ullamcorper dolor. Libero rutrum ut lacinia
+						donec curae mus. Eleifend id porttitor ac ultricies lobortis sem nunc
+						orci ridiculus faucibus a consectetur. Porttitor curae mauris urna mi dolor.</p>
+
+						<form method="post" action="#">
+							<div class="row">
+								<div class="col-6 col-12-mobile"><input type="text" name="name" placeholder="Name" /></div>
+								<div class="col-6 col-12-mobile"><input type="text" name="email" placeholder="Email" /></div>
+								<div class="col-12">
+									<textarea name="message" placeholder="Message"></textarea>
+								</div>
+								<div class="col-12">
+									<input type="submit" value="Send Message" />
+								</div>
+							</div>
+						</form>
+
+					</div>
+				</section>
 
 
 				<!-- valueOfPesent -->
