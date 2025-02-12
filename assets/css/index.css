@@ -44,15 +44,14 @@
 }
 
 /* .flip-scroll{
-    /* 자식 요소(.child)를 중앙 정렬하기 */
     display: flex;
     justify-content: center;
 } */
 
-/* table, th, td{
+table, th, td{
     border : 1px solid black;
     border-collapse : collapse;
-} */
+} 
 
 /* https://seraphinaciel.github.io/%ED%91%9C/ */
 @media all and (max-width: 1040px) {
@@ -80,6 +79,7 @@
     .mTable th {
         display: block;
         align-items: center;
+        text-align: center;
     }
 
     .mTable tr {
