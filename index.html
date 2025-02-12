@@ -14,180 +14,13 @@
 		<script src="http://code.jquery.com/jquery-latest.js"></script> 
 		<link rel="stylesheet" href="https://uicdn.toast.com/grid/latest/tui-grid.css" />
 		<script src="https://uicdn.toast.com/grid/latest/tui-grid.js"></script>
+
+		<link rel="stylesheet" href="assets/css/index.css" />
+		<script src="assets/js/index.js"></script>
 		<style>
-			.inputInfo{
-				display: table-header-group;
-				width: 90%
-			}
-
-			.inputInfo div input{
-				text-align: right;
-				width:220px;
-				height:25px;
-				border-radius:5px;
-			}
-
-			.pointSpan{
-				color:blue;
-				font-weight: bold;
-			}
-
-			.radioSelect {
-				padding: 15px 10px;
-				display: block;
-			}
-			.radioSelect input[type=radio]{
-				display: none;
-			}
-			.radioSelect input[type=radio]+label{
-				display: inline-block;
-				cursor: pointer;
-				height: 24px;
-				width: 90px;
-				border: 1px solid #333;
-				line-height: 24px;
-				text-align: center;
-				font-weight:bold;
-				font-size:13px;
-			}
-			.radioSelect input[type=radio]+label{
-				background-color: #fff;
-				color: #333;
-			}
-			.radioSelect input[type=radio]:checked+label{
-				background-color: #333;
-				color: #fff;
-			}
+			
 		</style>
 		<script type='text/javascript'>
-			var vPresentMeso;
-			var vPresentMepo;
-			var vPercentMVP;
-			var vDiscountRate;
-			var vAuctionCharge;
-			var realMepo;
-			var moneyTransMepo;
-			var for1MilWithPerson;
-			var for1MilWithMarket;
-
-			$(document).ready(function() {
-				$("#presentMeso").val('1600');
-				$("#presentMepo").val('2040');
-				$("#percentMVP").val('8000');
-				$("#discountRate").val('10');
-				$('#3per').attr("checked", true);
-
-				fn_collection();
-				createGrid1();
-
-				$(document).find("input,select,textarea,button").on("focus keyup change", function(){
-					fn_collection();
-				});
-			});
-
-			function onlyNumberWithComma(obj) {
-				var number = obj.value;
-
-				//숫자가 아닌 값 모두 replace 해주기
-				number=number.replace(/[^0-9]/g,'');
-
-				//콤마 표시
-				number=Number(number).toLocaleString();
-				
-				//다시 value 지정해주기
-				obj.value = number;
-			}
-
-			function fn_collection(){
-				//전체 숫자관련
-				setNumber();
-				//메소마켓효율 페이지
-				fn_mesoMarket();
-			}
-
-			function setNumber(){
-				//기본값값
-				vPresentMeso = $("#presentMeso").val();
-				vPresentMepo = $("#presentMepo").val();
-				vPercentMVP = $("#percentMVP").val();
-				vDiscountRate = $("#discountRate").val();
-				
-				vAuctionCharge = $("input:radio[name='auctionCharge']:checked").val();
-				
-				//캐시구매 구매비율
-				discountRate = 1-vDiscountRate/100
-				//경매장 구매비율
-				autionRate = 1-vAuctionCharge/100
-
-				//실제 수령메포포
-				realMepo = vPresentMepo - Math.round(vPresentMepo*0.01);
-				//MVP작대비 비율
-				moneyTransMepo = Math.round(10000/realMepo/autionRate*vPresentMeso);
-				
-				//엄으로 1억구매 비용
-				for1MilWithPerson= Math.round(1/autionRate*vPresentMeso);
-				//메포구매로 1억구매 비용
-				for1MilWithMarket= Math.round(vPresentMepo*discountRate);
-			}
-
-			function fn_mesoMarket(){
-				if(moneyTransMepo > vPercentMVP){
-					$("#buyMepo").text("MVP작 메포판매자에게 구매하세요.");
-					$("#buyMepoProfit").text(Math.round(Number(moneyTransMepo)-Number(vPercentMVP)));
-					
-				}else{
-					$("#buyMepo").text("메소마켓 이용을 권장합니다.");
-					$("#buyMepoProfit").text(Math.round(Number(vPercentMVP)-Number(moneyTransMepo)));
-				}
-
-				if(for1MilWithPerson > for1MilWithMarket){
-					$("#buyMeso").text("직접 현카포로 현질해서 메소마켓 이용하세요");
-					$("#buyMesoProfit").text(Math.round(Number(for1MilWithPerson)-Number(for1MilWithMarket)));
-					
-				}else{
-					$("#buyMeso").text("사람간 거래를 권장합니다.");
-					$("#buyMesoProfit").text(Math.round(Number(for1MilWithMarket)-Number(for1MilWithPerson)));
-				}
-				
-				$("#sellMeso").text(moneyTransMepo);
-				$("#marketParam1").text(moneyTransMepo);
-				$("#marketParam2").text(for1MilWithPerson);
-				$("#marketParam3").text(for1MilWithMarket);
-			}
-
-			function createGrid1(){
-				var gridData = [];
-				var grid1 = new tui.Grid({
-					el: document.getElementById('grid1'),
-					data: gridData,
-					scrollX: false,
-					scrollY: false,
-					columns: [
-						{
-						header: '아이템 값(메소)',
-						name: 'price'
-						}
-						,{
-						header: '판매자기준 현금가치(원)',
-						name: 'val1'
-						}
-						,{
-						header: '구매자(메소보유) 기준 현금가치(원)',
-						name: 'val2'
-						}
-						,{
-						header: '이메일',
-						name: 'val3'
-						}
-					]
-				});
-
-				grid1.on('afterChange', function(ev) {
-					var columnName = ev.changes[0].columnName;
-					var rowKey = ev.changes[0].rowKey;
-					console.log(ev);
-				});
-			}
 
 		</script>
 	</head>
@@ -204,11 +37,23 @@
 							<h1 id="title">메이플 계산기</h1>
 							<p>MapleStory Calculator</p>
 						</div>
-						<div class="inputInfo">
-							<div class="col-3 col-6-mobile">메소시세 : <input type="text" name="presentMeso" id="presentMeso" placeholder="메소 라운지 거래가" /></div>
-							<div class="col-3 col-6-mobile">메소마켓 : <input type="text" name="presentMepo" id="presentMepo" placeholder="메소마켓 거래가" /></div>
-							<div class="col-3 col-6-mobile">엠작비율 : <input type="text" name="percentMVP" id="percentMVP" placeholder="MVP 작 비율"/></div>
-							<div class="col-3 col-6-mobile">캐시할인율 : <input type="text" name="discountRate" id="discountRate" placeholder="캐시충전 할인율"/></div>
+						<div class="inputDiv">
+							<div class="col-3 col-6-mobile">메소시세 : 
+								<input type="text" name="presentMeso" id="presentMeso" 
+								oninput="onlyNumberWithComma(this);" placeholder="메소 라운지 거래가" />
+							</div>
+							<div class="col-3 col-6-mobile">메소마켓 : 
+								<input type="text" name="presentMepo" id="presentMepo" 
+								oninput="onlyNumberWithComma(this);" placeholder="메소마켓 거래가" />
+							</div>
+							<div class="col-3 col-6-mobile">엠작비율 : 
+								<input type="text" name="percentMVP" id="percentMVP" 
+								oninput="onlyNumberWithComma(this);" placeholder="MVP 작 비율"/>
+							</div>
+							<div class="col-3 col-6-mobile">캐시할인율 : 
+								<input type="text" name="discountRate" id="discountRate" 
+								oninput="onlyNumberWithComma(this);" placeholder="캐시충전 할인율"/>
+							</div>
 							<div class="radioSelect">경매장수수료 
 								<input type="radio" id="3per" name="auctionCharge" value="3"><label for="3per">3%</label>
      							<input type="radio" id="5per" name="auctionCharge" value="5"><label for="5per">5%</label>
@@ -220,7 +65,7 @@
 							<ul>
 								<li><a href="#top" id="top-link"><span class="icon solid fa-home">메이플계산기 소개</span></a></li>
 								<li><a href="#mesoMarket" id="mesoMarket-link"><span class="icon solid fa-utensil-spoon">메소마켓효율</span></a></li>
-								<li><a href="#juhua" id="juhua-link"><span class="icon solid fa-bezier-curve">주화효율</span></a></li>
+								<li><a href="#juhua" id="juhua-link"><span class="icon solid fa-bezier-curve">골드주화가치</span></a></li>
 								<li><a href="#pcRoom" id="pcRoom-link"><span class="icon solid fa-users-cog">피방조각효율</span></a></li>
 								<li><a href="#valueOfPesent" id="valueOfPesent-link"><span class="icon solid fa-th">과거와 현재 아이템</span></a></li>
 								<li><a href="#mesoToWon" id="mesoToWon-link"><span class="icon solid fa-money-bill">아이템의 현금가치</span></a></li>
@@ -268,107 +113,40 @@
 							<header>
 								<h2>메소마켓효율</h2>
 							</header>
-							
-							<table>
-								<tbody>
-									<tr>
-										<th>
-											구매재화
-										</th>
-										<th>
-											설명
-										</th>
-										<th>
-											억당 이득(원)
-										</th>
-									</tr>
-									<tr>
-										<th>
-											메포
-										</th>
-										<td>
-											<span id="buyMepo"></span>
-										</td>
-										<td>
-											<span id="buyMepoProfit"></span>
-										</td>
+							<div class="flip-scroll">
+								<table class="mTable">
+									<colgroup>
+										<col width="20%" />
+										<col width="60%" />
+										<col width="20%" />
+									</colgroup>
+									<thead>
+										<tr>
+											<th scope="col">구매재화</th>
+											<th scope="col">설명</th>
+											<th scope="col">억당 이득(원)</th>
+										</tr>
+									</thead>
+									<tbody>
 										
-									</tr>
-									<tr>
-										<th>
-											메소
-										</th>
-										<td>
-											<span id="buyMeso"></span>
-										</td>
-										<td>
-											<span id="buyMesoProfit"></span>
-										</td>
-									</tr>
-									<tr>
-										<th>
-
-										</th>
-										<td>
-											
-										</td>
-										<td>
-											
-										</td>
-									</tr>
-								</tbody>
-							</table>
+										<tr>
+											<th scope="row" data-label="구매재화">메포</th>
+											<td data-label="설명"><span id="buyMepo"></span></td>
+											<td data-label="억당 이득(원)"><span id="buyMepoProfit"></span></td>
+										</tr>
+										<tr>
+											<th scope="row" data-label="구매재화">메소</th>
+											<td data-label="설명"><span id="buyMeso"></span></td>
+											<td data-label="억당 이득(원)"><span id="buyMesoProfit"></span></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
 							<p>메소마켓에서 메포를 구매하는 것은, <br>
 								메소마켓으로 치면 <span id="marketParam1" class="pointSpan"></span>원에 구매하는 것과 같습니다.</p>
 							<p>인게임 <strong>1억</strong>을 구매하기 위해서, <br>
 								사람간 거래는 <span id="marketParam2" class="pointSpan"></span>원, <br>
 								메소마켓 <span id="marketParam3" class="pointSpan"></span>원이 필요합니다.</p>
-							
-							<!-- <div class="row">
-								<div class="col-4 col-12-mobile">
-									<article class="item">
-										<a href="#" class="image fit"><img src="images/pic02.jpg" alt="" /></a>
-										<header>
-											<h3>Ipsum Feugiat</h3>
-										</header>
-									</article>
-									<article class="item">
-										<a href="#" class="image fit"><img src="images/pic03.jpg" alt="" /></a>
-										<header>
-											<h3>Rhoncus Semper</h3>
-										</header>
-									</article>
-								</div>
-								<div class="col-4 col-12-mobile">
-									<article class="item">
-										<a href="#" class="image fit"><img src="images/pic04.jpg" alt="" /></a>
-										<header>
-											<h3>Magna Nullam</h3>
-										</header>
-									</article>
-									<article class="item">
-										<a href="#" class="image fit"><img src="images/pic05.jpg" alt="" /></a>
-										<header>
-											<h3>Natoque Vitae</h3>
-										</header>
-									</article>
-								</div>
-								<div class="col-4 col-12-mobile">
-									<article class="item">
-										<a href="#" class="image fit"><img src="images/pic06.jpg" alt="" /></a>
-										<header>
-											<h3>Dolor Penatibus</h3>
-										</header>
-									</article>
-									<article class="item">
-										<a href="#" class="image fit"><img src="images/pic07.jpg" alt="" /></a>
-										<header>
-											<h3>Orci Convallis</h3>
-										</header>
-									</article>
-								</div>
-							</div> -->
-
 						</div>
 					</section>
 
@@ -377,18 +155,42 @@
 						<div class="container">
 
 							<header>
-								<h2>juhua Me</h2>
+								<h2>골드주화가치</h2>
 							</header>
-							<div id="grid1"></div>
-							<a href="#" class="image featured"><img src="images/pic08.jpg" alt="" /></a>
 
-							<p>Tincidunt eu elit diam magnis pretium accumsan etiam id urna. Ridiculus
-							ultricies curae quis et rhoncus velit. Lobortis elementum aliquet nec vitae
-							laoreet eget cubilia quam non etiam odio tincidunt montes. Elementum sem
-							parturient nulla quam placerat viverra mauris non cum elit tempus ullamcorper
-							dolor. Libero rutrum ut lacinia donec curae mus vel quisque sociis nec
-							ornare iaculis.</p>
+							<div class="inputDiv">
+								<div class="col-3 col-6-mobile">골드주화가격 : 
+									<input type="text" name="juhuaVal" id="juhuaVal" 
+									oninput="onlyNumberWithComma(this);" placeholder="현재 골드주화가격"/>
+								</div>
+								<div class="col-3 col-6-mobile">골드주화갯수 : 
+									<input type="text" name="juhuaCnt" id="juhuaCnt" 
+									oninput="onlyNumberWithComma(this);" placeholder="보유 골드주화갯수"/>
+								</div>
+							</div>
 
+							<table class="mTable">
+								<colgroup>
+									<col width="30%" />
+									<col width="70%" />
+								</colgroup>
+								<thead>
+									<tr>
+										<th scope="col">구분</th>
+										<th scope="col">가치</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<th scope="row" data-label="구분">획득메소(억)</th>
+										<td data-label="가치"><span id="juhua1"></span></td>
+									</tr>
+									<tr>
+										<th scope="row" data-label="구분">주화 메포가치</th>
+										<td data-label="가치"><span id="juhua2"></span></td>
+									</tr>
+								</tbody>
+							</table>
 						</div>
 					</section>
 
@@ -400,23 +202,54 @@
 							<h2>피시방 효율</h2>
 						</header>
 
-						<p>Elementum sem parturient nulla quam placerat viverra
-						mauris non cum elit tempus ullamcorper dolor. Libero rutrum ut lacinia
-						donec curae mus. Eleifend id porttitor ac ultricies lobortis sem nunc
-						orci ridiculus faucibus a consectetur. Porttitor curae mauris urna mi dolor.</p>
-
-						<form method="post" action="#">
-							<div class="row">
-								<div class="col-6 col-12-mobile"><input type="text" name="name" placeholder="Name" /></div>
-								<div class="col-6 col-12-mobile"><input type="text" name="email" placeholder="Email" /></div>
-								<div class="col-12">
-									<textarea name="message" placeholder="Message"></textarea>
-								</div>
-								<div class="col-12">
-									<input type="submit" value="Send Message" />
-								</div>
+						<div class="inputDiv">
+							<div class="col-3 col-6-mobile">요금 : 
+								<input type="text" name="pcFee" id="pcFee" 
+								oninput="onlyNumberWithComma(this);" placeholder="피시방 이용요금"/>
 							</div>
-						</form>
+							<div class="col-3 col-6-mobile">시간 : 
+								<input type="text" name="pcHH" id="pcHH" 
+								oninput="onlyNumberWithComma(this);" placeholder="피시방 이용시간(시간)"/>
+							</div>
+							<div class="col-3 col-6-mobile">분 : 
+								<input type="text" name="pcMM" id="pcMM" 
+								oninput="onlyNumberWithComma(this);" placeholder="피시방 이용시간(분)"/>
+							</div>
+							<div class="col-3 col-6-mobile">조각가격 : 
+								<input type="text" name="piecePrice" id="piecePrice" 
+								oninput="onlyNumberWithComma(this);" placeholder="솔에르다 조각 가격"/>
+							</div>
+						</div>
+
+						<table class="mTable">
+							<colgroup>
+								<col width="25%" />
+								<col width="25%" />
+								<col width="25%" />
+								<col width="25%" />
+							</colgroup>
+							<thead>
+								<tr>
+									<th rowspan="2">분 환산</th>
+									<th rowspan="2">90분 가격</th>
+									<th rowspan="2">인게임 조각가격</th>
+									<th colspan="2">피방 조각가격</th>
+								</tr>
+								<tr>
+									<th>평일</th>
+									<th>주말</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td ><span id="pcRoom1"></span></td>
+									<td ><span id="pcRoom2"></span></td>
+									<td ><span id="pcRoom3"></span></td>
+									<td ><span id="pcRoom4"></span></td>
+									<td ><span id="pcRoom5"></span></td>
+								</tr>
+							</tbody>
+						</table>
 
 					</div>
 				</section>
@@ -459,7 +292,7 @@
 						<header>
 							<h2>메소의 현금가치</h2>
 						</header>
-
+						<div id="grid1"></div>
 						<p>Elementum sem parturient nulla quam placerat viverra
 						mauris non cum elit tempus ullamcorper dolor. Libero rutrum ut lacinia
 						donec curae mus. Eleifend id porttitor ac ultricies lobortis sem nunc

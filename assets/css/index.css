@@ -1,0 +1,109 @@
+.inputDiv{
+    display: table-header-group;
+    width: 90%
+}
+
+.inputDiv div input{
+    text-align: right;
+    width:220px;
+    height:30px;
+    border-radius:5px;
+    border: none;
+}
+
+.pointSpan{
+    color:blue;
+    font-weight: bold;
+}
+
+.radioSelect {
+    padding: 15px 10px;
+    display: block;
+}
+.radioSelect input[type=radio]{
+    display: none;
+}
+.radioSelect input[type=radio]+label{
+    display: inline-block;
+    cursor: pointer;
+    height: 24px;
+    width: 90px;
+    border: 1px solid #333;
+    line-height: 24px;
+    text-align: center;
+    font-weight:bold;
+    font-size:13px;
+}
+.radioSelect input[type=radio]+label{
+    background-color: #fff;
+    color: #333;
+}
+.radioSelect input[type=radio]:checked+label{
+    background-color: #333;
+    color: #fff;
+}
+
+/* .flip-scroll{
+    /* 자식 요소(.child)를 중앙 정렬하기 */
+    display: flex;
+    justify-content: center;
+} */
+
+/* table, th, td{
+    border : 1px solid black;
+    border-collapse : collapse;
+} */
+
+/* https://seraphinaciel.github.io/%ED%91%9C/ */
+@media all and (max-width: 1040px) {
+    .mTable caption {
+        font-size: 1.3em;
+    }
+
+    .mTable {
+        width: 1400px;
+        table-layout: auto;
+        display: inline-grid;
+    }
+
+    .mTable thead {
+        border: none;
+        clip: rect(0 0 0 0);
+        height: 1px;
+        margin: -1px;
+        overflow: hidden;
+        padding: 0;
+        position: absolute;
+        width: 1px;
+    }
+
+    .mTable th {
+        display: block;
+        align-items: center;
+    }
+
+    .mTable tr {
+        border-top: 3px solid gray;
+        border-bottom: 3px solid #ddd;
+        display: block;
+        margin-bottom: .625em;
+    }
+
+    .mTable td {
+        border-bottom: 1px solid #ddd;
+        display: block;
+        font-size: .8em;
+        text-align: right;
+    }
+
+    .mTable td::before {
+        content: attr(data-label); /*data-label을 가상요소 표출*/
+        float: left;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+
+    .mTable td:last-child {
+        border-bottom: 0;
+    }
+}
