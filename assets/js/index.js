@@ -17,6 +17,9 @@ $(document).ready(function() {
     $("#discountRate").val('10');
     $('#3per').attr("checked", true);
 
+    $("#juhuaVal").val('64,950,600');
+    
+
     $("#pcFee").val('3,000');
     $("#pcHH").val('2');
     $("#pcMM").val('40');
