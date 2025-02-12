@@ -6,7 +6,7 @@
 -->
 <html>
 	<head>
-		<title>메이플 계산기</title>
+		<title>계산기</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
@@ -16,24 +16,55 @@
 		<script src="https://uicdn.toast.com/grid/latest/tui-grid.js"></script>
 		<style>
 			.inputInfo{
-				display: table-cell;
+				display: table-header-group;
 				width: 90%
 			}
 
 			.inputInfo div input{
 				text-align: right;
-				width:100px;
+				width:220px;
+				height:25px;
+				border-radius:5px;
 			}
 
 			.pointSpan{
 				color:blue;
 				font-weight: bold;
 			}
+
+			.radioSelect {
+				padding: 15px 10px;
+				display: block;
+			}
+			.radioSelect input[type=radio]{
+				display: none;
+			}
+			.radioSelect input[type=radio]+label{
+				display: inline-block;
+				cursor: pointer;
+				height: 24px;
+				width: 90px;
+				border: 1px solid #333;
+				line-height: 24px;
+				text-align: center;
+				font-weight:bold;
+				font-size:13px;
+			}
+			.radioSelect input[type=radio]+label{
+				background-color: #fff;
+				color: #333;
+			}
+			.radioSelect input[type=radio]:checked+label{
+				background-color: #333;
+				color: #fff;
+			}
 		</style>
 		<script type='text/javascript'>
 			var vPresentMeso;
 			var vPresentMepo;
 			var vPercentMVP;
+			var vDiscountRate;
+			var vAuctionCharge;
 			var realMepo;
 			var moneyTransMepo;
 			var for1MilWithPerson;
@@ -43,13 +74,14 @@
 				$("#presentMeso").val('1600');
 				$("#presentMepo").val('2040');
 				$("#percentMVP").val('8000');
+				$("#discountRate").val('10');
+				$('#3per').attr("checked", true);
 
-				setNumber();
+				fn_collection();
 				createGrid1();
 
 				$(document).find("input,select,textarea,button").on("focus keyup change", function(){
-					setNumber();
-					
+					fn_collection();
 				});
 			});
 
@@ -66,21 +98,39 @@
 				obj.value = number;
 			}
 
+			function fn_collection(){
+				//전체 숫자관련
+				setNumber();
+				//메소마켓효율 페이지
+				fn_mesoMarket();
+			}
+
 			function setNumber(){
 				//기본값값
 				vPresentMeso = $("#presentMeso").val();
 				vPresentMepo = $("#presentMepo").val();
 				vPercentMVP = $("#percentMVP").val();
+				vDiscountRate = $("#discountRate").val();
+				
+				vAuctionCharge = $("input:radio[name='auctionCharge']:checked").val();
+				
+				//캐시구매 구매비율
+				discountRate = 1-vDiscountRate/100
+				//경매장 구매비율
+				autionRate = 1-vAuctionCharge/100
+
 				//실제 수령메포포
 				realMepo = vPresentMepo - Math.round(vPresentMepo*0.01);
 				//MVP작대비 비율
-				moneyTransMepo = Math.round(10000/realMepo/0.97*vPresentMeso);
+				moneyTransMepo = Math.round(10000/realMepo/autionRate*vPresentMeso);
 				
 				//엄으로 1억구매 비용
-				for1MilWithPerson= Math.round(1/0.97*vPresentMeso);
+				for1MilWithPerson= Math.round(1/autionRate*vPresentMeso);
 				//메포구매로 1억구매 비용
-				for1MilWithMarket= Math.round(vPresentMepo*0.9);
-				
+				for1MilWithMarket= Math.round(vPresentMepo*discountRate);
+			}
+
+			function fn_mesoMarket(){
 				if(moneyTransMepo > vPercentMVP){
 					$("#buyMepo").text("MVP작 메포판매자에게 구매하세요.");
 					$("#buyMepoProfit").text(Math.round(Number(moneyTransMepo)-Number(vPercentMVP)));
@@ -106,55 +156,37 @@
 			}
 
 			function createGrid1(){
-				var gridData = [
-					{
-						id: 1,
-						name: '이름1',
-						username: '유저네임1',
-						email: 'abc@def.ghi',
-						phone: '010-1234-5678'
-					},
-					{
-						id: 2,
-						name: '이름2',
-						username: '유저네임2',
-						email: 'ghi@abc.def',
-						phone: '876-5432-1010'
-					}
-					];
-				var grid = new tui.Grid({
+				var gridData = [];
+				var grid1 = new tui.Grid({
 					el: document.getElementById('grid1'),
 					data: gridData,
 					scrollX: false,
 					scrollY: false,
 					columns: [
 						{
-						header: 'ID',
-						name: 'id'
-						},
-						{
-						header: '이름',
-						name: 'name'
-						},
-						{
-						header: '유저',
-						name: 'username'
-						},
-						{
+						header: '아이템 값(메소)',
+						name: 'price'
+						}
+						,{
+						header: '판매자기준 현금가치(원)',
+						name: 'val1'
+						}
+						,{
+						header: '구매자(메소보유) 기준 현금가치(원)',
+						name: 'val2'
+						}
+						,{
 						header: '이메일',
-						name: 'email'
-						},
-						{
-						header: '전화번호',
-						name: 'phone'
+						name: 'val3'
 						}
 					]
 				});
-			}
-			
 
-			function fn_mesoMarket(){
-				
+				grid1.on('afterChange', function(ev) {
+					var columnName = ev.changes[0].columnName;
+					var rowKey = ev.changes[0].rowKey;
+					console.log(ev);
+				});
 			}
 
 		</script>
@@ -173,9 +205,14 @@
 							<p>MapleStory Calculator</p>
 						</div>
 						<div class="inputInfo">
-							<div class="col-3 col-6-mobile">메소시세 : <input type="text" name="presentMeso" id="presentMeso" placeholder="현재 메소 라운지 거래가" /></div>
-							<div class="col-3 col-6-mobile">메소마켓 : <input type="text" name="presentMepo" id="presentMepo" pplaceholder="현재 메소마켓 거래가" /></div>
-							<div class="col-3 col-6-mobile">M작시세 : <input type="text" name="percentMVP" id="percentMVP" pplaceholder="현재 MVP 작 비율"/></div>
+							<div class="col-3 col-6-mobile">메소시세 : <input type="text" name="presentMeso" id="presentMeso" placeholder="메소 라운지 거래가" /></div>
+							<div class="col-3 col-6-mobile">메소마켓 : <input type="text" name="presentMepo" id="presentMepo" placeholder="메소마켓 거래가" /></div>
+							<div class="col-3 col-6-mobile">엠작비율 : <input type="text" name="percentMVP" id="percentMVP" placeholder="MVP 작 비율"/></div>
+							<div class="col-3 col-6-mobile">캐시할인율 : <input type="text" name="discountRate" id="discountRate" placeholder="캐시충전 할인율"/></div>
+							<div class="radioSelect">경매장수수료 
+								<input type="radio" id="3per" name="auctionCharge" value="3"><label for="3per">3%</label>
+     							<input type="radio" id="5per" name="auctionCharge" value="5"><label for="5per">5%</label>
+							</div>
 						</div>
 
 					<!-- Nav -->
@@ -212,9 +249,9 @@
 					<section id="top" class="one dark cover">
 						<div class="container">
 							<header>
-								<h2 class="alt">안녕하세요. <strong>메이플계산기</strong>입니다. 좌측에 수치를 입력하시고 원하는 결과를 조회하세요.</h2>
-								<p>Ligula scelerisque justo sem accumsan diam quis<br />
-								문의사항은 <a href="https://open.kakao.com/me/mapleCal">오픈채팅</a>주세요.</p>
+								<h2 class="alt">안녕하세요. <strong>메이플계산기</strong>입니다. 
+									<br>좌측에 수치를 입력하시고 원하는 결과를 조회하세요.</h2>
+								<p>문의사항은 <a href="https://open.kakao.com/me/mapleCal">오픈채팅</a>주세요.</p>
 							</header>
 
 							<footer>
@@ -386,7 +423,7 @@
 
 
 				<!-- valueOfPesent -->
-					<section id="valueOfPesent" class="four">
+					<section id="valueOfPesent" class="five">
 						<div class="container">
 
 							<header>
@@ -416,7 +453,7 @@
 
 
 				<!-- mesoToWon -->
-				<section id="mesoToWon" class="four">
+				<section id="mesoToWon" class="six">
 					<div class="container">
 
 						<header>
