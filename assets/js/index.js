@@ -175,16 +175,3 @@ function createGrid1(){
         console.log(ev);
     });
 }
-
-function onlyNumberWithComma(obj) {
-    var number = obj.value;
-
-    //숫자가 아닌 값 모두 replace 해주기
-    number=number.replace(/[^0-9]/g,'');
-
-    //콤마 표시
-    number=Number(number).toLocaleString();
-    
-    //다시 value 지정해주기
-    obj.value = number;
-    }
