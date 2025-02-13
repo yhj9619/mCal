@@ -8,7 +8,7 @@ input{
     border-radius: 0;
     border: 0;
     outline: none;
-    font-size: 20px;
+    font-size: 15px;
     height:20px;
     text-align: right;
 }
@@ -17,8 +17,9 @@ input::placeholder{
 }
 
 .inputDiv{
-    display: inline-flex;
+    display: flex;
     flex-wrap: wrap;
+    justify-content: space-between;
 }
 
 /* .inputDiv input{
@@ -86,7 +87,7 @@ input::placeholder{
     width: calc(50% - 5px);
     border: 1px solid #333;
     border-radius: 5px;
-    line-height: 24px;
+    line-height: 30px;
     text-align: center;
     font-weight:bold;
     font-size:13px;
@@ -113,10 +114,6 @@ input::placeholder{
 
 /* https://seraphinaciel.github.io/%ED%91%9C/ */
 @media screen and (max-width: 736px) {
-    .inputDiv{
-        display: table;
-    }
-
     .mTable caption {
         font-size: 1.3em;
     }
