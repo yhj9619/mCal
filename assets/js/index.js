@@ -240,6 +240,17 @@ function fn_pcRoom(){
     $("#pcRoom3").text(pieceWon.toLocaleString('ko-KR', option));
     $("#pcRoom4").text(daysWon.toLocaleString('ko-KR', option));
     $("#pcRoom5").text(endsWon.toLocaleString('ko-KR', option));
+    if(pieceWon > daysWon){
+        $("#pcRoom6").text("가세요.");
+    }else{
+        $("#pcRoom6").text("가지마세요.");
+    }
+    if(pieceWon > endsWon){
+        $("#pcRoom7").text("가세요.");
+    }else{
+        $("#pcRoom7").text("가지마세요.");
+    }
+    
 }
 
 
