@@ -12,9 +12,9 @@
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<!-- jQuery에서 제공하는 최신 버전의 jQuery URL -->
 		<!-- http:, https:, https: -->
-		<script src="//code.jquery.com/jquery-latest.js"></script> 
-		<link rel="stylesheet" href="//uicdn.toast.com/grid/latest/tui-grid.css" />
-		<script src="//uicdn.toast.com/grid/latest/tui-grid.js"></script>
+		<script src="http://code.jquery.com/jquery-latest.js"></script> 
+		<link rel="stylesheet" href="https://uicdn.toast.com/grid/latest/tui-grid.css" />
+		<script src="https://uicdn.toast.com/grid/latest/tui-grid.js"></script>
 
 		<link rel="stylesheet" href="assets/css/index.css" />
 		<script src="assets/js/index.js"></script>
@@ -39,23 +39,30 @@
 							<p>MapleStory Calculator</p>
 						</div>
 						<div class="inputDiv">
-							<div class="col-3 col-6-mobile">메소시세 : 
-								<input type="text" name="presentMeso" id="presentMeso" 
-								oninput="onlyNumberWithComma(this);" placeholder="메소 라운지 거래가" />
+							<div class="inputClass">
+								<label for="presentMeso">메소시세</label>
+								<input type="text" class="txt-input" name="presentMeso" id="presentMeso" 
+								oninput="onlyNumberWithComma(this);" placeholder="메소 라운지 거래가"/>
 							</div>
-							<div class="col-3 col-6-mobile">메소마켓 : 
-								<input type="text" name="presentMepo" id="presentMepo" 
+							<div class="inputClass"> 
+								<label for="presentMepo">메소마켓</label>
+								<input type="text" class="txt-input" name="presentMepo" id="presentMepo" 
 								oninput="onlyNumberWithComma(this);" placeholder="메소마켓 거래가" />
 							</div>
-							<div class="col-3 col-6-mobile">엠작비율 : 
-								<input type="text" name="percentMVP" id="percentMVP" 
+							<div class="inputClass">
+								<label for="percentMVP">엠작비율</label>
+								<input type="text" class="txt-input" name="percentMVP" id="percentMVP" 
 								oninput="onlyNumberWithComma(this);" placeholder="MVP 작 비율"/>
 							</div>
-							<div class="col-3 col-6-mobile">캐시할인율 : 
-								<input type="text" name="discountRate" id="discountRate" 
+							<div class="inputClass"> 
+								<label for="discountRate">캐시할인율</label>
+								<input type="text" class="txt-input" name="discountRate" id="discountRate" 
 								oninput="onlyNumberWithComma(this);" placeholder="캐시충전 할인율"/>
 							</div>
-							<div class="radioSelect">경매장수수료 
+							<div class="inputClass"> 
+								<label for="auctionCharge">경매장수수료</label>
+							</div>
+							<div class="radioSelect"> 
 								<input type="radio" id="3per" name="auctionCharge" value="3"><label for="3per">3%</label>
      							<input type="radio" id="5per" name="auctionCharge" value="5"><label for="5per">5%</label>
 							</div>
@@ -69,7 +76,7 @@
 								<li><a href="#mesoMarket" id="mesoMarket-link"><span class="icon solid fa-utensil-spoon">메소마켓효율</span></a></li>
 								<li><a href="#juhua" id="juhua-link"><span class="icon solid fa-bezier-curve">골드주화가치</span></a></li>
 								<li><a href="#pcRoom" id="pcRoom-link"><span class="icon solid fa-users-cog">피방조각효율</span></a></li>
-								<li><a href="#valueOfPesent" id="valueOfPesent-link"><span class="icon solid fa-th">과거와 현재 아이템</span></a></li>
+								<li><a href="#valueOf" id="valueOf-link"><span class="icon solid fa-th">과거와 현재 아이템 가치</span></a></li>
 								<li><a href="#mesoToWon" id="mesoToWon-link"><span class="icon solid fa-money-bill">아이템의 현금가치</span></a></li>
 							</ul>
 						</nav>
@@ -161,13 +168,15 @@
 							</header>
 
 							<div class="inputDiv">
-								<div class="col-3 col-6-mobile">골드주화가격 : 
-									<input type="text" name="juhuaVal" id="juhuaVal" 
+								<div class="inputClass">
+									<label for="presentMeso">주화가격</label>
+									<input type="text" class="txt-input" name="juhuaVal" id="juhuaVal" 
 									oninput="onlyNumberWithComma(this);" placeholder="현재 골드주화가격"/>
 								</div>
-								<div class="col-3 col-6-mobile">골드주화갯수 : 
-									<input type="text" name="juhuaCnt" id="juhuaCnt" 
-									oninput="onlyNumberWithComma(this);" placeholder="보유 골드주화갯수"/>
+								<div class="inputClass">
+									<label for="presentMeso">주화갯수</label>
+									<input type="text" class="txt-input" name="juhuaCnt" id="juhuaCnt" 
+									oninput="onlyNumberWithComma(this);" placeholder="현재 골드주화갯수"/>
 								</div>
 							</div>
 							<div class="flip-scroll">
@@ -204,28 +213,32 @@
 						<header>
 							<h2>피시방 효율</h2>
 						</header>
-
+						
 						<div class="inputDiv">
-							<div class="col-3 col-6-mobile">요금 : 
-								<input type="text" name="pcFee" id="pcFee" 
+							<div class="inputClass">
+								<label for="pcFee">요금</label>
+								<input type="text" class="txt-input" name="pcFee" id="pcFee" 
 								oninput="onlyNumberWithComma(this);" placeholder="피시방 이용요금"/>
 							</div>
-							<div class="col-3 col-6-mobile">시간 : 
-								<input type="text" name="pcHH" id="pcHH" 
+							<div class="inputClass"> 
+								<label for="pcFee">시간</label>
+								<input type="text" class="txt-input" name="pcHH" id="pcHH" 
 								oninput="onlyNumberWithComma(this);" placeholder="피시방 이용시간(시간)"/>
 							</div>
-							<div class="col-3 col-6-mobile">분 : 
-								<input type="text" name="pcMM" id="pcMM" 
+							<div class="inputClass">
+								<label for="pcFee">분</label>
+								<input type="text" class="txt-input" name="pcMM" id="pcMM" 
 								oninput="onlyNumberWithComma(this);" placeholder="피시방 이용시간(분)"/>
 							</div>
-							<div class="col-3 col-6-mobile">조각가격 : 
-								<input type="text" name="piecePrice" id="piecePrice" 
+							<div class="inputClass">
+								<label for="pcFee">조각가격</label>
+								<input type="text" class="txt-input" name="piecePrice" id="piecePrice" 
 								oninput="onlyNumberWithComma(this);" placeholder="솔에르다 조각 가격"/>
 							</div>
 						</div>
 
 						<div class="flip-scroll">
-							<table>
+							<table class="mTable">
 								<colgroup>
 									<col width="25%" />
 									<col width="25%" />
@@ -234,23 +247,20 @@
 								</colgroup>
 								<thead>
 									<tr>
-										<th rowspan="2">분 환산</th>
-										<th rowspan="2">90분 가격</th>
-										<th rowspan="2">인게임 조각가격</th>
-										<th colspan="2">피방 조각가격</th>
-									</tr>
-									<tr>
-										<th>평일</th>
-										<th>주말</th>
+										<th scope="col">분<br>환산</th>
+										<th scope="col">90분<br>가격</th>
+										<th scope="col">인게임<br>조각 가격</th>
+										<th scope="col">평일 피방<br>조각 가격</th>
+										<th scope="col">주말 피방<br>조각 가격</th>
 									</tr>
 								</thead>
 								<tbody>
 									<tr>
-										<td ><span id="pcRoom1"></span></td>
-										<td ><span id="pcRoom2"></span></td>
-										<td ><span id="pcRoom3"></span></td>
-										<td ><span id="pcRoom4"></span></td>
-										<td ><span id="pcRoom5"></span></td>
+										<td scope="row" data-label="분환산"><span id="pcRoom1"></span></td>
+										<td data-label="90분 가격"><span id="pcRoom2"></span></td>
+										<td data-label="인게임조각 가격"><span id="pcRoom3"></span></td>
+										<td data-label="평일피방 조각 가격"><span id="pcRoom4"></span></td>
+										<td data-label="주말피방 조각 가격"><span id="pcRoom5"></span></td>
 									</tr>
 								</tbody>
 							</table>
@@ -260,15 +270,64 @@
 				</section>
 
 
-				<!-- valueOfPesent -->
-					<section id="valueOfPesent" class="five">
+				<!-- valueOf -->
+					<section id="valueOf" class="five">
 						<div class="container">
 
 							<header>
-								<h2>과거 아이템의 현재가치</h2>
+								<h2>과거와 현재 아이템 가치</h2>
 							</header>
 
-							<p>서비스개발중</p>
+							<div class="inputDiv">
+								<div class="inputClass">
+									<label for="presentMeso">과거 메소 가격</label>
+									<input type="text" class="txt-input" name="pastMeso" id="pastMeso" 
+									oninput="onlyNumberWithComma(this);" placeholder="과거 메소 가격"/>
+								</div>
+							</div>
+							<div class="flip-scroll">
+								<table class="mTable">
+									<colgroup>
+										<col width="30%" />
+										<col width="70%" />
+									</colgroup>
+									<thead>
+										<tr>
+											<th scope="col">현재 아이템 가격</th>
+											<th scope="col">과거기준 가치</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td scope="row" data-label="현재 아이템 가격"><input type="text" name="presentItem" id="presentItem" 
+												oninput="onlyNumberWithComma(this);" placeholder="현재 아이템 가격"/></td>
+											<td data-label="과거기준 가치"><span id="valueOf1"></span></td>
+										</tr>
+										
+									</tbody>
+								</table>
+							</div>
+							<div class="flip-scroll">
+								<table class="mTable">
+									<colgroup>
+										<col width="30%" />
+										<col width="70%" />
+									</colgroup>
+									<thead>
+										<tr>
+											<th scope="col">과거 아이템 가격</th>
+											<th scope="col">현재기준 가치</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td scope="row" data-label="과거 아이템 가격"><input type="text" name="pastItem" id="pastItem" 
+												oninput="onlyNumberWithComma(this);" placeholder="과거 아이템 가격"/></td>
+											<td data-label="현재기준 가치"><span id="valueOf2"></span></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
 
 						</div>
 					</section>

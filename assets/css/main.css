@@ -49,6 +49,7 @@ blockquote, q {
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
+	border: 1px solid black;
 }
 
 body {
@@ -1757,12 +1758,12 @@ input, select, textarea {
 		.image.avatar48 {
 			width: 48px;
 			height: 48px;
-			background: #f00;
 		}
 
 			.image.avatar48 img {
 				width: 48px;
 				height: 48px;
+				border-radius: 50%;
 			}
 
 		.image.fit {
@@ -1911,29 +1912,29 @@ input, select, textarea {
 		text-align: left;
 	}
 
-		table tbody tr:nth-child(2n+2) {
-			background: #f4f4f4;
-		}
+	/* table tbody tr:nth-child(2n+2) {
+		background: #f4f4f4;
+	} */
 
-		table td {
-			padding: 0.5em 1em 0.5em 1em;
-		}
+	table td {
+		padding: 0.5em 1em 0.5em 1em;
+	}
 
-		table th {
-			text-align: left;
-			padding: 0.5em 1em 0.5em 1em;
-			color: #fff;
-			background: #222729 url("images/overlay.png");
-		}
+	table th {
+		text-align: left;
+		padding: 0.5em 1em 0.5em 1em;
+		color: #fff;
+		background: #222729 url("images/overlay.png");
+	}
 
-		table thead {
-			background: #444;
-			color: #fff;
-		}
+	table thead {
+		background: #444;
+		color: #fff;
+	}
 
-		table tfoot {
-			background: #eee;
-		}
+	table tfoot {
+		background: #eee;
+	}
 
 /* Button */
 
