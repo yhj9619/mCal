@@ -12,9 +12,9 @@
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<!-- jQuery에서 제공하는 최신 버전의 jQuery URL -->
 		<!-- http:, https:, https: -->
-		<script src="http://code.jquery.com/jquery-latest.js"></script> 
-		<link rel="stylesheet" href="https://uicdn.toast.com/grid/latest/tui-grid.css" />
-		<script src="https://uicdn.toast.com/grid/latest/tui-grid.js"></script>
+		<script src="//code.jquery.com/jquery-latest.js"></script> 
+		<link rel="stylesheet" href="//uicdn.toast.com/grid/latest/tui-grid.css" />
+		<script src="//uicdn.toast.com/grid/latest/tui-grid.js"></script>
 
 		<link rel="stylesheet" href="assets/css/index.css" />
 		<script src="assets/js/index.js"></script>
@@ -38,35 +38,39 @@
 							<h1 id="title">메이플 계산기</h1>
 							<p>MapleStory Calculator</p>
 						</div>
-						<div class="inputDiv">
-							<div class="inputClass">
-								<label for="presentMeso">메소시세</label>
-								<input type="text" class="txt-input" name="presentMeso" id="presentMeso" 
-								oninput="onlyNumberWithComma(this);" placeholder="메소 라운지 거래가"/>
+						<div style="display:block;">
+							<div class="mainDiv">
+								<div class="inputClass">
+									<label for="presentMeso">메소시세</label>
+									<input type="text" class="txt-input" name="presentMeso" id="presentMeso" 
+									oninput="onlyNumberWithComma(this);" placeholder="메소 라운지 거래가"/>
+								</div>
+								<div class="inputClass"> 
+									<label for="presentMepo">메소마켓</label>
+									<input type="text" class="txt-input" name="presentMepo" id="presentMepo" 
+									oninput="onlyNumberWithComma(this);" placeholder="메소마켓 거래가" />
+								</div>
+								<div class="inputClass">
+									<label for="percentMVP">엠작비율</label>
+									<input type="text" class="txt-input" name="percentMVP" id="percentMVP" 
+									oninput="onlyNumberWithComma(this);" placeholder="MVP 작 비율"/>
+								</div>
+								<div class="inputClass"> 
+									<label for="discountRate">캐시할인율</label>
+									<input type="text" class="txt-input" name="discountRate" id="discountRate" 
+									oninput="onlyNumberWithComma(this);" placeholder="캐시충전 할인율"/>
+								</div>
+								<div class="inputClass"> 
+									<label for="auctionCharge">경매장수수료</label>
+								</div>
+								<div class="radioSelect"> 
+									<input type="radio" id="3per" name="auctionCharge" value="3"><label for="3per">3%</label>
+									<input type="radio" id="5per" name="auctionCharge" value="5"><label for="5per">5%</label>
+								</div>
 							</div>
-							<div class="inputClass"> 
-								<label for="presentMepo">메소마켓</label>
-								<input type="text" class="txt-input" name="presentMepo" id="presentMepo" 
-								oninput="onlyNumberWithComma(this);" placeholder="메소마켓 거래가" />
+							<div class="btnClass">
+								<button  onclick="javascript:clearData();">조회조건초기화</button>
 							</div>
-							<div class="inputClass">
-								<label for="percentMVP">엠작비율</label>
-								<input type="text" class="txt-input" name="percentMVP" id="percentMVP" 
-								oninput="onlyNumberWithComma(this);" placeholder="MVP 작 비율"/>
-							</div>
-							<div class="inputClass"> 
-								<label for="discountRate">캐시할인율</label>
-								<input type="text" class="txt-input" name="discountRate" id="discountRate" 
-								oninput="onlyNumberWithComma(this);" placeholder="캐시충전 할인율"/>
-							</div>
-							<div class="inputClass"> 
-								<label for="auctionCharge">경매장수수료</label>
-							</div>
-							<div class="radioSelect"> 
-								<input type="radio" id="3per" name="auctionCharge" value="3"><label for="3per">3%</label>
-     							<input type="radio" id="5per" name="auctionCharge" value="5"><label for="5per">5%</label>
-							</div>
-							<button onclick="javascript:clearData();">조회조건초기화</button>
 						</div>
 
 					<!-- Nav -->
@@ -213,7 +217,7 @@
 						<header>
 							<h2>피시방 효율</h2>
 						</header>
-						
+
 						<div class="inputDiv">
 							<div class="inputClass">
 								<label for="pcFee">요금</label>
@@ -280,7 +284,7 @@
 
 							<div class="inputDiv">
 								<div class="inputClass">
-									<label for="presentMeso">과거 메소 가격</label>
+									<label for="presentMeso">과거메소</label>
 									<input type="text" class="txt-input" name="pastMeso" id="pastMeso" 
 									oninput="onlyNumberWithComma(this);" placeholder="과거 메소 가격"/>
 								</div>

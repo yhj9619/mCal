@@ -2,7 +2,6 @@ td input{
     width:60%;
     border-radius:5px;
 }
-
 input{
     font-family: 'Noto Sans KR','Noto Sans Korean', "Nanum Gothic", sans-serif !important;
     appearance: none;
@@ -16,6 +15,20 @@ input{
 input::placeholder{
     color: #d9d9d9
 }
+
+.mainDiv{
+    display: table;
+}
+
+.inputDiv{
+    display: inline-flex;
+    flex-wrap: wrap;
+}
+
+.inputDiv input{
+    margin : auto;
+}
+
 .inputClass{
     width: 50%; 
     box-sizing: border-box;
@@ -43,10 +56,6 @@ input::placeholder{
     border-radius: 8px;
     padding: 16px;
     margin-top: 12px;
-}
-
-.inputDiv{
-    display: table-header-group;
 }
 
 .pointSpan{
@@ -79,7 +88,12 @@ input::placeholder{
 .radioSelect input[type=radio]:checked+label{
     background-color: #fff;
     color: #333;
-    
+}
+
+.btnClass{
+    text-align: left;
+    margin-left:3rem;
+    margin-bottom: 3rem;
 }
 
 .flip-scroll{
@@ -94,6 +108,10 @@ input::placeholder{
 
 /* https://seraphinaciel.github.io/%ED%91%9C/ */
 @media all and (max-width: 1040px) {
+    .inputDiv{
+        display: table;
+    }
+
     .mTable caption {
         font-size: 1.3em;
     }
