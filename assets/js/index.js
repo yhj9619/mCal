@@ -34,9 +34,8 @@ $(document).ready(function() {
 function firstValSetting(){
     $("#presentMeso").val('1,600');
     $("#presentMepo").val('2,040');
-    $("#percentMVP").val('8,000');
+    $("#percentMVP").val('8,300');
     $("#discountRate").val('10');
-    //$('#3per').attr("checked", true);
     $('input[name="auctionCharge"]')[0].checked = true;
 
     $("#juhuaVal").val('64,950,600');
