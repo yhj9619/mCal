@@ -33,6 +33,14 @@ body {
 	line-height: 1;
 }
 
+body{
+	-ms-overflow-style: none;
+	}
+	
+::-webkit-scrollbar {
+	display: none;
+}
+
 ol, ul {
 	list-style: none;
 }
@@ -219,7 +227,7 @@ input, select, textarea {
 		width: 1400px;
 	}
 
-		@media screen and (min-width: 961px) and (max-width: 1880px) {
+		@media screen and (min-width: 1140px) and (max-width: 1880px) {
 
 			.container {
 				width: 1200px;
@@ -227,7 +235,7 @@ input, select, textarea {
 
 		}
 
-		@media screen and (min-width: 961px) and (max-width: 1620px) {
+		@media screen and (min-width: 1140px) and (max-width: 1620px) {
 
 			.container {
 				width: 960px;
@@ -235,7 +243,7 @@ input, select, textarea {
 
 		}
 
-		@media screen and (min-width: 961px) and (max-width: 1320px) {
+		@media screen and (min-width: 1140px) and (max-width: 1320px) {
 
 			.container {
 				width: 100%;
@@ -502,7 +510,7 @@ input, select, textarea {
 					padding-top: 80px;
 				}
 
-		@media screen and (min-width: 961px) and (max-width: 1880px) {
+		@media screen and (min-width: 1140px) and (max-width: 1880px) {
 
 			.row {
 				display: flex;
@@ -747,7 +755,7 @@ input, select, textarea {
 
 		}
 
-		@media screen and (min-width: 961px) and (max-width: 1620px) {
+		@media screen and (min-width: 1140px) and (max-width: 1620px) {
 
 			.row {
 				display: flex;
@@ -992,7 +1000,7 @@ input, select, textarea {
 
 		}
 
-		@media screen and (min-width: 961px) and (max-width: 1320px) {
+		@media screen and (min-width: 1140px) and (max-width: 1320px) {
 
 			.row {
 				display: flex;
@@ -2266,7 +2274,7 @@ input, select, textarea {
 
 /* Wide */
 
-	@media screen and (min-width: 961px) and (max-width: 1880px) {
+	@media screen and (min-width: 1140px) and (max-width: 1880px) {
 
 		/* Basic */
 
@@ -2296,7 +2304,7 @@ input, select, textarea {
 
 /* Normal */
 
-	@media screen and (min-width: 961px) and (max-width: 1620px) {
+	@media screen and (min-width: 1140px) and (max-width: 1620px) {
 
 		/* Main */
 
@@ -2312,7 +2320,7 @@ input, select, textarea {
 
 /* Narrow */
 
-	@media screen and (min-width: 961px) and (max-width: 1320px) {
+	@media screen and (min-width: 1140px) and (max-width: 1320px) {
 
 		/* Basic */
 
