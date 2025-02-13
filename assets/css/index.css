@@ -16,21 +16,17 @@ input::placeholder{
     color: #d9d9d9
 }
 
-.mainDiv{
-    display: table;
-}
-
 .inputDiv{
     display: inline-flex;
     flex-wrap: wrap;
 }
 
-.inputDiv input{
+/* .inputDiv input{
     margin : auto;
-}
+} */
 
 .inputClass{
-    width: 50%; 
+    width: calc(50% - 5px);
     box-sizing: border-box;
     margin: 20px auto;
     position: relative;
@@ -64,10 +60,21 @@ input::placeholder{
     font-weight: bold;
 }
 
-.radioSelect {
-    padding: 15px 10px;
-    display: block;
+.mainDiv{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.btnClass{
     text-align: center;
+    margin-bottom: 1rem;
+}
+
+.radioSelect {
+    display: flex;
+    text-align: left;
+    margin-bottom: 1rem;
 }
 .radioSelect input[type=radio]{
     display: none;
@@ -75,9 +82,10 @@ input::placeholder{
 .radioSelect input[type=radio]+label{
     display: inline-block;
     cursor: pointer;
-    height: 24px;
-    width: 90px;
+    height: 30px;
+    width: calc(50% - 5px);
     border: 1px solid #333;
+    border-radius: 5px;
     line-height: 24px;
     text-align: center;
     font-weight:bold;
@@ -92,12 +100,6 @@ input::placeholder{
     color: #333;
 }
 
-.btnClass{
-    text-align: left;
-    margin-left:3rem;
-    margin-bottom: 3rem;
-}
-
 .flip-scroll{
     display: flex;
     justify-content: center;
@@ -108,8 +110,9 @@ input::placeholder{
     border-collapse : collapse;
 }  */
 
+
 /* https://seraphinaciel.github.io/%ED%91%9C/ */
-@media all and (max-width: 1040px) {
+@media screen and (max-width: 736px) {
     .inputDiv{
         display: table;
     }

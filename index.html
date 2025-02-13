@@ -91,13 +91,18 @@
 									<input type="text" class="txt-input" name="discountRate" id="discountRate" 
 									oninput="onlyNumberWithComma(this);" placeholder="캐시충전 할인율"/>
 								</div>
-								<div class="inputClass" style="padding-right: -10px;"> 
+								<div class="inputClass"> 
 									<label for="auctionCharge">경매장수수료</label>
+									<input type="hidden" name="dummyInput"/>
 								</div>
-								<div class="radioSelect"> 
-									<input type="radio" id="3per" name="auctionCharge" value="3"><label for="3per">3%</label>
-									<input type="radio" id="5per" name="auctionCharge" value="5"><label for="5per">5%</label>
+								<div class="inputClass"> 
+									<label for="auctionCharge"></label>
+									<input type="hidden" name="dummyInput2"/>
 								</div>
+							</div>
+							<div class="radioSelect"> 
+								<input type="radio" id="3per" name="auctionCharge" value="3"><label for="3per">3%</label>
+								<input type="radio" id="5per" name="auctionCharge" value="5"><label for="5per">5%</label>
 							</div>
 							<div class="btnClass">
 								<button  onclick="javascript:clearData();">조회조건초기화</button>
@@ -142,6 +147,7 @@
 									<br>좌측 메뉴에 수치를 입력하시고 결과를 조회하세요.</h2>
 								<p>모든 수치는 연동되어 가져와지지않으며, 직접 입력하셔야합니다.</p>
 								<p>문의사항은 <a href="https://open.kakao.com/me/mapleCal">오픈채팅</a>으로 연락주세요.</p>
+								<p>조만간 도메인을 또 변경할 예정이니<br>계속 이용하실 분들 중 지인이<br>아니신 분은 따로 오픈채팅을 미리 남겨주세요.</p>
 							</header>
 
 							<footer>
