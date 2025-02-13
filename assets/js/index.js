@@ -11,6 +11,11 @@ var moneyTransMepo;
 var vJuhuaVal;
 var vJuhuaCnt;
 
+var vPcFee;
+var vPcHH;
+var vPcMM;
+var vPiecePrice;
+
 var for1MilWithPerson;
 var for1MilWithMarket;
 
@@ -36,7 +41,7 @@ $(document).ready(function() {
 
 function firstValSetting(){
     $("#presentMeso").val('1,600');
-    $("#presentMepo").val('2,040');
+    $("#presentMepo").val('1,940');
     $("#percentMVP").val('8,300');
     $("#discountRate").val('10');
     $('input[name="auctionCharge"]')[0].checked = true;
@@ -63,9 +68,17 @@ function dataLoad(){
     vPercentMVP = localStorage.getItem('percentMVP');
     vDiscountRate = localStorage.getItem('discountRate');
     vAuctionCharge = localStorage.getItem('auctionCharge');
+
     vJuhuaVal = localStorage.getItem('juhuaVal');
     vJuhuaCnt = localStorage.getItem('juhuaCnt');
+
+    vPcFee = localStorage.getItem('pcFee');
+    vPcHH = localStorage.getItem('pcHH');
+    vPcMM = localStorage.getItem('pcMM');
+    vPiecePrice = localStorage.getItem('piecePrice');
+
     vPastMeso = localStorage.getItem('pastMeso'); 
+
     vItemMesoVal = localStorage.getItem('itemMesoVal'); 
 
     if (vPresentMeso) {
@@ -83,18 +96,35 @@ function dataLoad(){
     if (vAuctionCharge) {
         $('#'+vAuctionCharge+"per").attr("checked", true);
     }
+
+    if (vPcFee) {
+        document.getElementById('pcFee').value = vPcFee;
+    }
+    if (vPcHH) {
+        document.getElementById('pcHH').value = vPcHH;
+    }
+    if (vPcMM) {
+        document.getElementById('pcMM').value = vPcMM;
+    }
+    if (vPiecePrice) {
+        document.getElementById('piecePrice').value = vPiecePrice;
+    }
+
     if (vJuhuaVal) {
         document.getElementById('juhuaVal').value = vJuhuaVal;
     }
     if (vJuhuaCnt) {
         document.getElementById('juhuaCnt').value = vJuhuaCnt;
     }
+
     if (vPastMeso) {
         document.getElementById('pastMeso').value = vPastMeso;
     }
+
     if (vItemMesoVal) {
         document.getElementById('itemMesoVal').value = vItemMesoVal;
     }
+    
 }
 
   // 데이터 저장 함수
@@ -104,9 +134,17 @@ function saveData() {
     vPercentMVP = document.getElementById('percentMVP').value;
     vDiscountRate = document.getElementById('discountRate').value;
     vAuctionCharge = document.querySelector('input[name="auctionCharge"]:checked').value;
+ 
     vJuhuaVal = document.getElementById('juhuaVal').value;
     vJuhuaCnt = document.getElementById('juhuaCnt').value;
+
+    vPcFee = document.getElementById('pcFee').value;
+    vPcHH = document.getElementById('pcHH').value;
+    vPcMM = document.getElementById('pcMM').value;
+    vPiecePrice = document.getElementById('piecePrice').value;
+
     vPastMeso = document.getElementById('pastMeso').value;
+
     vItemMesoVal = document.getElementById('itemMesoVal').value;
 
     localStorage.setItem('presentMeso', vPresentMeso);
@@ -123,14 +161,23 @@ function saveData() {
  // 데이터 초기화 함수
 function clearData() {
     if(!confirm("조회조건을 초기화하시겠습니까?")) return;
+    
     localStorage.removeItem('presentMeso');
     localStorage.removeItem('presentMepo');
     localStorage.removeItem('percentMVP');
     localStorage.removeItem('discountRate');
     localStorage.removeItem('auctionCharge');
+
     localStorage.removeItem('juhuaVal');
     localStorage.removeItem('juhuaCnt');
+
+    localStorage.removeItem('pcFee');
+    localStorage.removeItem('pcHH');
+    localStorage.removeItem('pcMM');
+    localStorage.removeItem('piecePrice');
+
     localStorage.removeItem('pastMeso');
+
     localStorage.removeItem('itemMesoVal');
 
     // 모든 라디오 버튼 선택 해제
