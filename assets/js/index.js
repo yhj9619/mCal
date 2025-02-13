@@ -152,16 +152,24 @@ function saveData() {
     localStorage.setItem('percentMVP', vPercentMVP);
     localStorage.setItem('discountRate', vDiscountRate);
     localStorage.setItem('auctionCharge', vAuctionCharge);
+
     localStorage.setItem('juhuaVal', vJuhuaVal);
     localStorage.setItem('juhuaCnt', vJuhuaCnt);
+
+    localStorage.setItem('pcFee', vPcFee);
+    localStorage.setItem('pcHH', vPcHH);
+    localStorage.setItem('pcMM', vPcMM);
+    localStorage.setItem('piecePrice', vPiecePrice);
+
     localStorage.setItem('pastMeso', vPastMeso);
+
     localStorage.setItem('itemMesoVal', vItemMesoVal);
 }
 
  // 데이터 초기화 함수
 function clearData() {
     if(!confirm("조회조건을 초기화하시겠습니까?")) return;
-    
+
     localStorage.removeItem('presentMeso');
     localStorage.removeItem('presentMepo');
     localStorage.removeItem('percentMVP');
