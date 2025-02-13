@@ -16,12 +16,15 @@ var for1MilWithMarket;
 
 var vPastMeso;
 
+var vItemMesoVal
+
 const option = {
     maximumFractionDigits: 2
   };
 
 $(document).ready(function() {
     firstValSetting();
+    dataLoad();
     fn_collection();
     createGrid1();
 
@@ -38,21 +41,23 @@ function firstValSetting(){
     $("#discountRate").val('10');
     $('input[name="auctionCharge"]')[0].checked = true;
 
-    $("#juhuaVal").val('64,950,600');
+    $("#juhuaVal").val('64,916,800');
     
     $("#pcFee").val('3,000');
     $("#pcHH").val('2');
     $("#pcMM").val('40');
     $("#piecePrice").val('8,900,000');
 
-    $("#pastMeso").val('2,600');
+    $("#pastMeso").val('1,700');
     $("#presentItem").val('0');
     $("#pastItem").val('0');
+
+    $("#itemMesoVal").val('0');
     
 }
 
 // 페이지 로드 시 저장된 데이터 불러오기
-window.onload = function() {
+function dataLoad(){
     vPresentMeso = localStorage.getItem('presentMeso');
     vPresentMepo = localStorage.getItem('presentMepo');
     vPercentMVP = localStorage.getItem('percentMVP');
@@ -61,6 +66,7 @@ window.onload = function() {
     vJuhuaVal = localStorage.getItem('juhuaVal');
     vJuhuaCnt = localStorage.getItem('juhuaCnt');
     vPastMeso = localStorage.getItem('pastMeso'); 
+    vItemMesoVal = localStorage.getItem('itemMesoVal'); 
 
     if (vPresentMeso) {
       document.getElementById('presentMeso').value = vPresentMeso;
@@ -75,7 +81,7 @@ window.onload = function() {
         document.getElementById('discountRate').value = vDiscountRate;
     }
     if (vAuctionCharge) {
-        $('#'+vAuctionCharge).attr("checked", true);
+        $('#'+vAuctionCharge+"per").attr("checked", true);
     }
     if (vJuhuaVal) {
         document.getElementById('juhuaVal').value = vJuhuaVal;
@@ -86,7 +92,10 @@ window.onload = function() {
     if (vPastMeso) {
         document.getElementById('pastMeso').value = vPastMeso;
     }
-};
+    if (vItemMesoVal) {
+        document.getElementById('itemMesoVal').value = vItemMesoVal;
+    }
+}
 
   // 데이터 저장 함수
 function saveData() {
@@ -94,10 +103,11 @@ function saveData() {
     vPresentMepo = document.getElementById('presentMepo').value;
     vPercentMVP = document.getElementById('percentMVP').value;
     vDiscountRate = document.getElementById('discountRate').value;
-    vAuctionCharge = document.querySelector('input[name="auctionCharge"]:checked').id;
+    vAuctionCharge = document.querySelector('input[name="auctionCharge"]:checked').value;
     vJuhuaVal = document.getElementById('juhuaVal').value;
     vJuhuaCnt = document.getElementById('juhuaCnt').value;
     vPastMeso = document.getElementById('pastMeso').value;
+    vItemMesoVal = document.getElementById('itemMesoVal').value;
 
     localStorage.setItem('presentMeso', vPresentMeso);
     localStorage.setItem('presentMepo', vPresentMepo);
@@ -107,6 +117,7 @@ function saveData() {
     localStorage.setItem('juhuaVal', vJuhuaVal);
     localStorage.setItem('juhuaCnt', vJuhuaCnt);
     localStorage.setItem('pastMeso', vPastMeso);
+    localStorage.setItem('itemMesoVal', vItemMesoVal);
 }
 
  // 데이터 초기화 함수
@@ -120,6 +131,7 @@ function clearData() {
     localStorage.removeItem('juhuaVal');
     localStorage.removeItem('juhuaCnt');
     localStorage.removeItem('pastMeso');
+    localStorage.removeItem('itemMesoVal');
 
     // 모든 라디오 버튼 선택 해제
     $('input[name="auctionCharge"]').removeAttr('checked');
@@ -153,6 +165,8 @@ function fn_collection(){
     fn_pcRoom();
     //과거와 현재 메소가치
     fn_valueOf();
+    //아이템의 현금가치
+    fn_mesoToWon();
 }
 
 function setNumber(){
@@ -261,6 +275,22 @@ function fn_valueOf(){
 
     $("#valueOf1").text((presentItem/pastMeso*vPresentMeso).toLocaleString('ko-KR', option));
     $("#valueOf2").text((pastItem/vPresentMeso*pastMeso).toLocaleString('ko-KR', option));
+}
+
+function fn_mesoToWon(){
+    //아이템가치
+    var itemMesoVal = $("#itemMesoVal").val().replace(/[^0-9]/g,'');
+    //메소가격
+    psm = Number(vPresentMeso);
+    //경매장 구매비율
+    auctionRate = 1-vAuctionCharge/100
+    //1d억
+    oneMillion = 100000000;
+
+    $("#mesoToWon1").text((psm*itemMesoVal/oneMillion*auctionRate).toLocaleString('ko-KR', option));
+    $("#mesoToWon2").text((psm*itemMesoVal/oneMillion).toLocaleString('ko-KR', option));
+    $("#mesoToWon3").text((psm*itemMesoVal/oneMillion/auctionRate).toLocaleString('ko-KR', option));
+    
 }
 
 function createGrid1(){
