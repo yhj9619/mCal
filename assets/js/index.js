@@ -305,9 +305,9 @@ function fn_juhwa(){
     if(juhwaVal != "" && juhwaVal != null){
         var juhwaMeso = (juhwaVal/oneHunMil)
         $("#juhwa1").text((juhwaMeso*juhwaCnt).toLocaleString('ko-KR', option));
-        $("#juhwa2").text(((juhwaMeso*vPresentMepo-300)*juhwaCnt).toLocaleString('ko-KR', option));
+        $("#juhwa2").text(((juhwaMeso*realMepo-300)*juhwaCnt).toLocaleString('ko-KR', option));
 
-        var azmVal = Number(juhwaMeso*vPresentMepo-300)*3
+        var azmVal = Number(juhwaMeso*realMepo-300)*3
         if(azmVal>2500){
             $("#juhwa3").text("사세요.(1,000점당 "+(azmVal-2500).toLocaleString('ko-KR', option)+"메포 이득)");
         }else{
