@@ -1,4 +1,5 @@
-var oneMil = 100000000;
+var tenThsd  =10000;
+var oneHunMil = 100000000;
 var vPresentMeso;
 var vPresentMepo;
 var vPercentMVP;
@@ -244,7 +245,7 @@ function setNumber(){
     auctionRate = 1-vAuctionCharge/100
 
     //실제 수령메포포
-    realMepo = vPresentMepo - Math.round(vPresentMepo*0.01);
+    realMepo = vPresentMepo - Math.ceil(vPresentMepo*0.01);
     //MVP작대비 비율
     moneyTransMepo = Math.round(10000/realMepo/auctionRate*vPresentMeso);
     
@@ -273,10 +274,22 @@ function fn_mesoMarket(){
         $("#buyMesoProfit").text(Math.round(Number(for1MilWithMarket)-Number(for1MilWithPerson)));
     }
     
+    //직작으로 1만원을 채우는데 드는 비용
+    var mvpCost = tenThsd*(discountRate-vPresentMeso/vPresentMepo);
+    //직작으로 캐시 1만원을 충전하고 돌려받을 수 있는 현금
+    var selfMVPReturn = tenThsd/vPresentMepo*vPresentMeso;
+
     $("#sellMeso").text(moneyTransMepo.toLocaleString('ko-KR', option));
     $("#marketParam1").text(moneyTransMepo.toLocaleString('ko-KR', option));
     $("#marketParam2").text(for1MilWithPerson.toLocaleString('ko-KR', option));
     $("#marketParam3").text(for1MilWithMarket.toLocaleString('ko-KR', option));
+    $("#marketParam4").text((mvpCost).toLocaleString('ko-KR', option));
+    if(selfMVPReturn > vPercentMVP){
+        $("#marketParam5").text("직작하세요.");
+    }else{
+        $("#marketParam5").text("유저한테 "+vPercentMVP+":1에 파세요.");
+    }
+    $("#marketParam6").text((selfMVPReturn).toLocaleString('ko-KR', option)+":1");
 }
 
 function fn_juhwa(){
@@ -290,7 +303,7 @@ function fn_juhwa(){
     }
 
     if(juhwaVal != "" && juhwaVal != null){
-        var juhwaMeso = (juhwaVal/oneMil)
+        var juhwaMeso = (juhwaVal/oneHunMil)
         $("#juhwa1").text((juhwaMeso*juhwaCnt).toLocaleString('ko-KR', option));
         $("#juhwa2").text(((juhwaMeso*vPresentMepo-300)*juhwaCnt).toLocaleString('ko-KR', option));
     }else{
@@ -306,7 +319,7 @@ function fn_pcRoom(){
     var piecePrice = $("#piecePrice").val().replace(/[^0-9]/g,'');
     var totMin =  Number(pcHH*60)+Number(pcMM);
     var ninetyPrice = (pcFee/totMin*90);
-    var pieceWon = (vPresentMeso/auctionRate*piecePrice/oneMil)
+    var pieceWon = (vPresentMeso/auctionRate*piecePrice/oneHunMil)
     var daysWon = (ninetyPrice/10);
     var endsWon = (ninetyPrice/15);
 
@@ -347,9 +360,9 @@ function fn_mesoToWon(){
     auctionRate = 1-vAuctionCharge/100
     //1d억
 
-    $("#mesoToWon1").text((psm*itemMesoVal/oneMil*auctionRate).toLocaleString('ko-KR', option));
-    $("#mesoToWon2").text((psm*itemMesoVal/oneMil).toLocaleString('ko-KR', option));
-    $("#mesoToWon3").text((psm*itemMesoVal/oneMil/auctionRate).toLocaleString('ko-KR', option));
+    $("#mesoToWon1").text((psm*itemMesoVal/oneHunMil*auctionRate).toLocaleString('ko-KR', option));
+    $("#mesoToWon2").text((psm*itemMesoVal/oneHunMil).toLocaleString('ko-KR', option));
+    $("#mesoToWon3").text((psm*itemMesoVal/oneHunMil/auctionRate).toLocaleString('ko-KR', option));
     
 }
 
@@ -359,7 +372,7 @@ function fn_juHeunVal(){
     var juHeunPiece = $("#juHeunPiece").val().replace(/[^0-9]/g,'');
     var juHeunBundle = $("#juHeunBundle").val().replace(/[^0-9]/g,'');
     
-    var juHeunCalMeso = juHeun50Event*juHeunPrice/oneMil;
+    var juHeunCalMeso = juHeun50Event*juHeunPrice/oneHunMil;
 
     $("#juHeunVal1").text((12000*juHeunCalMeso).toLocaleString('ko-KR', option)+"억/"
                         +(12000*juHeunCalMeso*vPresentMeso).toLocaleString('ko-KR', option)+"원");
@@ -369,9 +382,9 @@ function fn_juHeunVal(){
                         +(24000*juHeunCalMeso*vPresentMeso).toLocaleString('ko-KR', option)+"원");
 
     $("#juHeunVal4").text((juHeunPiece*juHeunPrice).toLocaleString('ko-KR', option));
-    $("#juHeunVal5").text((juHeunPiece*juHeunPrice*vPresentMeso/oneMil).toLocaleString('ko-KR', option));
+    $("#juHeunVal5").text((juHeunPiece*juHeunPrice*vPresentMeso/oneHunMil).toLocaleString('ko-KR', option));
     $("#juHeunVal6").text((juHeunBundle*juHeunPrice*9000).toLocaleString('ko-KR', option));
-    $("#juHeunVal7").text((juHeunBundle*juHeunPrice*vPresentMeso*9000/oneMil).toLocaleString('ko-KR', option));
+    $("#juHeunVal7").text((juHeunBundle*juHeunPrice*vPresentMeso*9000/oneHunMil).toLocaleString('ko-KR', option));
 }
 
 function createGrid1(){
