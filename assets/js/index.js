@@ -289,7 +289,7 @@ function fn_mesoMarket(){
     }else{
         $("#marketParam5").text("유저한테 "+vPercentMVP+":1에 파세요.");
     }
-    $("#marketParam6").text((selfMVPReturn).toLocaleString('ko-KR', option)+":1");
+    $("#marketParam6").text(Math.round(selfMVPReturn)+":1");
 }
 
 function fn_juhwa(){
@@ -306,9 +306,17 @@ function fn_juhwa(){
         var juhwaMeso = (juhwaVal/oneHunMil)
         $("#juhwa1").text((juhwaMeso*juhwaCnt).toLocaleString('ko-KR', option));
         $("#juhwa2").text(((juhwaMeso*vPresentMepo-300)*juhwaCnt).toLocaleString('ko-KR', option));
+
+        var azmVal = Number(juhwaMeso*vPresentMepo-300)*3
+        if(azmVal>2500){
+            $("#juhwa3").text("사세요.(1,000점당 "+(azmVal-2500).toLocaleString('ko-KR', option)+"메포 이득)");
+        }else{
+            $("#juhwa3").text("사지마세요.(1,000점당 "+(2500-azmVal).toLocaleString('ko-KR', option)+"메포 손해)");
+        }
     }else{
         $("#juhwa1").text('');
         $("#juhwa2").text('');
+        $("#juhwa3").text('주화가격을 입력해주세요.');
     }
 }
 
