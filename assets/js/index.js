@@ -1,3 +1,4 @@
+var oneMil = 100000000;
 var vPresentMeso;
 var vPresentMepo;
 var vPercentMVP;
@@ -8,8 +9,8 @@ var auctionRate;
 var realMepo;
 var moneyTransMepo;
 
-var vJuhuaVal;
-var vJuhuaCnt;
+var vJuhwaVal;
+var vJuhwaCnt;
 
 var vPcFee;
 var vPcHH;
@@ -46,7 +47,7 @@ function firstValSetting(){
     $("#discountRate").val('10');
     $('input[name="auctionCharge"]')[0].checked = true;
 
-    $("#juhuaVal").val('64,916,800');
+    $("#juhwaVal").val('64,916,800');
     
     $("#pcFee").val('3,000');
     $("#pcHH").val('2');
@@ -58,6 +59,9 @@ function firstValSetting(){
     $("#pastItem").val('0');
 
     $("#itemMesoVal").val('0');
+
+    $('input[name="juHeun50Event"]')[0].checked = true;
+    $("#juHeunPrice").val('0');
     
 }
 
@@ -69,8 +73,8 @@ function dataLoad(){
     vDiscountRate = localStorage.getItem('discountRate');
     vAuctionCharge = localStorage.getItem('auctionCharge');
 
-    vJuhuaVal = localStorage.getItem('juhuaVal');
-    vJuhuaCnt = localStorage.getItem('juhuaCnt');
+    vJuhwaVal = localStorage.getItem('juhwaVal');
+    vJuhwaCnt = localStorage.getItem('juhwaCnt');
 
     vPcFee = localStorage.getItem('pcFee');
     vPcHH = localStorage.getItem('pcHH');
@@ -110,11 +114,11 @@ function dataLoad(){
         document.getElementById('piecePrice').value = vPiecePrice;
     }
 
-    if (vJuhuaVal) {
-        document.getElementById('juhuaVal').value = vJuhuaVal;
+    if (vJuhwaVal) {
+        document.getElementById('juhwaVal').value = vJuhwaVal;
     }
-    if (vJuhuaCnt) {
-        document.getElementById('juhuaCnt').value = vJuhuaCnt;
+    if (vJuhwaCnt) {
+        document.getElementById('juhwaCnt').value = vJuhwaCnt;
     }
 
     if (vPastMeso) {
@@ -135,8 +139,8 @@ function saveData() {
     vDiscountRate = document.getElementById('discountRate').value;
     vAuctionCharge = document.querySelector('input[name="auctionCharge"]:checked').value;
  
-    vJuhuaVal = document.getElementById('juhuaVal').value;
-    vJuhuaCnt = document.getElementById('juhuaCnt').value;
+    vJuhwaVal = document.getElementById('juhwaVal').value;
+    vJuhwaCnt = document.getElementById('juhwaCnt').value;
 
     vPcFee = document.getElementById('pcFee').value;
     vPcHH = document.getElementById('pcHH').value;
@@ -153,8 +157,8 @@ function saveData() {
     localStorage.setItem('discountRate', vDiscountRate);
     localStorage.setItem('auctionCharge', vAuctionCharge);
 
-    localStorage.setItem('juhuaVal', vJuhuaVal);
-    localStorage.setItem('juhuaCnt', vJuhuaCnt);
+    localStorage.setItem('juhwaVal', vJuhwaVal);
+    localStorage.setItem('juhwaCnt', vJuhwaCnt);
 
     localStorage.setItem('pcFee', vPcFee);
     localStorage.setItem('pcHH', vPcHH);
@@ -176,8 +180,8 @@ function clearData() {
     localStorage.removeItem('discountRate');
     localStorage.removeItem('auctionCharge');
 
-    localStorage.removeItem('juhuaVal');
-    localStorage.removeItem('juhuaCnt');
+    localStorage.removeItem('juhwaVal');
+    localStorage.removeItem('juhwaCnt');
 
     localStorage.removeItem('pcFee');
     localStorage.removeItem('pcHH');
@@ -215,13 +219,15 @@ function fn_collection(){
     //메소마켓효율 페이지
     fn_mesoMarket();
     //골드주화계산
-    fn_juhua()
+    fn_juhwa()
     //피방조각효율
     fn_pcRoom();
     //과거와 현재 메소가치
     fn_valueOf();
     //아이템의 현금가치
     fn_mesoToWon();
+    //주흔계산기
+    fn_juHeunVal();
 }
 
 function setNumber(){
@@ -273,23 +279,23 @@ function fn_mesoMarket(){
     $("#marketParam3").text(for1MilWithMarket.toLocaleString('ko-KR', option));
 }
 
-function fn_juhua(){
-    var juhuaVal = $("#juhuaVal").val().replace(/[^0-9]/g,'');
-    var juhuaCnt = 1;
+function fn_juhwa(){
+    var juhwaVal = $("#juhwaVal").val().replace(/[^0-9]/g,'');
+    var juhwaCnt = 1;
 
-    if($("#juhuaCnt").val() != "" && $("#juhuaCnt").val() != null){
-        juhuaCnt = $("#juhuaCnt").val().replace(/[^0-9]/g,'');
+    if($("#juhwaCnt").val() != "" && $("#juhwaCnt").val() != null){
+        juhwaCnt = $("#juhwaCnt").val().replace(/[^0-9]/g,'');
     }else{
-        juhuaCnt = 1;
+        juhwaCnt = 1;
     }
 
-    if(juhuaVal != "" && juhuaVal != null){
-        var juhuaMeso = (juhuaVal/100000000)
-        $("#juhua1").text((juhuaMeso*juhuaCnt).toLocaleString('ko-KR', option));
-        $("#juhua2").text(((juhuaMeso*vPresentMepo-300)*juhuaCnt).toLocaleString('ko-KR', option));
+    if(juhwaVal != "" && juhwaVal != null){
+        var juhwaMeso = (juhwaVal/oneMil)
+        $("#juhwa1").text((juhwaMeso*juhwaCnt).toLocaleString('ko-KR', option));
+        $("#juhwa2").text(((juhwaMeso*vPresentMepo-300)*juhwaCnt).toLocaleString('ko-KR', option));
     }else{
-        $("#juhua1").text('');
-        $("#juhua2").text('');
+        $("#juhwa1").text('');
+        $("#juhwa2").text('');
     }
 }
 
@@ -300,7 +306,7 @@ function fn_pcRoom(){
     var piecePrice = $("#piecePrice").val().replace(/[^0-9]/g,'');
     var totMin =  Number(pcHH*60)+Number(pcMM);
     var ninetyPrice = (pcFee/totMin*90);
-    var pieceWon = (vPresentMeso/auctionRate*piecePrice/100000000)
+    var pieceWon = (vPresentMeso/auctionRate*piecePrice/oneMil)
     var daysWon = (ninetyPrice/10);
     var endsWon = (ninetyPrice/15);
 
@@ -340,12 +346,32 @@ function fn_mesoToWon(){
     //경매장 구매비율
     auctionRate = 1-vAuctionCharge/100
     //1d억
-    oneMillion = 100000000;
 
-    $("#mesoToWon1").text((psm*itemMesoVal/oneMillion*auctionRate).toLocaleString('ko-KR', option));
-    $("#mesoToWon2").text((psm*itemMesoVal/oneMillion).toLocaleString('ko-KR', option));
-    $("#mesoToWon3").text((psm*itemMesoVal/oneMillion/auctionRate).toLocaleString('ko-KR', option));
+    $("#mesoToWon1").text((psm*itemMesoVal/oneMil*auctionRate).toLocaleString('ko-KR', option));
+    $("#mesoToWon2").text((psm*itemMesoVal/oneMil).toLocaleString('ko-KR', option));
+    $("#mesoToWon3").text((psm*itemMesoVal/oneMil/auctionRate).toLocaleString('ko-KR', option));
     
+}
+
+function fn_juHeunVal(){
+    var juHeun50Event = $("input:radio[name='juHeun50Event']:checked").val();
+    var juHeunPrice = $("#juHeunPrice").val().replace(/[^0-9]/g,'');
+    var juHeunPiece = $("#juHeunPiece").val().replace(/[^0-9]/g,'');
+    var juHeunBundle = $("#juHeunBundle").val().replace(/[^0-9]/g,'');
+    
+    var juHeunCalMeso = juHeun50Event*juHeunPrice/oneMil;
+
+    $("#juHeunVal1").text((12000*juHeunCalMeso).toLocaleString('ko-KR', option)+"억/"
+                        +(12000*juHeunCalMeso*vPresentMeso).toLocaleString('ko-KR', option)+"원");
+    $("#juHeunVal2").text((20000*juHeunCalMeso).toLocaleString('ko-KR', option)+"억/"
+                        +(20000*juHeunCalMeso*vPresentMeso).toLocaleString('ko-KR', option)+"원");
+    $("#juHeunVal3").text((24000*juHeunCalMeso).toLocaleString('ko-KR', option)+"억/"
+                        +(24000*juHeunCalMeso*vPresentMeso).toLocaleString('ko-KR', option)+"원");
+
+    $("#juHeunVal4").text((juHeunPiece*juHeunPrice).toLocaleString('ko-KR', option));
+    $("#juHeunVal5").text((juHeunPiece*juHeunPrice*vPresentMeso/oneMil).toLocaleString('ko-KR', option));
+    $("#juHeunVal6").text((juHeunBundle*juHeunPrice*9000).toLocaleString('ko-KR', option));
+    $("#juHeunVal7").text((juHeunBundle*juHeunPrice*vPresentMeso*9000/oneMil).toLocaleString('ko-KR', option));
 }
 
 function createGrid1(){

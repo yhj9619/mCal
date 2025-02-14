@@ -48,13 +48,6 @@
 		<meta property="og:image" content="https://maplestorycc.com/images/mapleIcon.png" />
 		<meta property="og:site_name" content="메산기" />
 		<meta property="og:url" content="https://maplestorycc.com">
-
-		<style>
-			
-		</style>
-		<script type='text/javascript'>
-			
-		</script>
 	</head>
 	<body class="is-preload">
 
@@ -114,10 +107,11 @@
 							<ul>
 								<li><a href="#top" id="top-link"><span class="icon solid fa-home">메이플계산기 소개</span></a></li>
 								<li><a href="#mesoMarket" id="mesoMarket-link"><span class="icon solid fa-utensil-spoon">메소마켓효율</span></a></li>
-								<li><a href="#juhua" id="juhua-link"><span class="icon solid fa-bezier-curve">골드주화가치</span></a></li>
+								<li><a href="#juhwa" id="juhwa-link"><span class="icon solid fa-bezier-curve">골드주화가치</span></a></li>
 								<li><a href="#pcRoom" id="pcRoom-link"><span class="icon solid fa-users-cog">피방조각효율</span></a></li>
 								<li><a href="#valueOf" id="valueOf-link"><span class="icon solid fa-th">과거와 현재 아이템 가치</span></a></li>
 								<li><a href="#mesoToWon" id="mesoToWon-link"><span class="icon solid fa-money-bill">아이템의 현금가치</span></a></li>
+								<li><a href="#juHeunVal" id="juHeunVa-link"><span class="icon solid fa-square-o">주흔계산기</span></a></li>
 							</ul>
 						</nav>
 
@@ -200,8 +194,8 @@
 						</div>
 					</section>
 
-				<!-- juhua Me -->
-					<section id="juhua" class="three">
+				<!-- juhwa Me -->
+					<section id="juhwa" class="three">
 						<div class="container">
 
 							<header>
@@ -211,12 +205,12 @@
 							<div class="inputDiv">
 								<div class="inputClass">
 									<label for="presentMeso">주화가격</label>
-									<input type="text" class="txt-input" name="juhuaVal" id="juhuaVal" 
+									<input type="text" class="txt-input" name="juhwaVal" id="juhwaVal" 
 									oninput="onlyNumberWithComma(this);" placeholder="골드주화가격"/>
 								</div>
 								<div class="inputClass">
 									<label for="presentMeso">주화갯수</label>
-									<input type="text" class="txt-input" name="juhuaCnt" id="juhuaCnt" 
+									<input type="text" class="txt-input" name="juhwaCnt" id="juhwaCnt" 
 									oninput="onlyNumberWithComma(this);" placeholder="골드주화갯수"/>
 								</div>
 							</div>
@@ -235,11 +229,11 @@
 									<tbody>
 										<tr>
 											<th scope="row" data-label="구분">획득메소(억)</th>
-											<td data-label="가치"><span id="juhua1"></span></td>
+											<td data-label="가치"><span id="juhwa1"></span></td>
 										</tr>
 										<tr>
 											<th scope="row" data-label="구분">주화 메포가치</th>
-											<td data-label="가치"><span id="juhua2"></span></td>
+											<td data-label="가치"><span id="juhwa2"></span></td>
 										</tr>
 									</tbody>
 								</table>
@@ -412,6 +406,86 @@
 							</table>
 						</div>
 						<div id="grid1" style="display:none;"></div>
+
+					</div>
+				</section>
+
+				<!-- juHeunVal -->
+				<section id="juHeunVal" class="seven">
+					<div class="container">
+
+						<header>
+							<h2>주흔계산기</h2>
+						</header>
+						<div>
+							<div class="radioSelect"> 
+								<input type="radio" id="N" name="juHeun50Event" value="1"><label for="N">일반</label>
+								<input type="radio" id="Y" name="juHeun50Event" value="0.5"><label for="Y">50%이벤트</label>
+							</div>
+							<div class="inputClass">
+								<label for="juHeunPrice">주흔가격</label>
+								<input type="text" class="txt-input" name="juHeunPrice" id="juHeunPrice" 
+								oninput="onlyNumberWithComma(this);" placeholder="주흔 개당가격"/>
+							</div>
+						</div>
+						
+						<div class="flip-scroll">
+							<table class="mTable">
+								<colgroup>
+									<col width="33%" />
+									<col width="33%" />
+									<col width="33%" />
+								</colgroup>
+								<thead>
+									<tr>
+										<th scope="col">이노센트</th>
+										<th scope="col">순줌</th>
+										<th scope="col">아크이노/황망</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td data-label="이노센트"><span id="juHeunVal1"></td>
+										<td data-label="순줌"><span id="juHeunVal2"></td>
+										<td data-label="아크이노/황망"><span id="juHeunVal3"></span></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div class="flip-scroll">
+							<table class="mTable">
+								<colgroup>
+									<col width="25%" />
+									<col width="25%" />
+									<col width="25%" />
+									<col width="25%" />
+								</colgroup>
+								<thead>
+									<tr>
+										<th scope="col">구분</th>
+										<th scope="col">갯수</th>
+										<th scope="col">메소가치</th>
+										<th scope="col">현금가치</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<th scope="row" data-label="구분">장당</th>
+										<td data-label="갯수"><input type="text" name="juHeunPiece" id="juHeunPiece" 
+											oninput="onlyNumberWithComma(this);" placeholder="주흔 장 수"/></td>
+										<td data-label="메소가치"><span id="juHeunVal4"></span></td>
+										<td data-label="현금가치"><span id="juHeunVal5"></span></td>
+									</tr>
+									<tr>
+										<th scope="row" data-label="구분">묶음(9000)</th>
+										<td data-label="갯수"><input type="text" name="juHeunBundle" id="juHeunBundle" 
+											oninput="onlyNumberWithComma(this);" placeholder="주흔 묶음 수"/></td>
+										<td data-label="메소가치"><span id="juHeunVal6"></span></td>
+										<td data-label="현금가치"><span id="juHeunVal7"></span></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
 
 					</div>
 				</section>
