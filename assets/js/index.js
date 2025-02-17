@@ -43,19 +43,19 @@ $(document).ready(function() {
 
 function firstValSetting(){
     $("#presentMeso").val('1,600');
-    $("#presentMepo").val('1,940');
+    $("#presentMepo").val('1,900');
     $("#percentMVP").val('8,300');
     $("#discountRate").val('10');
     $('input[name="auctionCharge"]')[0].checked = true;
 
-    $("#juhwaVal").val('64,916,800');
+    $("#juhwaVal").val('65,822,900');
     
     $("#pcFee").val('3,000');
     $("#pcHH").val('2');
     $("#pcMM").val('40');
-    $("#piecePrice").val('8,900,000');
+    $("#piecePrice").val('8,888,888');
 
-    $("#pastMeso").val('1,700');
+    $("#pastMeso").val('2,000');
     $("#presentItem").val('0');
     $("#pastItem").val('0');
 
