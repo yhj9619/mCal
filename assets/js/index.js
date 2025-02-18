@@ -42,7 +42,7 @@ $(document).ready(function() {
 });
 
 function firstValSetting(){
-    $("#presentMeso").val('1,600');
+    $("#presentMeso").val('1,550');
     $("#presentMepo").val('1,940');
     $("#percentMVP").val('8,300');
     $("#discountRate").val('10');
@@ -53,7 +53,7 @@ function firstValSetting(){
     $("#pcFee").val('3,000');
     $("#pcHH").val('2');
     $("#pcMM").val('40');
-    $("#piecePrice").val('8,900,000');
+    $("#piecePrice").val('8,888,888');
 
     $("#pastMeso").val('1,700');
     $("#presentItem").val('0');
