@@ -452,14 +452,14 @@ function fn_juHeunVal(){
 }
 
 function fn_equalBunbae(){
-    var saleMeso = ($("#saleMeso").val().replace(/[^0-9]/g,''))*auctionRate;
+    var saleMeso = Math.ceil(($("#saleMeso").val().replace(/[^0-9]/g,''))*auctionRate);
     var memberCnt = $("#memberCnt").val().replace(/,/g, '');
     $("#equalBunbaeMeso").text((saleMeso/memberCnt).toLocaleString('ko-KR', option));
     $("#equalBunbaeWon").text((saleMeso/memberCnt/oneHunMil*vPresentMeso).toLocaleString('ko-KR', option));
 }
 
 function fn_customBunbae(){
-    var saleMeso = ($("#saleMeso").val().replace(/[^0-9]/g,''))*auctionRate;
+    var saleMeso = Math.ceil(($("#saleMeso").val().replace(/[^0-9]/g,''))*auctionRate);
 
     //memberStack(분배지분) input 값
     var memberStacks = {}; 
