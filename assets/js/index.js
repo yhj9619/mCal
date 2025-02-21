@@ -56,7 +56,7 @@ $(document).ready(function() {
                 <td data-label="인당 분배금(메소)">
                     <span id="customBunbaeMeso${i}"></span>
                 </td>
-                <td data-label="인당분배금(원)">
+                <td data-label="인당 분배금(원)">
                     <span id="customBunbaeWon${i}"></span>
                 </td>
             </tr>
