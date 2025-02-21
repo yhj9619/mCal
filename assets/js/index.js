@@ -50,8 +50,8 @@ $(document).ready(function() {
                       placeholder="닉네임"/>
                 </td>
                 <td data-label="분배지분">
-                    <input type="text" class="memberStack" oninput="fn_customBunbae();" name="memberStack${i}" id="memberStack${i}" 
-                        oninput="onlyNumberWithComma(this);" placeholder="분배지분"/>
+                    <input type="text" class="memberStack" name="memberStack${i}" id="memberStack${i}" 
+                        oninput="onlyNumberWithComma(this);fn_customBunbae();" placeholder="분배지분"/>
                 </td>
                 <td data-label="인당 분배금(메소)">
                     <span id="customBunbaeMeso${i}"></span>
@@ -282,7 +282,7 @@ function fn_collection(thisId){
     //균등분배
     fn_equalBunbae();
     //차등분배
-    //fn_customBunbae();
+    fn_customBunbae();
     //메소수익률
     fn_saleProfit(thisId);
 }
