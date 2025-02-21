@@ -113,11 +113,13 @@
 							<ul>
 								<li><a href="#top" id="top-link"><span class="icon solid fa-home">메이플계산기 소개</span></a></li>
 								<li><a href="#mesoMarket" id="mesoMarket-link"><span class="icon solid fa-utensil-spoon">메소마켓효율</span></a></li>
-								<li><a href="#juhwa" id="juhwa-link"><span class="icon solid fa-bezier-curve">골드주화가치</span></a></li>
-								<li><a href="#pcRoom" id="pcRoom-link"><span class="icon solid fa-users-cog">피방조각효율</span></a></li>
-								<li><a href="#valueOf" id="valueOf-link"><span class="icon solid fa-th">과거와 현재 아이템 가치</span></a></li>
+								<li><a href="#bunbae" id="bunbae-link"><span class="icon solid fa-bezier-curve">보상분배계산기</span></a></li>
 								<li><a href="#mesoToWon" id="mesoToWon-link"><span class="icon solid fa-money-bill">아이템의 현금가치</span></a></li>
-								<li><a href="#juHeunVal" id="juHeunVa-link"><span class="icon solid fa-square-o">주흔계산기</span></a></li>
+								<li><a href="#valueOf" id="valueOf-link"><span class="icon solid fa-th">과거와 현재 아이템 가치</span></a></li>
+								<li><a href="#saleProfit" id="saleProfit-link"><span class="icon solid fa-th">메소판매차익</span></a></li>
+								<li><a href="#juhwa" id="juhwa-link"><span class="icon solid fa-question-circle">골드주화가치</span></a></li>
+								<li><a href="#juHeunVal" id="juHeunVa-link"><span class="icon solid fa-square">주흔계산기</span></a></li>
+								<li><a href="#pcRoom" id="pcRoom-link"><span class="icon solid fa-users-cog">피방조각효율</span></a></li>
 							</ul>
 						</nav>
 
@@ -207,8 +209,232 @@
 						</div>
 					</section>
 
-				<!-- juhwa Me -->
-					<section id="juhwa" class="three">
+				<!-- bunbae -->
+				<section id="bunbae" class="three">
+					<div class="container">
+						<header>
+							<h2>보상분배계산기</h2>
+						</header>
+						<div class="tab">
+							<button id="equalBtn" class="active">균등 분배</button>
+							<button id="customBtn">차등 분배</button>
+						</div>
+						<div class="inputDiv">
+							<div class="inputClass tooltip-container">
+								<label for="saleMeso" class="tooltip-label">판매금액</label>
+								<input type="text" class="txt-input" name="saleMeso" id="saleMeso" 
+								oninput="onlyNumberWithComma(this);" placeholder="판매금액"/>
+								<span class="tooltip-text2">
+									수수료를 제외하기 전 금액을 입력해주세요.<br>
+									좌측에 선택된 경매장 수수료가 자동 적용됩니다.
+								</span>
+							</div>
+						</div>
+						<div id="equalDiv">
+							<div class="flip-scroll">
+								<table class="mTable">
+									<colgroup>
+										<col width="33%" />
+										<col width="33%" />
+										<col width="33%" />
+									</colgroup>
+									<thead>
+										<tr>
+											<th scope="col">파티원 수</th>
+											<th scope="col">인당 분배금(메소)</th>
+											<th scope="col">인당분배금(원)</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>	
+											<td scope="row" data-label="파티원"><input type="text" name="memberCnt" id="memberCnt" 
+												oninput="onlyNumberWithComma(this);" placeholder="파티원 수"/></td>
+											<td data-label="인당 분배금(메소)"><span id="equalBunbaeMeso"></span></td>
+											<td data-label="인당분배금(원)"><span id="equalBunbaeWon"></span></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					
+						<div id="customDiv" style="display:none;">
+							<div class="flip-scroll">
+								<table class="mTable">
+									<colgroup>
+										<col width="15%" />
+										<col width="15%" />
+										<col width="40%" />
+										<col width="30%" />
+									</colgroup>
+									<thead>
+										<tr>
+											<th scope="col">닉네임</th>
+											<th scope="col">분배지분</th>
+											<th scope="col">인당 분배금(메소)</th>
+											<th scope="col">인당분배금(원)</th>
+										</tr>
+									</thead>
+									<tbody id="memberTable">
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</section>
+
+				<!-- mesoToWon -->
+				<section id="mesoToWon" class="four">
+					<div class="container">
+						<header>
+							<h2>아이템의 현금가치</h2>
+						</header>
+						<div class="flip-scroll">
+							<table class="mTable">
+								<colgroup>
+									<col width="25%" />
+									<col width="25%" />
+									<col width="25%" />
+									<col width="25%" />
+								</colgroup>
+								<thead>
+									<tr>
+										<th scope="col">아이템 가격(메소)</th>
+										<th scope="col">판매자기준<br>현금가치(원)</th>
+										<th scope="col">구매자(메소보유)<br>기준 현금가치(원)</th>
+										<th scope="col">구매자(메소구매)<br>기준 현금가치(원)</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td scope="row" data-label="아이템 가격(메소)"><input type="text" name="itemMesoVal" id="itemMesoVal" 
+											oninput="onlyNumberWithComma(this);" placeholder="아이템 가격"/></td>
+										<td data-label="판매자기준 현금가치(원)"><span id="mesoToWon1"></span></td>
+										<td data-label="메소보유 기준 현금가치(원)"><span id="mesoToWon2"></span></td>
+										<td data-label="메소구매기준 현금가치(원)"><span id="mesoToWon3"></span></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div id="grid1" style="display:none;"></div>
+
+					</div>
+				</section>
+
+				<!-- valueOf -->
+				<section id="valueOf" class="five">
+					<div class="container">
+						<header>
+							<h2>과거와 현재 아이템 가치</h2>
+						</header>
+						<h4>*챌린저스 서버가 있는 시기에는, 과거메소를 챌린저스 서버 메소로 두고<br>
+						현재 월드의 시세와 챌린저스 서버의 시세를 비교하는데 활용할 수 있습니다.</h4>
+
+						<div class="inputDiv">
+							<div class="inputClass">
+								<label for="pastMeso">과거메소</label>
+								<input type="text" class="txt-input" name="pastMeso" id="pastMeso" 
+								oninput="onlyNumberWithComma(this);" placeholder="과거 메소 가격"/>
+							</div>
+						</div>
+						<div class="flip-scroll">
+							<table class="mTable">
+								<colgroup>
+									<col width="30%" />
+									<col width="70%" />
+								</colgroup>
+								<thead>
+									<tr>
+										<th scope="col">현재 아이템 가격(메소)</th>
+										<th scope="col">과거기준 가치(메소)</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td scope="row" data-label="현재 아이템 가격(메소)"><input type="text" name="presentItem" id="presentItem" 
+											oninput="onlyNumberWithComma(this);" placeholder="현재 아이템 가격"/></td>
+										<td data-label="과거기준 가치(메소)"><span id="valueOf1"></span></td>
+									</tr>
+									
+								</tbody>
+							</table>
+						</div>
+						<div class="flip-scroll">
+							<table class="mTable">
+								<colgroup>
+									<col width="30%" />
+									<col width="70%" />
+								</colgroup>
+								<thead>
+									<tr>
+										<th scope="col">과거 아이템 가격</th>
+										<th scope="col">현재기준 가치</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td scope="row" data-label="과거 아이템 가격(메소)"><input type="text" name="pastItem" id="pastItem" 
+											oninput="onlyNumberWithComma(this);" placeholder="과거 아이템 가격"/></td>
+										<td data-label="현재기준 가치(메소)"><span id="valueOf2"></span></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+
+					</div>
+				</section>
+
+				<!-- saleProfit -->
+				<section id="saleProfit" class="six">
+					<div class="container">
+						<header>
+							<h2>메소판매차익</h2>
+						</header>
+						<div class="inputClass">
+							<label for="buyMesoPrice">구입당시 메소</label>
+							<input type="text" class="txt-input" name="buyMesoPrice" id="buyMesoPrice" 
+							oninput="onlyNumberWithComma(this);" placeholder="구입당시 메소"/>
+						</div>
+						<div class="inputDiv">
+							<div class="inputClass">
+								<label for="buyMesoAmt">구매메소(억)</label>
+								<input type="text" class="txt-input" name="buyMesoAmt" id="buyMesoAmt" 
+								oninput="onlyNumberWithComma(this);" placeholder="구매메소"/>
+							</div>
+							<div class="inputClass">
+								<label for="buyMesoWon">투입금액(원)</label>
+								<input type="text" class="txt-input" name="buyMesoWon" id="buyMesoWon" 
+								oninput="onlyNumberWithComma(this);" placeholder="투입금액"/>
+							</div>
+						</div>
+
+						<div class="flip-scroll">
+							<table class="mTable">
+								<colgroup>
+									<col width="33%" />
+									<col width="33%" />
+									<col width="33%" />
+								</colgroup>
+								<thead>
+									<tr>
+										<th scope="col">실수령메소(억)</th>
+										<th scope="col">판매수익(원)</th>
+										<th scope="col">수익률</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td data-label="실수령메소(억)"><span id="saleProfit1"></span></td>
+										<td data-label="판매수익(원)"><span id="saleProfit2"></span></td>
+										<td data-label="수익률(%)"><span id="saleProfit3"></span></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</section>
+
+				<!-- juhwa -->
+					<section id="juhwa" class="seven">
 						<div class="container">
 							<header>
 								<h2>골드주화가치</h2>
@@ -251,176 +477,8 @@
 						</div>
 					</section>
 
-				<!-- pcRoom -->
-				<section id="pcRoom" class="four">
-					<div class="container">
-						<header>
-							<h2>피시방 효율</h2>
-						</header>
-
-						<div class="inputDiv">
-							<div class="inputClass">
-								<label for="pcFee">요금</label>
-								<input type="text" class="txt-input" name="pcFee" id="pcFee" 
-								oninput="onlyNumberWithComma(this);" placeholder="피시방 이용요금"/>
-							</div>
-							<div class="inputClass"> 
-								<label for="pcFee">시간</label>
-								<input type="text" class="txt-input" name="pcHH" id="pcHH" 
-								oninput="onlyNumberWithComma(this);" placeholder="피시방 이용시간(시간)"/>
-							</div>
-							<div class="inputClass">
-								<label for="pcFee">분</label>
-								<input type="text" class="txt-input" name="pcMM" id="pcMM" 
-								oninput="onlyNumberWithComma(this);" placeholder="피시방 이용시간(분)"/>
-							</div>
-							<div class="inputClass">
-								<label for="pcFee">조각가격(메소)</label>
-								<input type="text" class="txt-input" name="piecePrice" id="piecePrice" 
-								oninput="onlyNumberWithComma(this);" placeholder="솔에르다 조각 가격"/>
-							</div>
-						</div>
-
-						<div class="flip-scroll">
-							<table class="mTable">
-								<colgroup>
-									<col width="20%" />
-									<col width="20%" />
-									<col width="20%" />
-									<col width="20%" />
-									<col width="20%" />
-								</colgroup>
-								<thead>
-									<tr>
-										<th scope="col">분<br>환산</th>
-										<th scope="col">90분<br>가격(원)</th>
-										<th scope="col">인게임<br>조각 가격</th>
-										<th scope="col">평일 피방<br>조각 가격(원)</th>
-										<th scope="col">주말 피방<br>조각 가격(원)</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td scope="row" data-label="분환산"><span id="pcRoom1"></span></td>
-										<td data-label="90분 가격(원)"><span id="pcRoom2"></span></td>
-										<td data-label="인게임조각 가격(원)"><span id="pcRoom3"></span></td>
-										<td data-label="평일피방 조각 가격(원)"><span id="pcRoom4"></span></td>
-										<td data-label="주말피방 조각 가격(원)"><span id="pcRoom5"></span></td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-						<p>Q. 그래서 피방 갈?말?<br>
-						A. <strong>평일</strong> : <span id="pcRoom6"></span> / <strong>주말</strong> : <span id="pcRoom7"></span></p>
-
-					</div>
-				</section>
-
-
-				<!-- valueOf -->
-					<section id="valueOf" class="five">
-						<div class="container">
-							<header>
-								<h2>과거와 현재 아이템 가치</h2>
-							</header>
-							<h4>*챌린저스 서버가 있는 시기에는, 과거메소를 챌린저스 서버 메소로 두고<br>
-							현재 월드의 시세와 챌린저스 서버의 시세를 비교하는데 활용할 수 있습니다.</h4>
-
-							<div class="inputDiv">
-								<div class="inputClass">
-									<label for="presentMeso">과거메소</label>
-									<input type="text" class="txt-input" name="pastMeso" id="pastMeso" 
-									oninput="onlyNumberWithComma(this);" placeholder="과거 메소 가격"/>
-								</div>
-							</div>
-							<div class="flip-scroll">
-								<table class="mTable">
-									<colgroup>
-										<col width="30%" />
-										<col width="70%" />
-									</colgroup>
-									<thead>
-										<tr>
-											<th scope="col">현재 아이템 가격(메소)</th>
-											<th scope="col">과거기준 가치(메소)</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td scope="row" data-label="현재 아이템 가격(메소)"><input type="text" name="presentItem" id="presentItem" 
-												oninput="onlyNumberWithComma(this);" placeholder="현재 아이템 가격"/></td>
-											<td data-label="과거기준 가치(메소)"><span id="valueOf1"></span></td>
-										</tr>
-										
-									</tbody>
-								</table>
-							</div>
-							<div class="flip-scroll">
-								<table class="mTable">
-									<colgroup>
-										<col width="30%" />
-										<col width="70%" />
-									</colgroup>
-									<thead>
-										<tr>
-											<th scope="col">과거 아이템 가격</th>
-											<th scope="col">현재기준 가치</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td scope="row" data-label="과거 아이템 가격(메소)"><input type="text" name="pastItem" id="pastItem" 
-												oninput="onlyNumberWithComma(this);" placeholder="과거 아이템 가격"/></td>
-											<td data-label="현재기준 가치(메소)"><span id="valueOf2"></span></td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
-
-						</div>
-					</section>
-
-
-				<!-- mesoToWon -->
-				<section id="mesoToWon" class="six">
-					<div class="container">
-						<header>
-							<h2>아이템의 현금가치</h2>
-						</header>
-						<div class="flip-scroll">
-							<table class="mTable">
-								<colgroup>
-									<col width="25%" />
-									<col width="25%" />
-									<col width="25%" />
-									<col width="25%" />
-								</colgroup>
-								<thead>
-									<tr>
-										<th scope="col">아이템 가격(메소)</th>
-										<th scope="col">판매자기준<br>현금가치(원)</th>
-										<th scope="col">구매자(메소보유)<br>기준 현금가치(원)</th>
-										<th scope="col">구매자(메소구매)<br>기준 현금가치(원)</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td scope="row" data-label="아이템 가격(메소)"><input type="text" name="itemMesoVal" id="itemMesoVal" 
-											oninput="onlyNumberWithComma(this);" placeholder="아이템 가격"/></td>
-										<td data-label="판매자기준 현금가치(원)"><span id="mesoToWon1"></span></td>
-										<td data-label="메소보유 기준 현금가치(원)"><span id="mesoToWon2"></span></td>
-										<td data-label="메소구매기준 현금가치(원)"><span id="mesoToWon3"></span></td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-						<div id="grid1" style="display:none;"></div>
-
-					</div>
-				</section>
-
 				<!-- juHeunVal -->
-				<section id="juHeunVal" class="seven">
+				<section id="juHeunVal" class="eight">
 					<div class="container">
 						<header>
 							<h2>주흔계산기</h2>
@@ -494,6 +552,71 @@
 								</tbody>
 							</table>
 						</div>
+
+					</div>
+				</section>
+
+				<!-- pcRoom -->
+				<section id="pcRoom" class="nine">
+					<div class="container">
+						<header>
+							<h2>피시방 효율</h2>
+						</header>
+
+						<div class="inputDiv">
+							<div class="inputClass">
+								<label for="pcFee">요금</label>
+								<input type="text" class="txt-input" name="pcFee" id="pcFee" 
+								oninput="onlyNumberWithComma(this);" placeholder="피시방 이용요금"/>
+							</div>
+							<div class="inputClass"> 
+								<label for="pcFee">시간</label>
+								<input type="text" class="txt-input" name="pcHH" id="pcHH" 
+								oninput="onlyNumberWithComma(this);" placeholder="피시방 이용시간(시간)"/>
+							</div>
+							<div class="inputClass">
+								<label for="pcFee">분</label>
+								<input type="text" class="txt-input" name="pcMM" id="pcMM" 
+								oninput="onlyNumberWithComma(this);" placeholder="피시방 이용시간(분)"/>
+							</div>
+							<div class="inputClass">
+								<label for="pcFee">조각가격(메소)</label>
+								<input type="text" class="txt-input" name="piecePrice" id="piecePrice" 
+								oninput="onlyNumberWithComma(this);" placeholder="솔에르다 조각 가격"/>
+							</div>
+						</div>
+
+						<div class="flip-scroll">
+							<table class="mTable">
+								<colgroup>
+									<col width="20%" />
+									<col width="20%" />
+									<col width="20%" />
+									<col width="20%" />
+									<col width="20%" />
+								</colgroup>
+								<thead>
+									<tr>
+										<th scope="col">분<br>환산</th>
+										<th scope="col">90분<br>가격(원)</th>
+										<th scope="col">인게임<br>조각 가격</th>
+										<th scope="col">평일 피방<br>조각 가격(원)</th>
+										<th scope="col">주말 피방<br>조각 가격(원)</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td scope="row" data-label="분환산"><span id="pcRoom1"></span></td>
+										<td data-label="90분 가격(원)"><span id="pcRoom2"></span></td>
+										<td data-label="인게임조각 가격(원)"><span id="pcRoom3"></span></td>
+										<td data-label="평일피방 조각 가격(원)"><span id="pcRoom4"></span></td>
+										<td data-label="주말피방 조각 가격(원)"><span id="pcRoom5"></span></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<p>Q. 그래서 피방 갈?말?<br>
+						A. <strong>평일</strong> : <span id="pcRoom6"></span> / <strong>주말</strong> : <span id="pcRoom7"></span></p>
 
 					</div>
 				</section>
