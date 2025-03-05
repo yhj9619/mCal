@@ -289,7 +289,7 @@ function customFormatNumber(value) {
     let restPart = integerDigits.substring(splitIndex);
 
     // 🔹 **전체 숫자를 먼저 `toLocaleString()`으로 포맷하여 콤마 추가**
-    let formattedNumber = parseInt(integerDigits).toLocaleString('ko-KR', { maximumFractionDigits: 2 });
+    let formattedNumber = parseInt(integerDigits).toLocaleString('ko-KR', option);
 
     // 🔹 **굵은 부분을 찾고 나머지 숫자를 정확하게 분리**
     let formattedBolderPart = formattedNumber.substring(0, formattedNumber.length - restPart.length);
@@ -541,17 +541,17 @@ function fn_saleProfit(thisId){
     var buyMesoWon = $("#buyMesoWon").val().replace(/,/g, '');;
     
     if(thisId == "buyMesoPrice"){
-        var buyMesoWonVal = customFormatNumber(buyMesoAmt*buyMesoPrice);
+        var buyMesoWonVal = (buyMesoAmt*buyMesoPrice).toLocaleString('ko-KR', option);
         $("#buyMesoWon").val(buyMesoWonVal);
     }
 
     if(thisId == "buyMesoAmt"){
-        var buyMesoWonVal = customFormatNumber(buyMesoAmt*buyMesoPrice);
+        var buyMesoWonVal = (buyMesoAmt*buyMesoPrice).toLocaleString('ko-KR', option);
         $("#buyMesoWon").val(buyMesoWonVal);
     }
 
     if(thisId == "buyMesoWon"){
-        var buyMesoAmtVal = customFormatNumber(buyMesoWon/buyMesoPrice);
+        var buyMesoAmtVal = (buyMesoWon/buyMesoPrice).toLocaleString('ko-KR', option);
         $("#buyMesoAmt").val(buyMesoAmtVal);
     }
 
