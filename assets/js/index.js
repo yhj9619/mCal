@@ -85,27 +85,27 @@ $(document).ready(function() {
 });
 
 function firstValSetting(){
-    $("#presentMeso").val('1,550');
-    $("#presentMepo").val('1,800');
+    $("#presentMeso").val('1,500');
+    $("#presentMepo").val('1,740');
     $("#percentMVP").val('8,500');
     $("#discountRate").val('10');
     $('input[name="auctionCharge"]')[0].checked = true;
 
-    $("#juhwaVal").val('68,148,600');
+    $("#juhwaVal").val('71,995,300');
     
     $("#pcFee").val('3,000');
     $("#pcHH").val('2');
     $("#pcMM").val('40');
-    $("#piecePrice").val('8,888,888');
+    $("#piecePrice").val('8,299,999');
 
-    $("#pastMeso").val('2,000');
+    $("#pastMeso").val('1,800');
     $("#presentItem").val('0');
     $("#pastItem").val('0');
 
     $("#itemMesoVal").val('0');
 
     $('input[name="juHeun50Event"]')[0].checked = true;
-    $("#juHeunPrice").val('0');
+    $("#juHeunPrice").val('5,000');
 
     $("#saleMeso").val('0');
     $("#memberCnt").val('1');
@@ -136,6 +136,8 @@ function dataLoad(){
 
     vItemMesoVal = localStorage.getItem('itemMesoVal'); 
 
+    vJuHeunPrice = localStorage.getItem('juHeunPrice');
+
     if (vPresentMeso) {
       document.getElementById('presentMeso').value = vPresentMeso;
     }
@@ -151,7 +153,6 @@ function dataLoad(){
     if (vAuctionCharge) {
         $('#'+vAuctionCharge+"per").attr("checked", true);
     }
-
     if (vPcFee) {
         document.getElementById('pcFee').value = vPcFee;
     }
@@ -164,20 +165,20 @@ function dataLoad(){
     if (vPiecePrice) {
         document.getElementById('piecePrice').value = vPiecePrice;
     }
-
     if (vJuhwaVal) {
         document.getElementById('juhwaVal').value = vJuhwaVal;
     }
     if (vJuhwaCnt) {
         document.getElementById('juhwaCnt').value = vJuhwaCnt;
     }
-
     if (vPastMeso) {
         document.getElementById('pastMeso').value = vPastMeso;
     }
-
     if (vItemMesoVal) {
         document.getElementById('itemMesoVal').value = vItemMesoVal;
+    }
+    if (vJuHeunPrice) {
+        document.getElementById('juHeunPrice').value = vJuHeunPrice;
     }
     
 }
@@ -202,6 +203,8 @@ function saveData() {
 
     vItemMesoVal = document.getElementById('itemMesoVal').value;
 
+    vJuHeunPrice = document.getElementById('juHeunPrice').value;
+
     localStorage.setItem('presentMeso', vPresentMeso);
     localStorage.setItem('presentMepo', vPresentMepo);
     localStorage.setItem('percentMVP', vPercentMVP);
@@ -219,6 +222,8 @@ function saveData() {
     localStorage.setItem('pastMeso', vPastMeso);
 
     localStorage.setItem('itemMesoVal', vItemMesoVal);
+
+    localStorage.setItem('juHeunPrice', vJuHeunPrice);
 }
 
  // 데이터 초기화 함수
@@ -243,6 +248,8 @@ function clearData() {
 
     localStorage.removeItem('itemMesoVal');
 
+    localStorage.removeItem('juHeunPrice');
+
     // 모든 라디오 버튼 선택 해제
     $('input[name="auctionCharge"]').removeAttr('checked');
     firstValSetting();
@@ -262,6 +269,41 @@ function onlyNumberWithComma(obj) {
     
     //다시 value 지정해주기
     obj.value = number;
+}
+
+function customFormatNumber(value) {
+    if (isNaN(value) || value === null || value === '') return '';
+
+    let roundedValue = parseFloat(value).toFixed(2);  // 🔹 소수점 2자리까지 반올림
+    let [integerDigits, decimalPart] = roundedValue.split('.');  // 🔹 정수부 & 소수부 분리
+
+    // 🔹 1억 미만이면 일반 숫자 포맷 적용 후 반환
+    if (parseInt(integerDigits) < 100000000) {
+        return integerDigits.replace(/\B(?=(\d{3})+(?!\d))/g, ",") + 
+            (decimalPart ? `<span style="font-weight: lighter;">.${decimalPart}</span>` : '');
+    }
+
+    // 🔹 **1억 이상이면 9번째 자리 이상을 볼드 처리**
+    let splitIndex = integerDigits.length - 11;
+    let borderPart = integerDigits.substring(0, splitIndex);
+    let restPart = integerDigits.substring(splitIndex);
+
+    // 🔹 **전체 숫자를 먼저 `toLocaleString()`으로 포맷하여 콤마 추가**
+    let formattedNumber = parseInt(integerDigits).toLocaleString('ko-KR', { maximumFractionDigits: 2 });
+
+    // 🔹 **굵은 부분을 찾고 나머지 숫자를 정확하게 분리**
+    let formattedBolderPart = formattedNumber.substring(0, formattedNumber.length - restPart.length);
+    let formattedRestPart = formattedNumber.substring(formattedNumber.length - restPart.length);
+
+    // 🔹 **최종 조합 (굵은 부분 + 일반 숫자 부분)**
+    let coloredInteger = `<span style="font-weight: bolder;">${formattedBolderPart}</span>${formattedRestPart}`;
+
+    // 🔹 **소수점 이하 2자리까지 연하게 처리**
+    let coloredDecimal = decimalPart 
+        ? `<span style="font-weight: lighter;">.${decimalPart}</span>` 
+        : '';
+
+    return coloredInteger + coloredDecimal;
 }
 
 function fn_collection(thisId){
@@ -335,11 +377,11 @@ function fn_mesoMarket(){
     //직작으로 캐시 1만원을 충전하고 돌려받을 수 있는 현금
     var selfMVPReturn = tenThsd/vPresentMepo*vPresentMeso;
 
-    $("#sellMeso").text(moneyTransMepo.toLocaleString('ko-KR', option));
-    $("#marketParam1").text(moneyTransMepo.toLocaleString('ko-KR', option));
-    $("#marketParam2").text(for1MilWithPerson.toLocaleString('ko-KR', option));
-    $("#marketParam3").text(for1MilWithMarket.toLocaleString('ko-KR', option));
-    $("#marketParam4").text((mvpCost).toLocaleString('ko-KR', option));
+    $("#sellMeso").html(customFormatNumber(moneyTransMepo));
+    $("#marketParam1").html(customFormatNumber(moneyTransMepo));
+    $("#marketParam2").html(customFormatNumber(for1MilWithPerson));
+    $("#marketParam3").html(customFormatNumber(for1MilWithMarket));
+    $("#marketParam4").html(customFormatNumber(mvpCost));
     if(selfMVPReturn > vPercentMVP){
         $("#marketParam5").text("직작하세요.");
     }else{
@@ -360,14 +402,14 @@ function fn_juhwa(){
 
     if(juhwaVal != "" && juhwaVal != null){
         var juhwaMeso = (juhwaVal/oneHunMil)
-        $("#juhwa1").text((juhwaMeso*juhwaCnt).toLocaleString('ko-KR', option));
-        $("#juhwa2").text(((juhwaMeso*realMepo-300)*juhwaCnt).toLocaleString('ko-KR', option));
+        $("#juhwa1").html(customFormatNumber(juhwaMeso*juhwaCnt));
+        $("#juhwa2").html(customFormatNumber((juhwaMeso*realMepo-300)*juhwaCnt));
 
         var azmVal = Number(juhwaMeso*realMepo-300)*3
         if(azmVal>2500){
-            $("#juhwa3").text("사세요.(1,000점당 "+(azmVal-2500).toLocaleString('ko-KR', option)+"메포 이득)");
+            $("#juhwa3").html("<span>사세요.(1,000점당 </span>"+customFormatNumber(azmVal-2500)+"<span>메포 이득)</span>");
         }else{
-            $("#juhwa3").text("사지마세요.(1,000점당 "+(2500-azmVal).toLocaleString('ko-KR', option)+"메포 손해)");
+            $("#juhwa3").html("<span>사지마세요.(1,000점당 </span>"+customFormatNumber(2500-azmVal)+"<span>메포 손해)<span>");
         }
     }else{
         $("#juhwa1").text('');
@@ -387,11 +429,11 @@ function fn_pcRoom(){
     var daysWon = (ninetyPrice/10);
     var endsWon = (ninetyPrice/15);
 
-    $("#pcRoom1").text(totMin.toLocaleString('ko-KR', option));
-    $("#pcRoom2").text(ninetyPrice.toLocaleString('ko-KR', option));
-    $("#pcRoom3").text(pieceWon.toLocaleString('ko-KR', option));
-    $("#pcRoom4").text(daysWon.toLocaleString('ko-KR', option));
-    $("#pcRoom5").text(endsWon.toLocaleString('ko-KR', option));
+    $("#pcRoom1").html(customFormatNumber(totMin));
+    $("#pcRoom2").html(customFormatNumber(ninetyPrice));
+    $("#pcRoom3").html(customFormatNumber(pieceWon));
+    $("#pcRoom4").html(customFormatNumber(daysWon));
+    $("#pcRoom5").html(customFormatNumber(endsWon));
     if(pieceWon > daysWon){
         $("#pcRoom6").text("가세요.");
     }else{
@@ -411,8 +453,8 @@ function fn_valueOf(){
     var presentItem = $("#presentItem").val().replace(/,/g, '');
     var pastItem = $("#pastItem").val().replace(/,/g, '');
 
-    $("#valueOf1").text((presentItem/pastMeso*vPresentMeso).toLocaleString('ko-KR', option));
-    $("#valueOf2").text((pastItem/vPresentMeso*pastMeso).toLocaleString('ko-KR', option));
+    $("#valueOf1").html(customFormatNumber(presentItem/pastMeso*vPresentMeso));
+    $("#valueOf2").html(customFormatNumber(pastItem/vPresentMeso*pastMeso));
 }
 
 function fn_mesoToWon(){
@@ -424,9 +466,9 @@ function fn_mesoToWon(){
     auctionRate = 1-vAuctionCharge/100
     //1d억
 
-    $("#mesoToWon1").text((psm*itemMesoVal/oneHunMil*auctionRate).toLocaleString('ko-KR', option));
-    $("#mesoToWon2").text((psm*itemMesoVal/oneHunMil).toLocaleString('ko-KR', option));
-    $("#mesoToWon3").text((psm*itemMesoVal/oneHunMil/auctionRate).toLocaleString('ko-KR', option));
+    $("#mesoToWon1").html(customFormatNumber(psm*itemMesoVal/oneHunMil*auctionRate));
+    $("#mesoToWon2").html(customFormatNumber(psm*itemMesoVal/oneHunMil));
+    $("#mesoToWon3").html(customFormatNumber(psm*itemMesoVal/oneHunMil/auctionRate));
     
 }
 
@@ -438,24 +480,24 @@ function fn_juHeunVal(){
     
     var juHeunCalMeso = juHeun50Event*juHeunPrice/oneHunMil;
 
-    $("#juHeunVal1").text((12000*juHeunCalMeso).toLocaleString('ko-KR', option)+"억/"
-                        +(12000*juHeunCalMeso*vPresentMeso).toLocaleString('ko-KR', option)+"원");
-    $("#juHeunVal2").text((20000*juHeunCalMeso).toLocaleString('ko-KR', option)+"억/"
-                        +(20000*juHeunCalMeso*vPresentMeso).toLocaleString('ko-KR', option)+"원");
-    $("#juHeunVal3").text((24000*juHeunCalMeso).toLocaleString('ko-KR', option)+"억/"
-                        +(24000*juHeunCalMeso*vPresentMeso).toLocaleString('ko-KR', option)+"원");
+    $("#juHeunVal1").html(customFormatNumber(12000*juHeunCalMeso)+"<span>억/</span>"
+                        +customFormatNumber(12000*juHeunCalMeso*vPresentMeso)+"<span>원</span>");
+    $("#juHeunVal2").html(customFormatNumber(20000*juHeunCalMeso)+"<span>억/</span>"
+                        +customFormatNumber(20000*juHeunCalMeso*vPresentMeso)+"원</span>");
+    $("#juHeunVal3").html(customFormatNumber(24000*juHeunCalMeso)+"<span>억/</span>"
+                        +customFormatNumber(24000*juHeunCalMeso*vPresentMeso)+"<span>원</span>");
 
-    $("#juHeunVal4").text((juHeunPiece*juHeunPrice).toLocaleString('ko-KR', option));
-    $("#juHeunVal5").text((juHeunPiece*juHeunPrice*vPresentMeso/oneHunMil).toLocaleString('ko-KR', option));
-    $("#juHeunVal6").text((juHeunBundle*juHeunPrice*9000).toLocaleString('ko-KR', option));
-    $("#juHeunVal7").text((juHeunBundle*juHeunPrice*vPresentMeso*9000/oneHunMil).toLocaleString('ko-KR', option));
+    $("#juHeunVal4").html(customFormatNumber(juHeunPiece*juHeunPrice));
+    $("#juHeunVal5").html(customFormatNumber(juHeunPiece*juHeunPrice*vPresentMeso/oneHunMil));
+    $("#juHeunVal6").html(customFormatNumber(juHeunBundle*juHeunPrice*9000));
+    $("#juHeunVal7").html(customFormatNumber(juHeunBundle*juHeunPrice*vPresentMeso*9000/oneHunMil));
 }
 
 function fn_equalBunbae(){
     var saleMeso = Math.ceil(($("#saleMeso").val().replace(/[^0-9]/g,''))*auctionRate);
     var memberCnt = $("#memberCnt").val().replace(/,/g, '');
-    $("#equalBunbaeMeso").text((saleMeso/memberCnt).toLocaleString('ko-KR', option));
-    $("#equalBunbaeWon").text((saleMeso/memberCnt/oneHunMil*vPresentMeso).toLocaleString('ko-KR', option));
+    $("#equalBunbaeMeso").html(customFormatNumber(saleMeso / memberCnt));
+    $("#equalBunbaeWon").html(customFormatNumber(saleMeso/memberCnt/oneHunMil*vPresentMeso));
 }
 
 function fn_customBunbae(){
@@ -480,8 +522,8 @@ function fn_customBunbae(){
         var stackValue = Number(memberStacks[i]) || 0; // NaN 방지
         
         if (memberStackSum > 0) {
-            var mesoShare = (saleMeso / memberStackSum * stackValue).toLocaleString('ko-KR', option);
-            var wonShare = (saleMeso / memberStackSum * stackValue / oneHunMil * vPresentMeso.replace(/,/g , '')).toLocaleString('ko-KR', option);
+            var mesoShare = customFormatNumber(saleMeso / memberStackSum * stackValue);
+            var wonShare = customFormatNumber(saleMeso / memberStackSum * stackValue / oneHunMil * vPresentMeso.replace(/,/g , ''));
 
 
             $(`#customBunbaeMeso${i}`).text(mesoShare);
@@ -499,17 +541,17 @@ function fn_saleProfit(thisId){
     var buyMesoWon = $("#buyMesoWon").val().replace(/,/g, '');;
     
     if(thisId == "buyMesoPrice"){
-        var buyMesoWonVal = (buyMesoAmt*buyMesoPrice).toLocaleString('ko-KR', option);
+        var buyMesoWonVal = customFormatNumber(buyMesoAmt*buyMesoPrice);
         $("#buyMesoWon").val(buyMesoWonVal);
     }
 
     if(thisId == "buyMesoAmt"){
-        var buyMesoWonVal = (buyMesoAmt*buyMesoPrice).toLocaleString('ko-KR', option);
+        var buyMesoWonVal = customFormatNumber(buyMesoAmt*buyMesoPrice);
         $("#buyMesoWon").val(buyMesoWonVal);
     }
 
     if(thisId == "buyMesoWon"){
-        var buyMesoAmtVal = (buyMesoWon/buyMesoPrice).toLocaleString('ko-KR', option);
+        var buyMesoAmtVal = customFormatNumber(buyMesoWon/buyMesoPrice);
         $("#buyMesoAmt").val(buyMesoAmtVal);
     }
 
@@ -523,12 +565,12 @@ function fn_saleProfit(thisId){
         var saleProfitVal = saleMesoWon-buyMesoWon;
         var saleProfitPercent = saleProfitVal/buyMesoWon*100;
 
-        $('#saleProfit1').text(realMeso.toLocaleString('ko-KR', option));
-        $('#saleProfit2').text(saleProfitVal.toLocaleString('ko-KR', option));
-        $('#saleProfit3').text(
+        $('#saleProfit1').html(customFormatNumber(realMeso));
+        $('#saleProfit2').html(customFormatNumber(saleProfitVal));
+        $('#saleProfit3').html(
             isNaN(saleProfitPercent) || saleProfitPercent === null || saleProfitPercent === '' 
             ? '' 
-            : saleProfitPercent.toLocaleString('ko-KR', option)
+            : customFormatNumber(saleProfitPercent)
         );
       }, "300");
 }
