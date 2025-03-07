@@ -277,33 +277,23 @@ function customFormatNumber(value) {
     let roundedValue = parseFloat(value).toFixed(2);  // 🔹 소수점 2자리까지 반올림
     let [integerDigits, decimalPart] = roundedValue.split('.');  // 🔹 정수부 & 소수부 분리
 
-    // 🔹 1억 미만이면 일반 숫자 포맷 적용 후 반환
-    if (parseInt(integerDigits) < 100000000) {
-        return integerDigits.replace(/\B(?=(\d{3})+(?!\d))/g, ",") + 
-            (decimalPart ? `<span style="font-weight: lighter;">.${decimalPart}</span>` : '');
+    // 🔹 천 단위 콤마 적용
+    let formattedNumber = parseInt(integerDigits).toLocaleString('ko-KR');
+
+    // 🔹 1억 이상이면 (n억) 또는 (약 n.nn억) 추가
+    let extraText = "";
+    if (parseInt(integerDigits) >= 100000000) {
+        let eokValue = (parseInt(integerDigits) / 100000000);  // 🔹 억 단위 변환
+        let roundedEokValue = eokValue.toFixed(2);  // 🔹 소수점 2자리 유지
+
+        // 🔹 정확히 떨어지는 경우 (n억), 그렇지 않으면 (약 n.nn억)
+        extraText = (eokValue % 1 === 0) 
+            ? ` (${parseInt(eokValue)}억)` 
+            : ` (약 ${roundedEokValue}억)`;
     }
 
-    // 🔹 **1억 이상이면 9번째 자리 이상을 볼드 처리**
-    let splitIndex = integerDigits.length - 11;
-    let borderPart = integerDigits.substring(0, splitIndex);
-    let restPart = integerDigits.substring(splitIndex);
-
-    // 🔹 **전체 숫자를 먼저 `toLocaleString()`으로 포맷하여 콤마 추가**
-    let formattedNumber = parseInt(integerDigits).toLocaleString('ko-KR', option);
-
-    // 🔹 **굵은 부분을 찾고 나머지 숫자를 정확하게 분리**
-    let formattedBolderPart = formattedNumber.substring(0, formattedNumber.length - restPart.length);
-    let formattedRestPart = formattedNumber.substring(formattedNumber.length - restPart.length);
-
-    // 🔹 **최종 조합 (굵은 부분 + 일반 숫자 부분)**
-    let coloredInteger = `<span style="font-weight: bolder;">${formattedBolderPart}</span>${formattedRestPart}`;
-
-    // 🔹 **소수점 이하 2자리까지 연하게 처리**
-    let coloredDecimal = decimalPart 
-        ? `<span style="font-weight: lighter;">.${decimalPart}</span>` 
-        : '';
-
-    return coloredInteger + coloredDecimal;
+    // 🔹 최종 문자열 조합
+    return `${formattedNumber}.${decimalPart}${extraText}`;
 }
 
 function fn_collection(thisId){
