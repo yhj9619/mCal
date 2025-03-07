@@ -25,6 +25,9 @@ var vPastMeso;
 
 var vItemMesoVal
 
+var vJuHeunPrice;
+var vAzmPotionPrice;
+
 const option = {
     maximumFractionDigits: 2
   };
@@ -85,13 +88,13 @@ $(document).ready(function() {
 });
 
 function firstValSetting(){
-    $("#presentMeso").val('1,500');
-    $("#presentMepo").val('1,740');
+    $("#presentMeso").val('1,450');
+    $("#presentMepo").val('1,730');
     $("#percentMVP").val('8,500');
     $("#discountRate").val('10');
     $('input[name="auctionCharge"]')[0].checked = true;
 
-    $("#juhwaVal").val('71,995,300');
+    $("#juhwaVal").val('71,628,700');
     
     $("#pcFee").val('3,000');
     $("#pcHH").val('2');
@@ -106,6 +109,7 @@ function firstValSetting(){
 
     $('input[name="juHeun50Event"]')[0].checked = true;
     $("#juHeunPrice").val('5,000');
+    $("#azmPotionPrice").val('4,000,000');
 
     $("#saleMeso").val('0');
     $("#memberCnt").val('1');
@@ -137,6 +141,7 @@ function dataLoad(){
     vItemMesoVal = localStorage.getItem('itemMesoVal'); 
 
     vJuHeunPrice = localStorage.getItem('juHeunPrice');
+    vAzmPotionPrice = localStorage.getItem('azmPotionPrice');
 
     if (vPresentMeso) {
       document.getElementById('presentMeso').value = vPresentMeso;
@@ -180,6 +185,9 @@ function dataLoad(){
     if (vJuHeunPrice) {
         document.getElementById('juHeunPrice').value = vJuHeunPrice;
     }
+    if (vAzmPotionPrice) {
+        document.getElementById('azmPotionPrice').value = vAzmPotionPrice;
+    }
     
 }
 
@@ -204,6 +212,7 @@ function saveData() {
     vItemMesoVal = document.getElementById('itemMesoVal').value;
 
     vJuHeunPrice = document.getElementById('juHeunPrice').value;
+    vAzmPotionPrice = document.getElementById('azmPotionPrice').value;
 
     localStorage.setItem('presentMeso', vPresentMeso);
     localStorage.setItem('presentMepo', vPresentMepo);
@@ -224,6 +233,7 @@ function saveData() {
     localStorage.setItem('itemMesoVal', vItemMesoVal);
 
     localStorage.setItem('juHeunPrice', vJuHeunPrice);
+    localStorage.setItem('azmPotionPrice', vAzmPotionPrice);
 }
 
  // 데이터 초기화 함수
@@ -249,6 +259,7 @@ function clearData() {
     localStorage.removeItem('itemMesoVal');
 
     localStorage.removeItem('juHeunPrice');
+    localStorage.removeItem('azmPotionPrice');
 
     // 모든 라디오 버튼 선택 해제
     $('input[name="auctionCharge"]').removeAttr('checked');
@@ -481,6 +492,33 @@ function fn_juHeunVal(){
     $("#juHeunVal5").html(customFormatNumber(juHeunPiece*juHeunPrice*vPresentMeso/oneHunMil));
     $("#juHeunVal6").html(customFormatNumber(juHeunBundle*juHeunPrice*9000));
     $("#juHeunVal7").html(customFormatNumber(juHeunBundle*juHeunPrice*vPresentMeso*9000/oneHunMil));
+
+    var azmPotionPrice = $("#azmPotionPrice").val().replace(/,/g, '');
+
+    $("#azmVal1").html(customFormatNumber(azmPotionPrice/50*10/oneHunMil)+"<span>억/</span>"
+                    +customFormatNumber(azmPotionPrice/50*10/oneHunMil*vPresentMeso)+"<span>원</span>");
+    $("#azmVal2").html(customFormatNumber(azmPotionPrice/50*20/oneHunMil)+"<span>억/</span>"
+                        +customFormatNumber(azmPotionPrice/50*20/oneHunMil*vPresentMeso)+"<span>원</span>");
+    $("#azmVal3").html(customFormatNumber(azmPotionPrice/50*50/oneHunMil)+"<span>억/</span>"
+                        +customFormatNumber(azmPotionPrice/50*50/oneHunMil*vPresentMeso)+"<span>원</span>");
+    $("#azmVal4").html(customFormatNumber(azmPotionPrice/50*100/oneHunMil)+"<span>억/</span>"
+                        +customFormatNumber(azmPotionPrice/50*100/oneHunMil*vPresentMeso)+"<span>원</span>");
+    $("#azmVal5").html(customFormatNumber(azmPotionPrice/50*120/oneHunMil)+"<span>억/</span>"
+                        +customFormatNumber(azmPotionPrice/50*120/oneHunMil*vPresentMeso)+"<span>원</span>");
+
+
+    if(juHeunPrice == null || juHeunPrice == "" || juHeunPrice == 0 || azmPotionPrice == null || azmPotionPrice == "" || azmPotionPrice == 0 ){
+        $("#azmVal6").text("주흔 가격과 아즈모스 영약 가격을 같이 입력해주세요.");
+    }else{
+        if(juHeunCalMeso*20000 > azmPotionPrice/50*100/oneHunMil){
+            $("#azmVal6").text("아즈모스에서 사고 영약 경매장에서 사드세요.");
+        }else{
+            $("#azmVal6").text("주흔으로 사고 영약 경매장에 파세요.");
+        }
+    }
+
+    
+    
 }
 
 function fn_equalBunbae(){

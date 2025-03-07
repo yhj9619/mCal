@@ -43,7 +43,7 @@
 		<meta property="og:title" content="메산기">
 		<meta
 		property="og:description"
-		content="메이플스토리 메소 및 메포 계산기, 메산기, 메소마켓효율, 보상분배계산기, 아이템의 현금가치, 과거와 현재의 아이템 가치, 메소판매차익, 골드주화가치, 주흔계산기, 피방조각효율"
+		content="메이플스토리 메소 및 메포 계산기, 메산기, 메소마켓효율, 보상분배계산기, 아이템의 현금가치, 과거와 현재의 아이템 가치, 메소판매차익, 골드주화가치, 주흔계산기, 아즈모스코인계산기, 피방조각효율"
 		/>
 		<meta property="og:image" content="https://mesangi.com/images/mapleIcon.png" />
 		<meta property="og:site_name" content="메산기" />
@@ -118,7 +118,7 @@
 								<li><a href="#valueOf" id="valueOf-link"><span class="icon solid fa-th">과거와 현재 아이템 가치</span></a></li>
 								<li><a href="#saleProfit" id="saleProfit-link"><span class="icon solid fa-th">메소판매차익</span></a></li>
 								<li><a href="#juhwa" id="juhwa-link"><span class="icon solid fa-question-circle">골드주화가치</span></a></li>
-								<li><a href="#juHeunVal" id="juHeunVa-link"><span class="icon solid fa-square">주흔계산기</span></a></li>
+								<li><a href="#juHeunVal" id="juHeunVa-link"><span class="icon solid fa-square">주흔&아즈모스코인가치</span></a></li>
 								<li><a href="#pcRoom" id="pcRoom-link"><span class="icon solid fa-users-cog">피방조각효율</span></a></li>
 							</ul>
 						</nav>
@@ -481,8 +481,9 @@
 				<section id="juHeunVal" class="eight">
 					<div class="container">
 						<header>
-							<h2>주흔계산기</h2>
+							<h2>주흔&아즈모스코인가치</h2>
 						</header>
+						<h3>주흔가치</h3>
 						<div>
 							<div class="radioSelect"> 
 								<input type="radio" id="N" name="juHeun50Event" value="1"><label for="N">일반</label>
@@ -552,7 +553,47 @@
 								</tbody>
 							</table>
 						</div>
-
+						<h3>아즈모스코인가치</h3>
+						<div class="inputClass tooltip-container">
+							<label for="azmPotionPrice" class="tooltip-label">아즈모스영약가격</label>
+							<input type="text" class="txt-input" name="azmPotionPrice" id="azmPotionPrice" 
+							oninput="onlyNumberWithComma(this);" placeholder="아즈모스영약 경매장가격"/>
+							<span class="tooltip-text2">
+								아즈모스 코인샵 판매목록 중 유일한 거래가능 아이템인 <br>
+								영약 기준으로 아즈모스 코인샵 아이템의 가치를 책정합니다.
+							</span>
+						</div>
+						<div class="flip-scroll">
+							<table class="mTable">
+								<colgroup>
+									<col width="20%" />
+									<col width="20%" />
+									<col width="20%" />
+									<col width="20%" />
+									<col width="20%" />
+								</colgroup>
+								<thead>
+									<tr>
+										<th scope="col">강환불/수에큡</th>
+										<th scope="col">영환불/장큡</th>
+										<th scope="col">검환불/명큡</th>
+										<th scope="col">순줌</th>
+										<th scope="col">아크이노</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td data-label="강환불/수에큡"><span id="azmVal1"></td>
+										<td data-label="영환불/장큡"><span id="azmVal2"></td>
+										<td data-label="검환불/명큡"><span id="azmVal3"></span></td>
+										<td data-label="순줌"><span id="azmVal4"></span></td>
+										<td data-label="아크이노"><span id="azmVal5"></span></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<p>Q. 순줌/아크이노는 어디서 수급해요?<br>
+							A. <span id="azmVal6"></p>
 					</div>
 				</section>
 
