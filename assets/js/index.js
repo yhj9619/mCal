@@ -88,13 +88,13 @@ $(document).ready(function() {
 });
 
 function firstValSetting(){
-    $("#presentMeso").val('1,450');
-    $("#presentMepo").val('1,730');
-    $("#percentMVP").val('8,500');
+    $("#presentMeso").val('1,300');
+    $("#presentMepo").val('1,620');
+    $("#percentMVP").val('8,300');
     $("#discountRate").val('10');
     $('input[name="auctionCharge"]')[0].checked = true;
 
-    $("#juhwaVal").val('71,628,700');
+    $("#juhwaVal").val('79,121,900');
     
     $("#pcFee").val('3,000');
     $("#pcHH").val('2');
