@@ -495,16 +495,16 @@ function fn_juHeunVal(){
 
     var azmPotionPrice = $("#azmPotionPrice").val().replace(/,/g, '');
 
-    $("#azmVal1").html(customFormatNumber(azmPotionPrice/50*10/oneHunMil)+"<span>억/</span>"
-                    +customFormatNumber(azmPotionPrice/50*10/oneHunMil*vPresentMeso)+"<span>원</span>");
-    $("#azmVal2").html(customFormatNumber(azmPotionPrice/50*20/oneHunMil)+"<span>억/</span>"
-                        +customFormatNumber(azmPotionPrice/50*20/oneHunMil*vPresentMeso)+"<span>원</span>");
-    $("#azmVal3").html(customFormatNumber(azmPotionPrice/50*50/oneHunMil)+"<span>억/</span>"
-                        +customFormatNumber(azmPotionPrice/50*50/oneHunMil*vPresentMeso)+"<span>원</span>");
-    $("#azmVal4").html(customFormatNumber(azmPotionPrice/50*100/oneHunMil)+"<span>억/</span>"
-                        +customFormatNumber(azmPotionPrice/50*100/oneHunMil*vPresentMeso)+"<span>원</span>");
-    $("#azmVal5").html(customFormatNumber(azmPotionPrice/50*120/oneHunMil)+"<span>억/</span>"
-                        +customFormatNumber(azmPotionPrice/50*120/oneHunMil*vPresentMeso)+"<span>원</span>");
+    $("#azmVal1").html(customFormatNumber(azmPotionPrice/50*10/oneHunMil)+"<span>억(</span>"
+                    +customFormatNumber(azmPotionPrice/50*10/oneHunMil*vPresentMeso)+"<span>원)</span>");
+    $("#azmVal2").html(customFormatNumber(azmPotionPrice/50*20/oneHunMil)+"<span>억(</span>"
+                        +customFormatNumber(azmPotionPrice/50*20/oneHunMil*vPresentMeso)+"<span>원)</span>");
+    $("#azmVal3").html(customFormatNumber(azmPotionPrice/50*50/oneHunMil)+"<span>억(</span>"
+                        +customFormatNumber(azmPotionPrice/50*50/oneHunMil*vPresentMeso)+"<span>원)</span>");
+    $("#azmVal4").html(customFormatNumber(azmPotionPrice/50*100/oneHunMil)+"<span>억(</span>"
+                        +customFormatNumber(azmPotionPrice/50*100/oneHunMil*vPresentMeso)+"<span>원)</span>");
+    $("#azmVal5").html(customFormatNumber(azmPotionPrice/50*120/oneHunMil)+"<span>억(</span>"
+                        +customFormatNumber(azmPotionPrice/50*120/oneHunMil*vPresentMeso)+"<span>원)</span>");
 
 
     if(juHeunPrice == null || juHeunPrice == "" || juHeunPrice == 0 || azmPotionPrice == null || azmPotionPrice == "" || azmPotionPrice == 0 ){
