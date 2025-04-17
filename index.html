@@ -43,7 +43,7 @@
 		<meta property="og:title" content="메산기">
 		<meta
 		property="og:description"
-		content="메이플스토리 메소 및 메포 계산기, 메산기, 메소마켓효율, 보상분배계산기, 아이템의 현금가치, 과거와 현재의 아이템 가치, 메소판매차익, 골드주화가치, 주흔계산기, 아즈모스코인계산기, 피방조각효율"
+		content="메이플스토리 메소 및 메포 계산기, 메산기, 메소마켓효율, 메소 메포 구매효율, MVP작 효율, 보상분배계산기, 아이템의 현금가치, 과거와 현재의 아이템 가치, 메소판매차익, 골드주화가치, 주흔계산기, 아즈모스코인계산기, 피방조각효율"
 		/>
 		<meta property="og:image" content="https://mesangi.com/images/mapleIcon.png" />
 		<meta property="og:site_name" content="메산기" />
@@ -74,13 +74,18 @@
 									<input type="text" class="txt-input" name="presentMepo" id="presentMepo" 
 									oninput="onlyNumberWithComma(this);" placeholder="메소마켓 거래가" />
 								</div>
-								<div class="inputClass">
-									<label for="percentMVP">엠작비율</label>
+								<div class="inputClass tooltip-container">
+									<label for="percentMVP" class="tooltip-label">엠작비율</label>
 									<input type="text" class="txt-input" name="percentMVP" id="percentMVP" 
 									oninput="onlyNumberWithComma(this);" placeholder="MVP 작 비율"/>
+									<span class="tooltip-text">
+										라운지 전서버공용채널<br>
+										MVP작-메포 카테고리에서<br>
+										실제로 거래되는 메포비율
+									</span>
 								</div>
 								<div class="inputClass tooltip-container"> 
-									<label for="discountRate" class="tooltip-label">캐시할인율</label>
+									<label for="discountRate" class="tooltip-label">충전할인율</label>
 									<input type="text" class="txt-input" name="discountRate" id="discountRate" 
 									oninput="onlyNumberWithComma(this);" placeholder="캐시충전 할인율"/>
 									<span class="tooltip-text">
@@ -112,7 +117,7 @@
 						<nav id="nav">
 							<ul>
 								<li><a href="#top" id="top-link"><span class="icon solid fa-home">메이플계산기 소개</span></a></li>
-								<li><a href="#mesoMarket" id="mesoMarket-link"><span class="icon solid fa-utensil-spoon">메소마켓효율</span></a></li>
+								<li><a href="#mesoMarket" id="mesoMarket-link"><span class="icon solid fa-utensil-spoon">메소,메포 구매 및 MVP작 효율</span></a></li>
 								<li><a href="#bunbae" id="bunbae-link"><span class="icon solid fa-bezier-curve">보상분배계산기</span></a></li>
 								<li><a href="#mesoToWon" id="mesoToWon-link"><span class="icon solid fa-money-bill">아이템의 현금가치</span></a></li>
 								<li><a href="#valueOf" id="valueOf-link"><span class="icon solid fa-th">과거와 현재 아이템 가치</span></a></li>
@@ -163,9 +168,9 @@
 					<section id="mesoMarket" class="two">
 						<div class="container">
 							<header>
-								<h2>메소마켓효율</h2>
+								<h2>메소, 메포 구매 및 MVP작 효율</h2>
 							</header>
-							<div class="flip-scroll">
+							<!-- <div class="flip-scroll">
 								<table class="mTable">
 									<colgroup>
 										<col width="20%" />
@@ -193,19 +198,88 @@
 										</tr>
 									</tbody>
 								</table>
+							</div> -->
+
+							<h4>메소구매(1억당)</h4>
+							<div class="flip-scroll">
+								<table class="mTable">
+									<colgroup>
+										<col width="20%" />
+										<col width="20%" />
+										<col width="60%" />
+									</colgroup>
+									<thead>
+										<tr>
+											<th scope="col">라운지</th>
+											<th scope="col">메소마켓</th>
+											<th scope="col">결론</th>
+										</tr>
+									</thead>
+									<tbody>
+										
+										<tr>
+											<td data-label="라운지"><span id="marketParam1" class="pointSpan"></span>원</td>
+											<td data-label="메소마켓"><span id="marketParam2" class="pointSpan"></span>원</td>
+											<td data-label="결론"><span id="marketParam3"/></td>
+										</tr>
+									</tbody>
+								</table>
 							</div>
-							<h4>[메소마켓에서 메포 구매]</h4>
-							<p><span id="marketParam1" class="pointSpan"></span>원에 1만 메포를 구매하는 것과 같습니다.</p>
-								
-							<h4>[인게임 1억 구매]</h4>
-							<p>사람간 거래는 <span id="marketParam2" class="pointSpan"></span>원, <br>
-								메소마켓 거래는 <span id="marketParam3" class="pointSpan"></span>원이 필요합니다.</p>
-								
-							<h4>[캐시샵 메포구매 → 메소마켓 메소구매 → 라운지 메소판매 엠작직작]</h4>
-							<p>현금 <span id="marketParam4" class="pointSpan"></span>원으로 MVP실적 1만원을  채우는 꼴입니다.<br><br>
-							Q.엠작직작 할?말?<br>
-							A.<span id="marketParam5"></span><br>
-							(직작 시 <span id="marketParam6" class="pointSpan"></span>비율)</p>
+
+							<h4>메포구매(1만원당)</h4>
+							<div class="flip-scroll">
+								<table class="mTable">
+									<colgroup>
+										<col width="20%" />
+										<col width="20%" />
+										<col width="60%" />
+									</colgroup>
+									<thead>
+										<tr>
+											<th scope="col">선물식</th>
+											<th scope="col">메소마켓</th>
+											<th scope="col">결론</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td data-label="선물식"><span id="marketParam4" class="pointSpan"></span>원</td>
+											<td data-label="메소마켓"><span id="marketParam5" class="pointSpan"></span>원</td>
+											<td data-label="결론"><span id="marketParam6"/></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							
+
+							<h4>MVP작비용(1만원당)</h4>
+							<div class="flip-scroll">
+								<table class="mTable">
+									<colgroup>
+										<col width="20%" />
+										<col width="20%" />
+										<col width="60%" />
+									</colgroup>
+									<thead>
+										<tr>
+											<th scope="col">선물식</th>
+											<th scope="col">메소마켓</th>
+											<th scope="col">결론</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td data-label="선물식"><span id="marketParam7" class="pointSpan"></span>원</td>
+											<td data-label="메소마켓"><span id="marketParam8" class="pointSpan"></span>원</td>
+											<td data-label="결론"><span id="marketParam9"/></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							
+							<p>*메소마켓 MVP작: 캐시샵 메포구매 → 메소마켓 메소구매 → 라운지 메소판매 형태의 직작<br>
+								이 외에도 캐시아이템을 경매장에 판매하여 발생한 메소를 판매하는 방식의 직작도 존재하며<br>
+								보통은 그러한 방식이 귀찮지만 이득을 볼 가능성이 높습니다.</p>
 						</div>
 					</section>
 

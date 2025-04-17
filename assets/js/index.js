@@ -88,13 +88,13 @@ $(document).ready(function() {
 });
 
 function firstValSetting(){
-    $("#presentMeso").val('1,300');
-    $("#presentMepo").val('1,620');
-    $("#percentMVP").val('8,300');
-    $("#discountRate").val('10');
+    $("#presentMeso").val('1,250');
+    $("#presentMepo").val('1,580');
+    $("#percentMVP").val('8,200');
+    $("#discountRate").val('5');
     $('input[name="auctionCharge"]')[0].checked = true;
 
-    $("#juhwaVal").val('79,121,900');
+    $("#juhwaVal").val('82,214,600');
     
     $("#pcFee").val('3,000');
     $("#pcHH").val('2');
@@ -379,16 +379,43 @@ function fn_mesoMarket(){
     var selfMVPReturn = tenThsd/vPresentMepo*vPresentMeso;
 
     $("#sellMeso").html(customFormatNumber(moneyTransMepo));
-    $("#marketParam1").html(customFormatNumber(moneyTransMepo));
-    $("#marketParam2").html(customFormatNumber(for1MilWithPerson));
-    $("#marketParam3").html(customFormatNumber(for1MilWithMarket));
-    $("#marketParam4").html(customFormatNumber(mvpCost));
-    if(selfMVPReturn > vPercentMVP){
-        $("#marketParam5").text("직작하세요.");
+   
+    $("#marketParam1").html(customFormatNumber(for1MilWithPerson));
+    $("#marketParam2").html(customFormatNumber(for1MilWithMarket));
+
+    //메소구매자
+    if(for1MilWithPerson > for1MilWithMarket){
+        $("#marketParam3").text("넥슨캐시로 메포사서 메소마켓으로 사세요.");
+        
     }else{
-        $("#marketParam5").text("유저한테 "+vPercentMVP+":1에 파세요.");
+        $("#marketParam3").text("라운지에서 사세요.");
     }
-    $("#marketParam6").text(Math.round(selfMVPReturn)+":1");
+    
+    //메포구매자
+    $("#marketParam4").html(customFormatNumber(vPercentMVP));
+    $("#marketParam5").html(customFormatNumber(moneyTransMepo));
+
+    if(moneyTransMepo > vPercentMVP){
+        $("#marketParam6").text("선물식 사세요");
+        
+    }else{
+        $("#marketParam6").text("메소마켓에서 사세요.");
+    }
+
+    //엠작유저
+    $("#marketParam7").html(customFormatNumber(10000*discountRate - vPercentMVP));
+    $("#marketParam8").html(customFormatNumber(mvpCost));
+    if(selfMVPReturn > vPercentMVP){
+        $("#marketParam9").text("직작하세요.");
+    }else{
+        $("#marketParam9").text("유저한테 "+vPercentMVP+":1에 파세요.");
+    }
+    
+
+    
+    
+    
+    
 }
 
 function fn_juhwa(){
