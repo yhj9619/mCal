@@ -408,7 +408,7 @@ function fn_mesoMarket(){
     if(selfMVPReturn > vPercentMVP){
         $("#marketParam9").text("직작하세요.");
     }else{
-        $("#marketParam9").text("유저한테 "+vPercentMVP+":1에 파세요.");
+        $("#marketParam9").text("선물식으로 "+vPercentMVP+":1에 파세요.");
     }
     
 
