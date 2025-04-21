@@ -89,12 +89,12 @@ $(document).ready(function() {
 
 function firstValSetting(){
     $("#presentMeso").val('1,250');
-    $("#presentMepo").val('1,580');
+    $("#presentMepo").val('1,640');
     $("#percentMVP").val('8,200');
-    $("#discountRate").val('5');
+    $("#discountRate").val('0');
     $('input[name="auctionCharge"]')[0].checked = true;
 
-    $("#juhwaVal").val('82,214,600');
+    $("#juhwaVal").val('80,134,600');
     
     $("#pcFee").val('3,000');
     $("#pcHH").val('2');
