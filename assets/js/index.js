@@ -427,8 +427,6 @@ function fn_mesoMarket(){
     //경매장판매 시 1만원당 비용
     var tenThsdByAuctionCost = 0;
 
-    console.log("mvpLowestPrice : "+mvpLowestPrice);
-
     if(cachePrice > 0){
         //(1-최저엠작수단가격/10000)*(캐시가격*할인율)/*(경매장수수료*메소가격)을 둘째자리에서 올림처리
 
@@ -436,10 +434,6 @@ function fn_mesoMarket(){
         //(캐시가격*할인율 - 경매장판매가*경매장수수료*메소시세)*10000/(캐시가격*할인율)
         tenThsdByAuctionCost = (cachePrice*discountRate - mpvAutcionPrice*auctionRate*vPresentMesoInMesoMarket)*tenThsd/(cachePrice*discountRate);
 
-        console.log("엠작 최소메소 : "+mpvAutcionPrice);
-        console.log("캐시가격*할인율(비용) : "+cachePrice*discountRate);
-        console.log("경매장판매가*경매장수수료*메소시세(수익) : "+mpvAutcionPrice*auctionRate*vPresentMesoInMesoMarket);
-        console.log("=================================");
     }
     
     $("#marketParam10").html(customFormatNumber(mpvAutcionPrice));
