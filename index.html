@@ -43,7 +43,7 @@
 		<meta property="og:title" content="메산기">
 		<meta
 		property="og:description"
-		content="메이플스토리 메소 및 메포 계산기, 메산기, 쌀산기, 메소마켓효율, 메소 메포 구매효율, MVP작 효율, 보상분배계산기, 아이템의 현금가치, 과거와 현재의 아이템 가치, 메소판매차익, 골드주화가치, 주흔계산기, 아즈모스코인계산기, 피방조각효율"
+		content="메이플스토리 메소 및 메포 계산기, 메산기, 쌀산기, 메소마켓효율, 메소 메포 구매효율, MVP작 효율, 엠작 효율, MVP작 계산, 엠작 계산, MVP작 비용, 엠작 비용, 보상분배계산기, 아이템의 현금가치, 과거와 현재의 아이템 가치, 메소판매차익, 골드주화가치, 주흔계산기, 아즈모스코인계산기, 피방조각효율"
 		/>
 		<meta property="og:image" content="https://mesangi.com/images/mapleIcon.png" />
 		<meta property="og:site_name" content="메산기" />
@@ -86,7 +86,7 @@
 									</span>
 								</div>
 								<div class="inputClass tooltip-container"> 
-									<label for="discountRate" class="tooltip-label">충전할인율</label>
+									<label for="discountRate" class="tooltip-label">충전할인율(%)</label>
 									<input type="text" class="txt-input" name="discountRate" id="discountRate" 
 									oninput="onlyNumberWithComma(this);" placeholder="캐시충전 할인율"/>
 									<span class="tooltip-text">
@@ -118,7 +118,8 @@
 						<nav id="nav">
 							<ul>
 								<li><a href="#top" id="top-link"><span class="icon solid fa-home">메이플계산기 소개</span></a></li>
-								<li><a href="#mesoMarket" id="mesoMarket-link"><span class="icon solid fa-utensil-spoon">메소,메포 구매 및 MVP작 효율</span></a></li>
+								<li><a href="#mesoMarket" id="mesoMarket-link"><span class="icon solid fa-utensil-spoon">메소와 메포 구매</span></a></li>
+								<li><a href="#mvpCost" id="mesoMarket-link"><span class="icon solid fa-utensil-spoon">MVP작 비용 계산기</span></a></li>
 								<li><a href="#bunbae" id="bunbae-link"><span class="icon solid fa-bezier-curve">보상분배계산기</span></a></li>
 								<li><a href="#mesoToWon" id="mesoToWon-link"><span class="icon solid fa-money-bill">아이템의 현금가치</span></a></li>
 								<li><a href="#valueOf" id="valueOf-link"><span class="icon solid fa-th">과거와 현재 아이템 가치</span></a></li>
@@ -169,46 +170,16 @@
 					<section id="mesoMarket" class="two">
 						<div class="container">
 							<header>
-								<h2>메소, 메포 구매 및 MVP작 효율</h2>
+								<h2>메소와 메포 구매</h2>
 							</header>
-							<!-- <div class="flip-scroll">
-								<table class="mTable">
-									<colgroup>
-										<col width="20%" />
-										<col width="60%" />
-										<col width="20%" />
-									</colgroup>
-									<thead>
-										<tr>
-											<th scope="col">구매재화</th>
-											<th scope="col">설명</th>
-											<th scope="col">억당 이득(원)</th>
-										</tr>
-									</thead>
-									<tbody>
-										
-										<tr>
-											<th scope="row" data-label="구매재화">메포</th>
-											<td data-label="설명"><span id="buyMepo"></span></td>
-											<td data-label="억당 이득(원)"><span id="buyMepoProfit"></span></td>
-										</tr>
-										<tr>
-											<th scope="row" data-label="구매재화">메소</th>
-											<td data-label="설명"><span id="buyMeso"></span></td>
-											<td data-label="억당 이득(원)"><span id="buyMesoProfit"></span></td>
-										</tr>
-									</tbody>
-								</table>
-							</div> -->
-
 							<h4>메소구매</h4>
 							<div class="flip-scroll">
 								<table class="mTable">
 									<colgroup>
-										<col width="20%" />
+										<col width="30%" />
 										<col width="15%" />
 										<col width="15%" />
-										<col width="50%" />
+										<col width="40%" />
 									</colgroup>
 									<thead>
 										<tr>
@@ -221,7 +192,7 @@
 									<tbody>
 										
 										<tr>
-											<th>1억당 현금</th>
+											<th>1억 메소당 비용(현금)</th>
 											<td data-label="라운지"><span id="marketParam1" class="pointSpan"></span>원</td>
 											<td data-label="메소마켓"><span id="marketParam2" class="pointSpan"></span>원</td>
 											<td data-label="결론"><span id="marketParam3"/></td>
@@ -234,10 +205,10 @@
 							<div class="flip-scroll">
 								<table class="mTable">
 									<colgroup>
-										<col width="20%" />
+										<col width="30%" />
 										<col width="15%" />
 										<col width="15%" />
-										<col width="50%" />
+										<col width="40%" />
 									</colgroup>
 									<thead>
 										<tr>
@@ -249,7 +220,7 @@
 									</thead>
 									<tbody>
 										<tr>
-											<th>1만 메포당 현금</th>
+											<th>1만 메포당 비용(현금)</th>
 											<td data-label="선물식"><span id="marketParam4" class="pointSpan"></span>원</td>
 											<td data-label="메소마켓"><span id="marketParam5" class="pointSpan"></span>원</td>
 											<td data-label="결론"><span id="marketParam6"/></td>
@@ -257,44 +228,80 @@
 									</tbody>
 								</table>
 							</div>
-							
-
-							<h4>MVP작비용</h4>
-							<div class="flip-scroll">
-								<table class="mTable">
-									<colgroup>
-										<col width="20%" />
-										<col width="15%" />
-										<col width="15%" />
-										<col width="50%" />
-									</colgroup>
-									<thead>
-										<tr>
-											<th scope="col"></th>
-											<th scope="col">선물식</th>
-											<th scope="col">메소마켓</th>
-											<th scope="col">결론</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<th>1만원 실적당 현금</th>
-											<td data-label="선물식"><span id="marketParam7" class="pointSpan"></span>원</td>
-											<td data-label="메소마켓"><span id="marketParam8" class="pointSpan"></span>원</td>
-											<td data-label="결론"><span id="marketParam9"/></td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
-							
-							<p>*메소마켓 MVP작: 캐시샵 메포구매 → 메소마켓 메소구매 → 라운지 메소판매 형태의 직작<br>
-								이 외에도 캐시아이템을 경매장에 판매하여 발생한 메소를 판매하는 방식의 직작도 존재하며<br>
-								보통은 그러한 방식이 귀찮지만 이득을 볼 가능성이 높습니다.</p>
 						</div>
 					</section>
 
+
+				<!-- mvpCost -->
+				<section id="mvpCost" class="three">
+					<div class="container">
+						<header>
+							<h2>MPV 비용 계산기</h2>
+						</header>
+
+						<h4>기초 MVP작 : 선물식과 메소마켓 비교</h4>
+						<div class="flip-scroll">
+							<table class="mTable">
+								<colgroup>
+									<col width="30%" />
+									<col width="15%" />
+									<col width="15%" />
+									<col width="40%" />
+								</colgroup>
+								<thead>
+									<tr>
+										<th scope="col"></th>
+										<th scope="col">선물식</th>
+										<th scope="col">메소마켓</th>
+										<th scope="col">결론</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<th>1만원 실적당 비용(현금)</th>
+										<td data-label="선물식"><span id="marketParam7" class="pointSpan"></span>원</td>
+										<td data-label="메소마켓"><span id="marketParam8" class="pointSpan"></span>원</td>
+										<td data-label="결론"><span id="marketParam9"/></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<p>메소마켓 MVP작이란?<br>
+							캐시샵 메포구매 → 메소마켓 메소구매 → 라운지 메소판매 형태의 직작</p>
+
+						<h4>심화 MVP작 : 경매장최소판매비용</h4>
+						<div class="flip-scroll">
+							<table class="mTable">
+								<colgroup>
+									<col width="33%" />
+									<col width="33%" />
+									<col width="33%" />
+								</colgroup>
+								<thead>
+									<tr>
+										<th scope="col">캐시가격</th>
+										<th scope="col">경매장 최소판매가(메소)</th>
+										<th scope="col">1만원 실적당 비용(현금)</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td data-label="캐시가격"><input type="text" name="cachePrice" id="cachePrice" 
+											oninput="onlyNumberWithComma(this);" placeholder="캐시가격"/>캐시</td>
+										<td data-label="경매장 최소판매가(억)"><span id="marketParam10" class="pointSpan"></span>억 메소</td>
+										<td data-label="1만원 실적당 비용(현금)"><span id="marketParam11" class="pointSpan"></span>원</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<p>선물식과 메소마켓 MVP작 중 더 저렴한 비용보다 더 이득을 볼 수 있는 최소한의 메소를 제공합니다.<br>
+							충전할인율에 따라 비싼 값에 판매해야 기초 MVP작 대비 이득을 보는 경우가 있습니다.<br>
+							핵심은 "1만원 실적당 비용(현금)"이라는 점 참고해주세요.</p>
+					</div>
+				</section>
+
 				<!-- bunbae -->
-				<section id="bunbae" class="three">
+				<section id="bunbae" class="four">
 					<div class="container">
 						<header>
 							<h2>보상분배계산기</h2>
@@ -367,7 +374,7 @@
 				</section>
 
 				<!-- mesoToWon -->
-				<section id="mesoToWon" class="four">
+				<section id="mesoToWon" class="five">
 					<div class="container">
 						<header>
 							<h2>아이템의 현금가치</h2>
@@ -405,7 +412,7 @@
 				</section>
 
 				<!-- valueOf -->
-				<section id="valueOf" class="five">
+				<section id="valueOf" class="six">
 					<div class="container">
 						<header>
 							<h2>과거와 현재 아이템 가치</h2>
@@ -468,7 +475,7 @@
 				</section>
 
 				<!-- saleProfit -->
-				<section id="saleProfit" class="six">
+				<section id="saleProfit" class="seven">
 					<div class="container">
 						<header>
 							<h2>메소판매차익</h2>
@@ -518,7 +525,7 @@
 				</section>
 
 				<!-- juhwa -->
-					<section id="juhwa" class="seven">
+					<section id="juhwa" class="eight">
 						<div class="container">
 							<header>
 								<h2>골드주화가치</h2>
@@ -562,7 +569,7 @@
 					</section>
 
 				<!-- juHeunVal -->
-				<section id="juHeunVal" class="eight">
+				<section id="juHeunVal" class="nine">
 					<div class="container">
 						<header>
 							<h2>주흔&아즈모스코인가치</h2>
@@ -682,7 +689,7 @@
 				</section>
 
 				<!-- pcRoom -->
-				<section id="pcRoom" class="nine">
+				<section id="pcRoom" class="ten">
 					<div class="container">
 						<header>
 							<h2>피시방 효율</h2>

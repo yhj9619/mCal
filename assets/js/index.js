@@ -343,10 +343,10 @@ function setNumber(){
     //경매장 구매비율
     auctionRate = 1-vAuctionCharge/100
 
-    //실제 수령메포포
+    //실제 수령메포
     realMepo = vPresentMepo - Math.ceil(vPresentMepo*0.01);
     //MVP작대비 비율
-    moneyTransMepo = Math.round(10000/realMepo/auctionRate*vPresentMeso);
+    moneyTransMepo = Math.round(tenThsd/realMepo/auctionRate*vPresentMeso);
     
     //엄으로 1억구매 비용
     for1MilWithPerson= Math.round(1/auctionRate*vPresentMeso);
@@ -355,6 +355,8 @@ function setNumber(){
 }
 
 function fn_mesoMarket(){
+    vPresentMesoInMesoMarket = Number(vPresentMeso.replace(/,/g, ''))
+
     if(moneyTransMepo > vPercentMVP){
         $("#buyMepo").text("MVP작 메포판매자에게 구매하세요.");
         $("#buyMepoProfit").text(Math.round(Number(moneyTransMepo)-Number(vPercentMVP)));
@@ -374,9 +376,9 @@ function fn_mesoMarket(){
     }
     
     //직작으로 1만원을 채우는데 드는 비용
-    var mvpCost = tenThsd*(discountRate-vPresentMeso/vPresentMepo);
+    var mvpCost = tenThsd*(discountRate-vPresentMesoInMesoMarket/vPresentMepo);
     //직작으로 캐시 1만원을 충전하고 돌려받을 수 있는 현금
-    var selfMVPReturn = tenThsd/vPresentMepo*vPresentMeso;
+    var selfMVPReturn = tenThsd/vPresentMepo*vPresentMesoInMesoMarket;
 
     $("#sellMeso").html(customFormatNumber(moneyTransMepo));
    
@@ -402,20 +404,46 @@ function fn_mesoMarket(){
         $("#marketParam6").text("메소마켓에서 사세요.");
     }
 
+    var mvpLowestPrice = 0;
+    var mvpLowestMethod = "";
+    
+
     //엠작유저
-    $("#marketParam7").html(customFormatNumber(10000*discountRate - vPercentMVP));
+    $("#marketParam7").html(customFormatNumber(tenThsd*discountRate - vPercentMVP));
     $("#marketParam8").html(customFormatNumber(mvpCost));
     if(selfMVPReturn > vPercentMVP){
         $("#marketParam9").text("직작하세요.");
+        mvpLowestPrice = mvpCost;
+        mvpLowestMethod = "메소마켓 판매식";
     }else{
         $("#marketParam9").text("선물식으로 "+vPercentMVP+":1에 파세요.");
+        mvpLowestPrice = tenThsd*discountRate - vPercentMVP;
+        mvpLowestMethod = "선물식";
     }
     
+    var cachePrice = $("#cachePrice").val().replace(/,/g, '');
+    //mvp시 경매장에 팔아야하는 캐시 최소가격
+    var mpvAutcionPrice = 0;
+    //경매장판매 시 1만원당 비용
+    var tenThsdByAuctionCost = 0;
 
+    console.log("mvpLowestPrice : "+mvpLowestPrice);
+
+    if(cachePrice > 0){
+        //(1-최저엠작수단가격/10000)*(캐시가격*할인율)/*(경매장수수료*메소가격)을 둘째자리에서 올림처리
+
+        mpvAutcionPrice = (Math.ceil((((1-mvpLowestPrice/tenThsd)*(cachePrice*discountRate))/(auctionRate*vPresentMesoInMesoMarket))*100))/100;
+        //(캐시가격*할인율 - 경매장판매가*경매장수수료*메소시세)*10000/(캐시가격*할인율)
+        tenThsdByAuctionCost = (cachePrice*discountRate - mpvAutcionPrice*auctionRate*vPresentMesoInMesoMarket)*tenThsd/(cachePrice*discountRate);
+
+        console.log("엠작 최소메소 : "+mpvAutcionPrice);
+        console.log("캐시가격*할인율(비용) : "+cachePrice*discountRate);
+        console.log("경매장판매가*경매장수수료*메소시세(수익) : "+mpvAutcionPrice*auctionRate*vPresentMesoInMesoMarket);
+        console.log("=================================");
+    }
     
-    
-    
-    
+    $("#marketParam10").html(customFormatNumber(mpvAutcionPrice));
+    $("#marketParam11").html(customFormatNumber(tenThsdByAuctionCost));  
 }
 
 function fn_juhwa(){
