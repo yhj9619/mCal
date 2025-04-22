@@ -236,7 +236,7 @@
 				<section id="mvpCost" class="three">
 					<div class="container">
 						<header>
-							<h2>MPV 비용 계산기</h2>
+							<h2>MVP 비용 계산기</h2>
 						</header>
 
 						<h3>기초 MVP작 : 선물식과 메소마켓 비교</h3>
@@ -297,6 +297,36 @@
 						<p>선물식과 메소마켓 MVP작 중 더 저렴한 비용보다 더 이득을 볼 수 있는 최소한의 메소를 제공합니다.<br>
 							충전할인율에 따라 비싼 값에 판매해야 기초 MVP작 대비 이득을 보는 경우가 있습니다.<br>
 							핵심은 "1만원 실적당 비용(현금)"이라는 점 참고해주세요.</p>
+
+						<h3>심화 MVP작 : 경매장 판매 손익</h3>
+						<div class="flip-scroll">
+							<table class="mTable">
+								<colgroup>
+									<col width="25%" />
+									<col width="25%" />
+									<col width="25%" />
+									<col width="25%" />
+								</colgroup>
+								<thead>
+									<tr>
+										<th scope="col">캐시가격</th>
+										<th scope="col">판매가(메소)</th>
+										<th scope="col">손익(현금)</th>
+										<th scope="col">1만원 실적당 손익(현금)</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td data-label="캐시가격"><input type="text" name="mvpCache" id="mvpCache" 
+											oninput="onlyNumberWithComma(this);" placeholder="캐시가격"/>캐시</td>
+										<td data-label="판매가(메소)"><input type="text" name="mvpSaleMeso" id="mvpSaleMeso" 
+											oninput="onlyNumberWithComma(this);" placeholder="판매가"/>억 메소</td>
+										<td data-label="손익(현금)"><span id="marketParam12"></span></td>
+										<td data-label="1만원 실적당 손익(현금)"><span id="marketParam13"></span></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
 					</div>
 				</section>
 

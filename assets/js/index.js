@@ -270,16 +270,17 @@ function clearData() {
 }
 
 function onlyNumberWithComma(obj) {
-    var number = obj.value;
+    let number = obj.value;
 
-    //숫자가 아닌 값 모두 replace 해주기
-    number=number.replace(/[^0-9]/g,'');
+    // 숫자와 소숫점만 남기되, 소숫점은 처음 하나만 허용
+    number = number.replace(/[^0-9.]/g, '')          // 숫자와 점만 남기기
+                   .replace(/(\..*?)\..*/g, '$1');   // 소숫점 2번 이상 방지
 
-    //콤마 표시
-    number=Number(number).toLocaleString();
-    
-    //다시 value 지정해주기
-    obj.value = number;
+    // 콤마 제거 후 숫자로 변환해서 포맷 적용
+    const parts = number.split('.');
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ','); // 천 단위 콤마
+
+    obj.value = parts.join('.');
 }
 
 function customFormatNumber(value) {
@@ -423,21 +424,58 @@ function fn_mesoMarket(){
     
     var cachePrice = $("#cachePrice").val().replace(/,/g, '');
     //mvp시 경매장에 팔아야하는 캐시 최소가격
-    var mpvAutcionPrice = 0;
+    var mvpAutcionPrice = 0;
     //경매장판매 시 1만원당 비용
     var tenThsdByAuctionCost = 0;
 
     if(cachePrice > 0){
         //(1-최저엠작수단가격/10000)*(캐시가격*할인율)/*(경매장수수료*메소가격)을 둘째자리에서 올림처리
 
-        mpvAutcionPrice = (Math.ceil((((1-mvpLowestPrice/tenThsd)*(cachePrice*discountRate))/(auctionRate*vPresentMesoInMesoMarket))*100))/100;
+        mvpAutcionPrice = (Math.ceil((((1-mvpLowestPrice/tenThsd)*(cachePrice*discountRate))/(auctionRate*vPresentMesoInMesoMarket))*100))/100;
         //(캐시가격*할인율 - 경매장판매가*경매장수수료*메소시세)*10000/(캐시가격*할인율)
-        tenThsdByAuctionCost = (cachePrice*discountRate - mpvAutcionPrice*auctionRate*vPresentMesoInMesoMarket)*tenThsd/(cachePrice*discountRate);
+        tenThsdByAuctionCost = (cachePrice*discountRate - mvpAutcionPrice*auctionRate*vPresentMesoInMesoMarket)*tenThsd/(cachePrice*discountRate);
 
     }
     
-    $("#marketParam10").html(customFormatNumber(mpvAutcionPrice));
+    $("#marketParam10").html(customFormatNumber(mvpAutcionPrice));
     $("#marketParam11").html(customFormatNumber(tenThsdByAuctionCost));  
+
+    var mvpCache = $("#mvpCache").val().replace(/,/g, '');
+    var mvpSaleMeso = $("#mvpSaleMeso").val().replace(/,/g, '');
+
+    $("#marketParam12").text(0);
+    $("#marketParam13").text(0);
+
+    if(mvpCache!= "" && mvpCache != null && mvpSaleMeso != "" && mvpSaleMeso != null){
+        var mvpAuctionPNL = mvpCache*discountRate - mvpSaleMeso*auctionRate*vPresentMesoInMesoMarket;
+        var mvpAuctionPNLPerTenThsd = mvpAuctionPNL/(mvpCache*discountRate)*tenThsd;
+        var mvpAuctionPNLTxt= "";
+        var mvpAuctionPNLPerTenThsdTxt= "";
+
+        if(mvpAuctionPNL >=0){
+            mvpAuctionPNLTxt = customFormatNumber(mvpAuctionPNL)+"원 손해";
+            mvpAuctionPNLPerTenThsdTxt = customFormatNumber(mvpAuctionPNLPerTenThsd)+"원 손해";
+            $("#marketParam12").html(mvpAuctionPNLTxt).css({
+                "color": "blue",
+                "font-weight": "bold"
+            });
+            $("#marketParam13").html(mvpAuctionPNLPerTenThsdTxt).css({
+                "color": "blue",
+                "font-weight": "bold"
+            });
+        }else{
+            mvpAuctionPNLTxt = customFormatNumber(mvpAuctionPNL*-1)+"원 이득";
+            mvpAuctionPNLPerTenThsdTxt = customFormatNumber(mvpAuctionPNLPerTenThsd*-1)+"원 이득";
+            $("#marketParam12").html(mvpAuctionPNLTxt).css({
+                "color": "red",
+                "font-weight": "bold"
+            });
+            $("#marketParam13").html(mvpAuctionPNLPerTenThsdTxt).css({
+                "color": "red",
+                "font-weight": "bold"
+            });
+        }
+    }
 }
 
 function fn_juhwa(){
