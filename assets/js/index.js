@@ -429,11 +429,11 @@ function fn_mesoMarket(){
     var tenThsdByAuctionCost = 0;
 
     if(cachePrice > 0){
-        //(1-최저엠작수단가격/10000)*(캐시가격*할인율)/*(경매장수수료*메소가격)을 둘째자리에서 올림처리
-
-        mvpAutcionPrice = (Math.ceil((((1-mvpLowestPrice/tenThsd)*(cachePrice*discountRate))/(auctionRate*vPresentMesoInMesoMarket))*100))/100;
+        //(캐시가격*할인율-판매메소*경매장수수료*메소가격)/캐시가격*10000 < 최저가격
+        //(캐시가격*(할인율-최저엠작수단가격/10000))/*(경매장수수료*메소가격)을 둘째자리에서 올림처리
+        mvpAutcionPrice = (Math.ceil(((cachePrice*(discountRate - mvpLowestPrice/tenThsd))/(auctionRate*vPresentMesoInMesoMarket))*100))/100
         //(캐시가격*할인율 - 경매장판매가*경매장수수료*메소시세)*10000/(캐시가격*할인율)
-        tenThsdByAuctionCost = (cachePrice*discountRate - mvpAutcionPrice*auctionRate*vPresentMesoInMesoMarket)*tenThsd/(cachePrice*discountRate);
+        tenThsdByAuctionCost = (cachePrice*discountRate - mvpAutcionPrice*auctionRate*vPresentMesoInMesoMarket)*tenThsd/cachePrice;
 
     }
     
@@ -448,7 +448,7 @@ function fn_mesoMarket(){
 
     if(mvpCache!= "" && mvpCache != null && mvpSaleMeso != "" && mvpSaleMeso != null){
         var mvpAuctionPNL = mvpCache*discountRate - mvpSaleMeso*auctionRate*vPresentMesoInMesoMarket;
-        var mvpAuctionPNLPerTenThsd = mvpAuctionPNL/(mvpCache*discountRate)*tenThsd;
+        var mvpAuctionPNLPerTenThsd = mvpAuctionPNL/mvpCache*tenThsd;
         var mvpAuctionPNLTxt= "";
         var mvpAuctionPNLPerTenThsdTxt= "";
 
