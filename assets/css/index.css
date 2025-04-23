@@ -1,3 +1,11 @@
+.sticky-top {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background-color: #222629; /* 배경색 없으면 아래 내용과 겹쳐 보일 수 있음 */
+    padding: 10px 0;
+  }
+
 
 input{
     font-family: 'Noto Sans KR','Noto Sans Korean', "Nanum Gothic", sans-serif !important;
