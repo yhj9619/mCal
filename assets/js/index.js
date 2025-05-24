@@ -62,6 +62,9 @@ $(document).ready(function() {
                 <td data-label="인당 분배금(원)">
                     <span id="customBunbaeWon${i}"></span>
                 </td>
+                <td data-label="인당 분배금(조각)">
+                    <span id="customBunbaeDajo${i}"></span>
+                </td>
             </tr>
         `);
     }
@@ -69,6 +72,7 @@ $(document).ready(function() {
     for (var i = 1; i <= 6; i++) {
         $(`#customBunbaeMeso${i}`).text("0");
         $(`#customBunbaeWon${i}`).text("0");
+        $(`#customBunbaeDajo${i}`).text("0");
     }
 
 
@@ -610,13 +614,22 @@ function fn_juHeunVal(){
 
 function fn_equalBunbae(){
     var saleMeso = Math.ceil(($("#saleMeso").val().replace(/[^0-9]/g,''))*auctionRate);
+    var dajoPrice = $("#dajoPrice").val().replace(/[^0-9]/g,'');
     var memberCnt = $("#memberCnt").val().replace(/,/g, '');
     $("#equalBunbaeMeso").html(customFormatNumber(saleMeso / memberCnt));
     $("#equalBunbaeWon").html(customFormatNumber(saleMeso/memberCnt/oneHunMil*vPresentMeso));
+    if(dajoPrice != "" && dajoPrice != null && dajoPrice != 0){
+        $("#equalBunbaeDajo").html(customFormatNumber(saleMeso/memberCnt/dajoPrice));
+    }else{
+        $("#equalBunbaeDajo").text("조각가격없음");
+    }
+
+    
 }
 
 function fn_customBunbae(){
     var saleMeso = Math.ceil(($("#saleMeso").val().replace(/[^0-9]/g,''))*auctionRate);
+    var dajoPrice = $("#dajoPrice").val().replace(/[^0-9]/g,'');
 
     //memberStack(분배지분) input 값
     var memberStacks = {}; 
@@ -639,13 +652,21 @@ function fn_customBunbae(){
         if (memberStackSum > 0) {
             var mesoShare = customFormatNumber(saleMeso / memberStackSum * stackValue);
             var wonShare = customFormatNumber(saleMeso / memberStackSum * stackValue / oneHunMil * vPresentMeso.replace(/,/g , ''));
-
+            var dajoShare = customFormatNumber((saleMeso / memberStackSum * stackValue) / dajoPrice);
 
             $(`#customBunbaeMeso${i}`).text(mesoShare);
             $(`#customBunbaeWon${i}`).text(wonShare);
+            if(dajoPrice != "" && dajoPrice != null && dajoPrice != 0){
+                $(`#customBunbaeDajo${i}`).text(dajoShare);
+            }else{
+                $(`#customBunbaeDajo${i}`).text("조각가격없음");
+            }
+
+            
         } else {
             $(`#customBunbaeMeso${i}`).text("0");
             $(`#customBunbaeWon${i}`).text("0");
+            $(`#customBunbaeDajo${i}`).text("0");
         }
     }
 }
