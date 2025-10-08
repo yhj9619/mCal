@@ -94,19 +94,19 @@ $(document).ready(function() {
 function firstValSetting(){
     //사이드메뉴
     $("#presentMeso").val('1,100');
-    $("#presentMepo").val('1,500');
+    $("#presentMepo").val('1,520');
     $("#percentMVP").val('7,500');
     $("#discountRate").val('0');
     $('input[name="auctionCharge"]')[0].checked = true;
 
     //골드주화가치
-    $("#juhwaVal").val('79,842,100');
+    $("#juhwaVal").val('83,942,300');
     
     //피시방 효율
     $("#pcFee").val('3,000');
     $("#pcHH").val('2');
     $("#pcMM").val('40');
-    $("#piecePrice").val('9,299,999');
+    $("#piecePrice").val('9,999,999');
 
     //과거와 현재 아이템 가치
     $("#pastMeso").val('1,800');
@@ -118,8 +118,8 @@ function firstValSetting(){
 
     //주흔&아즈모스코인가치
     $('input[name="juHeun50Event"]')[0].checked = true;
-    $("#juHeunPrice").val('5,000');
-    $("#azmPotionPrice").val('4,000,000');
+    $("#juHeunPrice").val('3,000');
+    $("#azmPotionPrice").val('6,666,666');
 
     //보상분배계산기
     $("#saleMeso").val('0');
