@@ -187,16 +187,18 @@
 							<div class="flip-scroll">
 								<table class="mTable">
 									<colgroup>
-										<col width="30%" />
+										<col width="20%" />
 										<col width="15%" />
 										<col width="15%" />
-										<col width="40%" />
+										<col width="15%" />
+										<col width="35%" />
 									</colgroup>
 									<thead>
 										<tr>
 											<th scope="col"></th>
 											<th scope="col">라운지</th>
-											<th scope="col">메소마켓</th>
+											<th scope="col">메소마켓<br>(캐시메포)</th>
+											<th scope="col">메소마켓<br>(엠작메포)</th>
 											<th scope="col">결론</th>
 										</tr>
 									</thead>
@@ -204,13 +206,16 @@
 										
 										<tr>
 											<th>1억 메소당 비용(현금)</th>
-											<td data-label="라운지"><span id="marketParam1" class="pointSpan"></span>원</td>
-											<td data-label="메소마켓"><span id="marketParam2" class="pointSpan"></span>원</td>
-											<td data-label="결론"><span id="marketParam3"/></td>
+											<td data-label="라운지"><span id="marketBuyMesoParam1" class="pointSpan"></span>원</td>
+											<td data-label="캐시메포"><span id="marketBuyMesoParam2" class="pointSpan"></span>원</td>
+											<td data-label="엠작메포"><span id="marketBuyMesoParam3" class="pointSpan"></span>원</td>
+											<td data-label="결론"><span id="marketBuyMesoResult"/></td>
 										</tr>
 									</tbody>
 								</table>
 							</div>
+							<p>메소마켓(캐시메포) : 캐시를 충전하여 직접 메포구매 후 메소마켓 이용</p>
+							<p>메소마켓(엠작메포) : 엠작하는 유저에게 메포를 구매하여 메포구매 후 메소마켓 이용</p>
 
 							<h3>메포구매</h3>
 							<div class="flip-scroll">
@@ -232,9 +237,9 @@
 									<tbody>
 										<tr>
 											<th>1만 메포당 비용(현금)</th>
-											<td data-label="선물식"><span id="marketParam4" class="pointSpan"></span>원</td>
-											<td data-label="메소마켓"><span id="marketParam5" class="pointSpan"></span>원</td>
-											<td data-label="결론"><span id="marketParam6"/></td>
+											<td data-label="선물식"><span id="marketBuyMepoParam1" class="pointSpan"></span>원</td>
+											<td data-label="메소마켓"><span id="marketBuyMepoParam2" class="pointSpan"></span>원</td>
+											<td data-label="결론"><span id="marketBuyMepoResult"/></td>
 										</tr>
 									</tbody>
 								</table>
@@ -270,9 +275,9 @@
 								<tbody>
 									<tr>
 										<th>1만원 실적당 비용(현금)</th>
-										<td data-label="선물식"><span id="marketParam7" class="pointSpan"></span>원</td>
-										<td data-label="메소마켓"><span id="marketParam8" class="pointSpan"></span>원</td>
-										<td data-label="결론"><span id="marketParam9"/></td>
+										<td data-label="선물식"><span id="mvpPriceParam1" class="pointSpan"></span>원</td>
+										<td data-label="메소마켓"><span id="mvpPriceParam2" class="pointSpan"></span>원</td>
+										<td data-label="결론"><span id="mvpPriceResult"/></td>
 									</tr>
 								</tbody>
 							</table>
@@ -299,8 +304,8 @@
 									<tr>
 										<td data-label="캐시가격"><input type="text" name="cachePrice" id="cachePrice" 
 											oninput="onlyNumberWithComma(this);" placeholder="캐시가격"/>캐시</td>
-										<td data-label="경매장 최소판매가(억)"><span id="marketParam10" class="pointSpan"></span>억 메소</td>
-										<td data-label="1만원 실적당 비용(현금)"><span id="marketParam11" class="pointSpan"></span>원</td>
+										<td data-label="경매장 최소판매가(억)"><span id="minAucionParam1" class="pointSpan"></span>억 메소</td>
+										<td data-label="1만원 실적당 비용(현금)"><span id="minAucionParam2" class="pointSpan"></span>원</td>
 									</tr>
 								</tbody>
 							</table>
@@ -329,8 +334,8 @@
 											oninput="onlyNumberWithComma(this);" placeholder="캐시가격"/>캐시</td>
 										<td data-label="판매가(메소)"><input type="text" name="mvpSaleMeso" id="mvpSaleMeso" 
 											oninput="onlyNumberWithComma(this);" placeholder="판매가"/>억 메소</td>
-										<td data-label="손익(현금)"><span id="marketParam12"></span></td>
-										<td data-label="1만원 실적당 손익(현금)"><span id="marketParam13"></span></td>
+										<td data-label="손익(현금)"><span id="auctionProfitParam1"></span></td>
+										<td data-label="1만원 실적당 손익(현금)"><span id="auctionProfitParam2"></span></td>
 									</tr>
 								</tbody>
 							</table>

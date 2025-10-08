@@ -92,32 +92,40 @@ $(document).ready(function() {
 });
 
 function firstValSetting(){
-    $("#presentMeso").val('1,250');
-    $("#presentMepo").val('1,680');
-    $("#percentMVP").val('8,000');
+    //사이드메뉴
+    $("#presentMeso").val('1,100');
+    $("#presentMepo").val('1,500');
+    $("#percentMVP").val('7,500');
     $("#discountRate").val('0');
     $('input[name="auctionCharge"]')[0].checked = true;
 
+    //골드주화가치
     $("#juhwaVal").val('79,842,100');
     
+    //피시방 효율
     $("#pcFee").val('3,000');
     $("#pcHH").val('2');
     $("#pcMM").val('40');
     $("#piecePrice").val('9,299,999');
 
+    //과거와 현재 아이템 가치
     $("#pastMeso").val('1,800');
     $("#presentItem").val('0');
     $("#pastItem").val('0');
 
+    //아이템의 현금가치
     $("#itemMesoVal").val('0');
 
+    //주흔&아즈모스코인가치
     $('input[name="juHeun50Event"]')[0].checked = true;
     $("#juHeunPrice").val('5,000');
     $("#azmPotionPrice").val('4,000,000');
 
+    //보상분배계산기
     $("#saleMeso").val('0');
     $("#memberCnt").val('1');
 
+    //메소판매차익
     $("#buyMesoPrice").val('1,500');
     $("#buyMesoAmt").val('10');
     $("#buyMesoWon").val('15,000');
@@ -355,8 +363,10 @@ function setNumber(){
     
     //엄으로 1억구매 비용
     for1MilWithPerson= Math.round(1/auctionRate*vPresentMeso);
-    //메포구매로 1억구매 비용
+    //캐시충전해서 메포구매 후 메소마켓으로 1억구매 비용
     for1MilWithMarket= Math.round(vPresentMepo*discountRate);
+    //엠작메포구매해서 메소마켓으로 1억구매 비용
+    for1MilWithMarket2= Math.round(vPresentMepo*vPercentMVP/10000);
 }
 
 function fn_mesoMarket(){
@@ -370,15 +380,6 @@ function fn_mesoMarket(){
         $("#buyMepo").text("메소마켓 이용을 권장합니다.");
         $("#buyMepoProfit").text(Math.round(Number(vPercentMVP)-Number(moneyTransMepo)));
     }
-
-    if(for1MilWithPerson > for1MilWithMarket){
-        $("#buyMeso").text("직접 현카포로 현질해서 메소마켓 이용하세요");
-        $("#buyMesoProfit").text(Math.round(Number(for1MilWithPerson)-Number(for1MilWithMarket)));
-        
-    }else{
-        $("#buyMeso").text("사람간 거래를 권장합니다.");
-        $("#buyMesoProfit").text(Math.round(Number(for1MilWithMarket)-Number(for1MilWithPerson)));
-    }
     
     //직작으로 1만원을 채우는데 드는 비용
     var mvpCost = tenThsd*(discountRate-vPresentMesoInMesoMarket/vPresentMepo);
@@ -387,26 +388,34 @@ function fn_mesoMarket(){
 
     $("#sellMeso").html(customFormatNumber(moneyTransMepo));
    
-    $("#marketParam1").html(customFormatNumber(for1MilWithPerson));
-    $("#marketParam2").html(customFormatNumber(for1MilWithMarket));
+    $("#marketBuyMesoParam1").html(customFormatNumber(for1MilWithPerson));
+    $("#marketBuyMesoParam2").html(customFormatNumber(for1MilWithMarket));
+    $("#marketBuyMesoParam3").html(customFormatNumber(for1MilWithMarket2));
 
     //메소구매자
-    if(for1MilWithPerson > for1MilWithMarket){
-        $("#marketParam3").text("넥슨캐시로 메포사서 메소마켓으로 사세요.");
-        
+    if(for1MilWithMarket2 > for1MilWithMarket){
+        if(for1MilWithPerson > for1MilWithMarket){
+            $("#marketBuyMesoResult").text("캐시로 메포사서 메소마켓으로 사세요.");
+        }else{
+            $("#marketBuyMesoResult").text("라운지에서 사세요.");
+        }
     }else{
-        $("#marketParam3").text("라운지에서 사세요.");
+        if(for1MilWithPerson > for1MilWithMarket2){
+            $("#marketBuyMesoResult").text("사람한테 메포사서 메소마켓으로 사세요.");
+        }else{
+            $("#marketBuyMesoResult").text("라운지에서 사세요.");
+        }
     }
     
     //메포구매자
-    $("#marketParam4").html(customFormatNumber(vPercentMVP));
-    $("#marketParam5").html(customFormatNumber(moneyTransMepo));
+    $("#marketBuyMepoParam1").html(customFormatNumber(vPercentMVP));
+    $("#marketBuyMepoParam2").html(customFormatNumber(moneyTransMepo));
 
     if(moneyTransMepo > vPercentMVP){
-        $("#marketParam6").text("선물식 사세요");
+        $("#marketBuyMepoResult").text("선물식 사세요");
         
     }else{
-        $("#marketParam6").text("메소마켓에서 사세요.");
+        $("#marketBuyMepoResult").text("메소마켓에서 사세요.");
     }
 
     var mvpLowestPrice = 0;
@@ -414,14 +423,14 @@ function fn_mesoMarket(){
     
 
     //엠작유저
-    $("#marketParam7").html(customFormatNumber(tenThsd*discountRate - vPercentMVP));
-    $("#marketParam8").html(customFormatNumber(mvpCost));
+    $("#mvpPriceParam1").html(customFormatNumber(tenThsd*discountRate - vPercentMVP));
+    $("#mvpPriceParam2").html(customFormatNumber(mvpCost));
     if(selfMVPReturn > vPercentMVP){
-        $("#marketParam9").text("직작하세요.");
+        $("#mvpPriceResult").text("직작하세요.");
         mvpLowestPrice = mvpCost;
         mvpLowestMethod = "메소마켓 판매식";
     }else{
-        $("#marketParam9").text("선물식으로 "+vPercentMVP+":1에 파세요.");
+        $("#mvpPriceResult").text("선물식으로 "+vPercentMVP+":1에 파세요.");
         mvpLowestPrice = tenThsd*discountRate - vPercentMVP;
         mvpLowestMethod = "선물식";
     }
@@ -441,14 +450,14 @@ function fn_mesoMarket(){
 
     }
     
-    $("#marketParam10").html(customFormatNumber(mvpAutcionPrice));
-    $("#marketParam11").html(customFormatNumber(tenThsdByAuctionCost));  
+    $("#minAucionParam1").html(customFormatNumber(mvpAutcionPrice));
+    $("#minAucionParam2").html(customFormatNumber(tenThsdByAuctionCost));  
 
     var mvpCache = $("#mvpCache").val().replace(/,/g, '');
     var mvpSaleMeso = $("#mvpSaleMeso").val().replace(/,/g, '');
 
-    $("#marketParam12").text(0);
-    $("#marketParam13").text(0);
+    $("#auctionProfitParam1").text(0);
+    $("#auctionProfitParam2").text(0);
 
     if(mvpCache!= "" && mvpCache != null && mvpSaleMeso != "" && mvpSaleMeso != null){
         var mvpAuctionPNL = mvpCache*discountRate - mvpSaleMeso*auctionRate*vPresentMesoInMesoMarket;
@@ -459,22 +468,22 @@ function fn_mesoMarket(){
         if(mvpAuctionPNL >=0){
             mvpAuctionPNLTxt = customFormatNumber(mvpAuctionPNL)+"원 손해";
             mvpAuctionPNLPerTenThsdTxt = customFormatNumber(mvpAuctionPNLPerTenThsd)+"원 손해";
-            $("#marketParam12").html(mvpAuctionPNLTxt).css({
+            $("#auctionProfitParam1").html(mvpAuctionPNLTxt).css({
                 "color": "blue",
                 "font-weight": "bold"
             });
-            $("#marketParam13").html(mvpAuctionPNLPerTenThsdTxt).css({
+            $("#auctionProfitParam2").html(mvpAuctionPNLPerTenThsdTxt).css({
                 "color": "blue",
                 "font-weight": "bold"
             });
         }else{
             mvpAuctionPNLTxt = customFormatNumber(mvpAuctionPNL*-1)+"원 이득";
             mvpAuctionPNLPerTenThsdTxt = customFormatNumber(mvpAuctionPNLPerTenThsd*-1)+"원 이득";
-            $("#marketParam12").html(mvpAuctionPNLTxt).css({
+            $("#auctionProfitParam1").html(mvpAuctionPNLTxt).css({
                 "color": "red",
                 "font-weight": "bold"
             });
-            $("#marketParam13").html(mvpAuctionPNLPerTenThsdTxt).css({
+            $("#auctionProfitParam2").html(mvpAuctionPNLPerTenThsdTxt).css({
                 "color": "red",
                 "font-weight": "bold"
             });
