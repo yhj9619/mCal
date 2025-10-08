@@ -590,8 +590,8 @@ function fn_juHeunVal(){
 
     $("#juHeunVal4").html(customFormatNumber(juHeunPiece*juHeunPrice));
     $("#juHeunVal5").html(customFormatNumber(juHeunPiece*juHeunPrice*vPresentMeso/oneHunMil));
-    $("#juHeunVal6").html(customFormatNumber(juHeunBundle*juHeunPrice*9000));
-    $("#juHeunVal7").html(customFormatNumber(juHeunBundle*juHeunPrice*vPresentMeso*9000/oneHunMil));
+    $("#juHeunVal6").html(customFormatNumber(juHeunBundle*juHeunPrice*90000));
+    $("#juHeunVal7").html(customFormatNumber(juHeunBundle*juHeunPrice*vPresentMeso*90000/oneHunMil));
 
     var azmPotionPrice = $("#azmPotionPrice").val().replace(/,/g, '');
 
@@ -713,7 +713,7 @@ function fn_saleProfit(thisId){
         $('#saleProfit1').html(customFormatNumber(realMeso));
         $('#saleProfit2').html(customFormatNumber(saleProfitVal));
         $('#saleProfit3').html(
-            isNaN(saleProfitPercent) || saleProfitPercent === null || saleProfitPercent === '' 
+            (isNaN(saleProfitPercent) || saleProfitPercent === null || saleProfitPercent === '' )
             ? '' 
             : customFormatNumber(saleProfitPercent)
         );
