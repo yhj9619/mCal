@@ -35,13 +35,12 @@ $(document).ready(function() {
             // 각 메뉴 항목 순회
             $('#nav ul li').each(function() {
                 var menuItem = $(this);
-                // 메뉴 항목 텍스트 (아이콘 스팬 제외)
-                // 아이콘 스팬은 텍스트에 포함되지 않도록 a 태그의 직접적인 텍스트만 가져오거나,
-                // span.icon을 제외하고 텍스트를 가져오는 방법도 고려할 수 있음.
-                // 현재는 a 태그 전체 텍스트를 가져와도 무방함.
-                var menuItemText = menuItem.find('a').text().toLowerCase(); 
+                var $menuLink = menuItem.find('a'); // <a> 태그를 선택
+                var menuItemText = $menuLink.text().toLowerCase(); // 메뉴 항목의 보이는 텍스트
+                var dataKeywords = $menuLink.data('keywords') ? $menuLink.data('keywords').toLowerCase() : ''; // data-keywords 속성 값
 
-                if (menuItemText.includes(searchTerm)) {
+                // 검색어에 보이는 텍스트 또는 data-keywords에 포함되는지 확인
+                if (menuItemText.includes(searchTerm) || dataKeywords.includes(searchTerm)) {
                     menuItem.show(); // 검색어 포함 시 보이기
                 } else {
                     menuItem.hide(); // 검색어 미포함 시 숨기기
