@@ -2017,7 +2017,7 @@ input, select, textarea {
 
 /* Custom styles for menu search input */
 #nav #menuSearchInput {
-    height: 1.8em; /* 높이 증가 */
+    height: 2.8em; /* 높이 증가 */
     font-size: 1em; /* 폰트 크기 조정 */
     color: #fff; /* 입력 텍스트 색상 흰색 */
     background-color: rgba(255, 255, 255, 0.15); /* 배경색을 약간 더 진하게 */
@@ -2150,7 +2150,7 @@ input, select, textarea {
 		#logo h1 {
 			position: relative;
 			color: #fff;
-			font-weight: 600;
+		font-weight: 600;
 			font-size: 1em;
 			line-height: 1em;
 		}
@@ -2191,12 +2191,12 @@ input, select, textarea {
 				-webkit-transition: none;
 				-ms-transition: none;
 				transition: none;
-			}
+	}
 
 				#nav ul li a span {
 					position: relative;
 					display: block;
-					font-size: 0.8em;
+		font-size: 0.8em;
 				}
 
 					#nav ul li a span:before {
@@ -2266,7 +2266,7 @@ input, select, textarea {
 			#main > section.dark {
 				color: #ddd;
 				color: rgba(255, 255, 255, 0.75);
-			}
+	}
 
 				#main > section.dark h2, #main > section.dark h3, #main > section.dark h4, #main > section.dark h5, #main > section.dark h6 {
 					color: inherit;
@@ -2586,7 +2586,7 @@ input, select, textarea {
 				-webkit-transform: translateX(275px);
 				-ms-transform: translateX(275px);
 				transform: translateX(275px);
-			}
+	}
 
 			body.header-visible #headerToggle {
 				-moz-transform: translateX(275px);
@@ -2688,4 +2688,124 @@ input, select, textarea {
 					margin-top: 0;
 				}
 
+	}
+
+	/* Simple Table for Descriptions */
+	table.simpleTable {
+		width: 100%;
+		border-collapse: collapse;
+		border-spacing: 0;
+		margin-top: 1.5em; /* 위쪽 여백 */
+		margin-bottom: 2em;
+		font-size: 0.9em;
+		box-shadow: none; /* 그림자 제거 */
+		border: 1px solid #e0e0e0; /* 전체적으로 얇은 테두리 */
+		border-radius: 0.25em;
+		overflow: hidden;
+	}
+
+	table.simpleTable th,
+	table.simpleTable td {
+		padding: 0.8em 1.25em; /* 패딩 조정 */
+		text-align: left;
+		border: none; /* 셀 자체의 테두리 제거 */
+		line-height: 1.4em;
+	}
+
+	table.simpleTable th {
+		background-color: #f0f0f0; /* 헤더 배경색 */
+		color: #555; /* 헤더 텍스트 색상 */
+		font-weight: 600;
+		border-bottom: 1px solid #d0d0d0;
+		vertical-align: top; /* 세로 정렬 상단 */
+	}
+
+	table.simpleTable td {
+		background-color: #fff; /* 셀 배경색 */
+		color: #666;
+		border-bottom: 1px solid #f0f0f0; /* 얇은 하단 구분선 */
+		vertical-align: top; /* 세로 정렬 상단 */
+	}
+
+	table.simpleTable tbody tr:nth-child(odd) {
+		background-color: #fcfcfc; /* 홀수 행 배경색 미묘하게 다르게 */
+	}
+
+	table.simpleTable tbody tr:hover {
+		background-color: #f5f5f5; /* 호버 시 배경색 */
+		transition: background-color 0.2s ease-in-out;
+	}
+
+	/* 아코디언 헤더 마진 조정 */
+	.accordion-header {
+		margin-top: 2em;
+		margin-bottom: 0.8em;
+		color: #444;
+	}
+	.accordion-header .accordion-icon {
+		margin-left: 0.5em;
+		font-size: 0.8em;
+		transition: transform 0.3s ease-in-out;
+	}
+	.accordion-header .fa-chevron-up {
+		transform: rotate(180deg);
+	}/* Simple Table for Descriptions */
+	table.simpleTable {
+		width: 100%;
+		border-collapse: collapse;
+		border-spacing: 0;
+		margin-top: 1.5em; /* 위쪽 여백 */
+		margin-bottom: 2em;
+		font-size: 0.9em;
+		box-shadow: none; /* 그림자 제거 */
+		border: 1px solid #e0e0e0; /* 전체적으로 얇은 테두리 */
+		border-radius: 0.25em;
+		overflow: hidden;
+	}
+
+	table.simpleTable th,
+	table.simpleTable td {
+		padding: 0.8em 1.25em; /* 패딩 조정 */
+		text-align: left;
+		border: none; /* 셀 자체의 테두리 제거 */
+		line-height: 1.4em;
+	}
+
+	table.simpleTable th {
+		background-color: #f0f0f0; /* 헤더 배경색 */
+		color: #555; /* 헤더 텍스트 색상 */
+		font-weight: 600;
+		border-bottom: 1px solid #d0d0d0;
+		vertical-align: top; /* 세로 정렬 상단 */
+	}
+
+	table.simpleTable td {
+		background-color: #fff; /* 셀 배경색 */
+		color: #666;
+		border-bottom: 1px solid #f0f0f0; /* 얇은 하단 구분선 */
+		vertical-align: top; /* 세로 정렬 상단 */
+	}
+
+	table.simpleTable tbody tr:nth-child(odd) {
+		background-color: #fcfcfc; /* 홀수 행 배경색 미묘하게 다르게 */
+	}
+
+	table.simpleTable tbody tr:hover {
+		background-color: #f5f5f5; /* 호버 시 배경색 */
+		transition: background-color 0.2s ease-in-out;
+	}
+
+	/* 아코디언 헤더 마진 조정 */
+	.accordion-header {
+		margin-top: 2em;
+		margin-bottom: 0.8em;
+		color: #444;
+	}
+	.accordion-header .accordion-icon {
+		margin-left: 0.5em;
+		font-size: 0.8em;
+		transition: transform 0.3s ease-in-out;
+	}
+	.accordion-header .fa-chevron-up {
+		transform: rotate(180deg);
 	}

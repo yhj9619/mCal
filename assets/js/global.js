@@ -48,6 +48,21 @@ $(document).ready(function() {
             });
         });
     }
+
+    // 공통 아코디언 기능 추가
+    $(document).off('click', '.accordion-header').on('click', '.accordion-header', function() {
+        var $header = $(this);
+        var $content = $header.nextAll('.accordion-content:first'); // 헤더 바로 다음에 오는 첫 번째 콘텐츠 div
+        var $icon = $header.find('.accordion-icon');
+
+        $content.slideToggle('fast', function() {
+            if ($content.is(':visible')) {
+                $icon.removeClass('fa-chevron-down').addClass('fa-chevron-up');
+            } else {
+                $icon.removeClass('fa-chevron-up').addClass('fa-chevron-down');
+            }
+        });
+    });
 });
 
 // 모든 계산을 실행하는 메인 함수

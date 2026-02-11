@@ -9,68 +9,97 @@ scripts:
 <section id="mesoMarket" class="two">
     <div class="container">
         <header>
-            <h2>메소와 메포 구매</h2>
+            <h2 class="accordion-header" style="cursor: pointer;">메소와 메포 구매 효율 분석 <span class="accordion-icon fa fa-chevron-down"></span></h2>
+            <div id="mesoMepoAnalysisContent" class="accordion-content" style="display: none;">
+                <p>
+                    메이플스토리에서 재화의 기본이 되는 메소(Mesos)와 게임 내 현금인 메이플포인트(Maple Points, 메포)는 다양한 경로로 획득하거나 구매할 수 있습니다.
+                    이 계산기는 각기 다른 구매 방식(라운지 거래, 메소마켓, MVP작 메포 구매)의 효율을 비교하여,
+                    현재 시장 상황에서 가장 경제적인 구매 방법을 찾아내고 합리적인 선택을 할 수 있도록 돕습니다.
+                    좌측 사이드바의 공통 입력 항목(메소시세, 메포시세, 할인율 등)을 입력하면 실시간으로 결과를 확인할 수 있습니다.
+                </p>
+                <hr style="margin: 2em 0;">
+            </div>
         </header>
-        <h3>메소구매</h3>
-        <div class="flip-scroll">
-            <table class="mTable">
-                <colgroup>
-                    <col width="20%" />
-                    <col width="15%" />
-                    <col width="15%" />
-                    <col width="15%" />
-                    <col width="35%" />
-                </colgroup>
-                <thead>
-                    <tr>
-                        <th scope="col"></th>
-                        <th scope="col">라운지</th>
-                        <th scope="col">메소마켓<br>(캐시메포)</th>
-                        <th scope="col">메소마켓<br>(엠작메포)</th>
-                        <th scope="col">결론</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    
-                    <tr>
-                        <th>1억 메소당 비용(현금)</th>
-                        <td data-label="라운지"><span id="marketBuyMesoParam1" class="pointSpan"></span>원</td>
-                        <td data-label="캐시메포"><span id="marketBuyMesoParam2" class="pointSpan"></span>원</td>
-                        <td data-label="엠작메포"><span id="marketBuyMesoParam3" class="pointSpan"></span>원</td>
-                        <td data-label="결론"><span id="marketBuyMesoResult"/></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <p>메소마켓(캐시메포) : 캐시를 충전하여 캐시샵에서 메포구매 후 메소마켓 이용</p>
-        <p>메소마켓(엠작메포) : 엠작하는 유저에게 메포구매 후 메소마켓 이용</p>
 
-        <h3>메포구매</h3>
-        <div class="flip-scroll">
-            <table class="mTable">
-                <colgroup>
-                    <col width="30%" />
-                    <col width="15%" />
-                    <col width="15%" />
-                    <col width="40%" />
-                </colgroup>
-                <thead>
-                    <tr>
-                        <th scope="col"></th>
-                        <th scope="col">선물식</th>
-                        <th scope="col">메소마켓</th>
-                        <th scope="col">결론</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th>1만 메포당 비용(현금)</th>
-                        <td data-label="선물식"><span id="marketBuyMepoParam1" class="pointSpan"></span>원</td>
-                        <td data-label="메소마켓"><span id="marketBuyMepoParam2" class="pointSpan"></span>원</td>
-                        <td data-label="결론"><span id="marketBuyMepoResult"/></td>
-                    </tr>
-                </tbody>
-            </table>
+        <h3 class="accordion-header" style="cursor: pointer;">메소구매 효율 <span class="accordion-icon fa fa-chevron-down"></span></h3>
+        <div class="accordion-content" style="display: none;">
+            <p>
+                1억 메소를 구매할 때 드는 현금 비용을 각 구매방법별로 산출하여 보여줍니다.<br>
+                엠작메포 구매 또는 라운지 거래 등 유저간 거래는 사기의 위험이 있으니 늘 조심하세요!
+            </p>
         </div>
+            <div class="flip-scroll">
+                <table class="mTable">
+                    <colgroup>
+                        <col width="20%" />
+                        <col width="15%" />
+                        <col width="15%" />
+                        <col width="15%" />
+                        <col width="35%" />
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th scope="col">구분</th>
+                            <th scope="col">라운지 직거래</th>
+                            <th scope="col">메소마켓<br>(캐시메포)</th>
+                            <th scope="col">메소마켓<br>(엠작메포)</th>
+                            <th scope="col">추천 방식</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                        <tr>
+                            <th>1억 메소당 비용(현금)</th>
+                            <td data-label="라운지 직거래"><span id="marketBuyMesoParam1" class="pointSpan"></span>원</td>
+                            <td data-label="캐시메포"><span id="marketBuyMesoParam2" class="pointSpan"></span>원</td>
+                            <td data-label="메소마켓(엠작메포)"><span id="marketBuyMesoParam3" class="pointSpan"></span>원</td>
+                            <td data-label="추천 방식"><span id="marketBuyMesoResult"/></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p>
+                **라운지 직거래:** 유저 간 직접 메소를 사고파는 방식으로, 가장 흔한 거래 형태입니다. 개인간 거래는 사기 위험이 있으니 주의하세요. <br>
+                **메소마켓(캐시메포):** 넥슨 캐시를 충전하여 캐시샵에서 메이플포인트(메포)를 구매한 후, 게임 내 메소마켓을 통해 메포를 메소로 전환하는 방식입니다. 충전 할인율에 따라 효율이 달라질 수 있습니다. <br>
+                **메소마켓(엠작메포):** MVP작을 진행하는 유저로부터 메이플포인트(메포)를 구매한 후, 이를 다시 메소마켓에서 메소로 전환하는 방식입니다. MVP작 유저와의 거래 비율이 중요합니다.
+            </p>
+
+        <h3 class="accordion-header" style="cursor: pointer;">메포구매 효율 <span class="accordion-icon fa fa-chevron-down"></span></h3>
+        <div class="accordion-content" style="display: none;">
+            <p>
+                1만 메이플포인트(메포)를 구매할 드는 현금 비용을 각 구매방법별로 산출하여 보여줍니다.<br>
+                엠작메포 거래 등 유저간 거래는 사기의 위험이 있으니 늘 조심하세요!
+            </p>
+        </div>
+            <div class="flip-scroll">
+                <table class="mTable">
+                    <colgroup>
+                        <col width="30%" />
+                        <col width="15%" />
+                        <col width="15%" />
+                        <col width="40%" />
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th scope="col">구분</th>
+                            <th scope="col">선물식 구매</th>
+                            <th scope="col">메소마켓 구매</th>
+                            <th scope="col">추천 방식</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th>1만 메포당 비용(현금)</th>
+                            <td data-label="선물식 구매"><span id="marketBuyMepoParam1" class="pointSpan"></span>원</td>
+                            <td data-label="메소마켓 구매"><span id="marketBuyMepoParam2" class="pointSpan"></span>원</td>
+                            <td data-label="추천 방식"><span id="marketBuyMepoResult"/></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p>
+                **선물식 구매:** MVP작 유저 등에게 직접 현금을 지불하고 메이플포인트(메포)를 선물받는 방식입니다. 보통 라운지의 상품권 채팅채널에서 거래가 이루어지며, 1만메포당 거래가 이루어집니다. <br>
+                **메소마켓 구매:** 게임 내 메소마켓에서 메소를 지불하고 메이플포인트(메포)를 구매하는 방식입니다. 현재의 메소 시세와 비교하여 1만 메포당 가치가 계산됩니다.
+            </p>
     </div>
 </section>
