@@ -1,0 +1,43 @@
+---
+layout: default
+title: 아이템의 현금가치 - 메산기
+description: 메이플스토리 아이템의 메소 가격을 기준으로 현재 현금 가치를 계산합니다.
+scripts:
+  - pages/mesoToWon.js
+---
+
+<section id="mesoToWon" class="five">
+    <div class="container">
+        <header>
+            <h2>아이템의 현금가치</h2>
+        </header>
+        <div class="flip-scroll">
+            <table class="mTable">
+                <colgroup>
+                    <col width="25%" />
+                    <col width="25%" />
+                    <col width="25%" />
+                    <col width="25%" />
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th scope="col">아이템 가격(메소)</th>
+                        <th scope="col">판매자기준<br>현금가치(원)</th>
+                        <th scope="col">구매자(메소보유)<br>기준 현금가치(원)</th>
+                        <th scope="col">구매자(메소구매)<br>기준 현금가치(원)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td scope="row" data-label="아이템 가격(메소)"><input type="text" name="itemMesoVal" id="itemMesoVal" 
+                            oninput="onlyNumberWithComma(this);" placeholder="아이템 가격"/></td>
+                        <td data-label="판매자기준 현금가치(원)"><span id="mesoToWon1"></span></td>
+                        <td data-label="메소보유 기준 현금가치(원)"><span id="mesoToWon2"></span></td>
+                        <td data-label="메소구매기준 현금가치(원)"><span id="mesoToWon3"></span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="grid1" style="display:none;"></div>
+    </div>
+</section>

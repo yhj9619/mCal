@@ -1,0 +1,50 @@
+---
+layout: default
+title: 골드주화가치 - 메산기
+description: 메이플스토리 골드 주화의 가치를 메소 및 메포로 환산하여 계산합니다.
+scripts:
+  - pages/juhwa.js
+---
+
+<section id="juhwa" class="eight">
+    <div class="container">
+        <header>
+            <h2>골드주화가치</h2>
+        </header>
+
+        <div class="inputDiv">
+            <div class="inputClass">
+                <label for="juhwaVal">주화가격</label>
+                <input type="text" class="txt-input" name="juhwaVal" id="juhwaVal" 
+                oninput="onlyNumberWithComma(this);" placeholder="골드주화가격"/>
+            </div>
+            <div class="inputClass">
+                <label for="juhwaCnt">주화갯수</label>
+                <input type="text" class="txt-input" name="juhwaCnt" id="juhwaCnt" 
+                oninput="onlyNumberWithComma(this);" placeholder="골드주화갯수"/>
+            </div>
+        </div>
+        <div class="flip-scroll">
+            <table class="mTable">
+                <colgroup>
+                    <col width="40%" />
+                    <col width="60%" />
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th scope="col">획득메소(억)</th>
+                        <th scope="col">주화 메포가치</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td data-label="획득메소(억)"><span id="juhwa1"></span></td>
+                        <td data-label="주화 메포가치"><span id="juhwa2"></span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <p>Q.아즈모스 추가보상 살?말?<br>
+            A.<span id="juhwa3"></span></p>
+    </div>
+</section>

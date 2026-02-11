@@ -1,0 +1,56 @@
+---
+layout: default
+title: 메소판매차익 - 메산기
+description: 메이플스토리 메소 판매 시의 차익과 수익률을 계산합니다.
+scripts:
+  - pages/saleProfit.js
+---
+
+<section id="saleProfit" class="seven">
+    <div class="container">
+        <header>
+            <h2>메소판매차익</h2>
+        </header>
+        <div class="inputClass">
+            <label for="buyMesoPrice">구입당시 메소</label>
+            <input type="text" class="txt-input" name="buyMesoPrice" id="buyMesoPrice" 
+            oninput="onlyNumberWithComma(this);" placeholder="구입당시 메소"/>
+        </div>
+        <div class="inputDiv">
+            <div class="inputClass">
+                <label for="buyMesoAmt">구매메소(억)</label>
+                <input type="text" class="txt-input" name="buyMesoAmt" id="buyMesoAmt" 
+                oninput="onlyNumberWithComma(this);" placeholder="구매메소"/>
+            </div>
+            <div class="inputClass">
+                <label for="buyMesoWon">투입금액(원)</label>
+                <input type="text" class="txt-input" name="buyMesoWon" id="buyMesoWon" 
+                oninput="onlyNumberWithComma(this);" placeholder="투입금액"/>
+            </div>
+        </div>
+
+        <div class="flip-scroll">
+            <table class="mTable">
+                <colgroup>
+                    <col width="33%" />
+                    <col width="33%" />
+                    <col width="33%" />
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th scope="col">실수령메소(억)</th>
+                        <th scope="col">판매수익(원)</th>
+                        <th scope="col">수익률</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td data-label="실수령메소(억)"><span id="saleProfit1"></span></td>
+                        <td data-label="판매수익(원)"><span id="saleProfit2"></span></td>
+                        <td data-label="수익률(%)"><span id="saleProfit3"></span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,76 @@
+---
+layout: default
+title: 메소와 메포 구매 - 메산기
+description: 메이플스토리 메소와 메포(메이플포인트)를 구매하는 다양한 방법의 효율을 비교하고 계산합니다.
+scripts:
+  - pages/mesoMarket.js
+---
+
+<section id="mesoMarket" class="two">
+    <div class="container">
+        <header>
+            <h2>메소와 메포 구매</h2>
+        </header>
+        <h3>메소구매</h3>
+        <div class="flip-scroll">
+            <table class="mTable">
+                <colgroup>
+                    <col width="20%" />
+                    <col width="15%" />
+                    <col width="15%" />
+                    <col width="15%" />
+                    <col width="35%" />
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th scope="col"></th>
+                        <th scope="col">라운지</th>
+                        <th scope="col">메소마켓<br>(캐시메포)</th>
+                        <th scope="col">메소마켓<br>(엠작메포)</th>
+                        <th scope="col">결론</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    <tr>
+                        <th>1억 메소당 비용(현금)</th>
+                        <td data-label="라운지"><span id="marketBuyMesoParam1" class="pointSpan"></span>원</td>
+                        <td data-label="캐시메포"><span id="marketBuyMesoParam2" class="pointSpan"></span>원</td>
+                        <td data-label="엠작메포"><span id="marketBuyMesoParam3" class="pointSpan"></span>원</td>
+                        <td data-label="결론"><span id="marketBuyMesoResult"/></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <p>메소마켓(캐시메포) : 캐시를 충전하여 캐시샵에서 메포구매 후 메소마켓 이용</p>
+        <p>메소마켓(엠작메포) : 엠작하는 유저에게 메포구매 후 메소마켓 이용</p>
+
+        <h3>메포구매</h3>
+        <div class="flip-scroll">
+            <table class="mTable">
+                <colgroup>
+                    <col width="30%" />
+                    <col width="15%" />
+                    <col width="15%" />
+                    <col width="40%" />
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th scope="col"></th>
+                        <th scope="col">선물식</th>
+                        <th scope="col">메소마켓</th>
+                        <th scope="col">결론</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>1만 메포당 비용(현금)</th>
+                        <td data-label="선물식"><span id="marketBuyMepoParam1" class="pointSpan"></span>원</td>
+                        <td data-label="메소마켓"><span id="marketBuyMepoParam2" class="pointSpan"></span>원</td>
+                        <td data-label="결론"><span id="marketBuyMepoResult"/></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>

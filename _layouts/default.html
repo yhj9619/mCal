@@ -1,0 +1,79 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>{{ page.title | default: site.title }}</title>
+		<meta name="description" content="{{ page.description | default: site.description }}">
+
+		<!--구글 애드센스-->
+		<script async
+		src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+		data-ad-client="ca-pub-3555267536702841"
+		crossorigin="anonymous"></script>
+		
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="{{ site.baseurl }}/assets/css/main.css" />
+		<link rel="icon" href="{{ site.baseurl }}/images/calculator.png">
+
+		<!-- jQuery에서 제공하는 최신 버전의 jQuery URL -->
+		<script src="https://code.jquery.com/jquery-latest.js"></script> 
+		<link rel="stylesheet" href="https://uicdn.toast.com/grid/latest/tui-grid.css" />
+		<script src="https://uicdn.toast.com/grid/latest/tui-grid.js"></script>
+
+		<link rel="stylesheet" href="{{ site.baseurl }}/assets/css/index.css" />
+		
+		<!-- 네이버 애널리틱스 -->
+		<script type="text/javascript" src="//wcs.naver.net/wcslog.js"></script>
+		<script type="text/javascript">
+		if(!wcs_add) var wcs_add = {};
+		wcs_add["wa"] = "108c8f7a903d5e0";
+		if(window.wcs) {
+		wcs_do();
+		}
+		</script>
+
+		<!-- 네이버 서치어드바이저 소유확인-->
+		<meta name="naver-site-verification" content="e3bb99fdcc028dd22227709e9499442867f1767f" />
+
+		<!-- 네이버 서치어드바이저 오픈 그래프 -->
+		<meta property="og:title" content="{{ page.title | default: site.title }}">
+		<meta
+		property="og:description"
+		content="메이플스토리 메소 및 메포 계산기, 메산기, 쌀산기, 메소마켓효율, 메소 메포 구매효율, MVP작 효율, 엠작 효율, MVP작 계산, 엠작 계산, MVP작 비용, 엠작 비용, 보상분배계산기, 아이템의 현금가치, 과거와 현재의 아이템 가치, 메소판매차익, 골드주화가치, 주흔계산기, 아즈모스코인계산기, 피방조각효율"
+		/>
+		<meta property="og:image" content="{{ site.baseurl }}/images/mapleIcon.png" />
+		<meta property="og:site_name" content="{{ site.title }}" />
+		<meta property="og:url" content="{{ page.url | absolute_url }}">
+	</head>
+	<body class="is-preload">
+
+		<!-- Header -->
+		{% include header.html %}
+
+		<!-- Main -->
+		<div id="main">
+			{{ content }}
+		</div>
+
+		<!-- Footer -->
+		{% include footer.html %}
+
+
+		<!-- Scripts -->
+		<script src="{{ site.baseurl }}/assets/js/jquery.min.js"></script>
+		<script src="{{ site.baseurl }}/assets/js/jquery.scrolly.min.js"></script>
+		<script src="{{ site.baseurl }}/assets/js/jquery.scrollex.min.js"></script>
+		<script src="{{ site.baseurl }}/assets/js/browser.min.js"></script>
+		<script src="{{ site.baseurl }}/assets/js/breakpoints.min.js"></script>
+		<script src="{{ site.baseurl }}/assets/js/util.js"></script>
+		<script src="{{ site.baseurl }}/assets/js/main.js"></script>
+		<script src="{{ site.baseurl }}/assets/js/global.js"></script>
+		<!-- 페이지별 스크립트가 있다면 여기에 추가될 수 있습니다. -->
+		{% if page.scripts %}
+			{% for script in page.scripts %}
+				<script src="{{ site.baseurl }}/assets/js/{{ script }}"></script>
+			{% endfor %}
+		{% endif %}
+
+	</body>
+</html>

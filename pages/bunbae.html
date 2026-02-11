@@ -1,0 +1,89 @@
+---
+layout: default
+title: 보상분배계산기 - 메산기
+description: 메이플스토리 보상 분배를 균등 또는 차등 방식으로 계산합니다.
+scripts:
+  - pages/bunbae.js
+---
+
+<section id="bunbae" class="four">
+    <div class="container">
+        <header>
+            <h2>보상분배계산기</h2>
+        </header>
+        <div class="tab">
+            <button id="equalBtn" class="active">균등 분배</button>
+            <button id="customBtn">차등 분배</button>
+        </div>
+        <div class="inputDiv">
+            <div class="inputClass tooltip-container">
+                <label for="saleMeso" class="tooltip-label">판매금액</label>
+                <input type="text" class="txt-input" name="saleMeso" id="saleMeso" 
+                oninput="onlyNumberWithComma(this);" placeholder="판매금액"/>
+                <span class="tooltip-text2">
+                    수수료를 제외하기 전 금액을 입력해주세요.<br>
+                    좌측에 선택된 경매장 수수료가 자동 적용됩니다.
+                </span>
+            </div>
+            <div class="inputClass ">
+                <label for="dajoPrice" class="tooltip-label">조각금액</label>
+                <input type="text" class="txt-input" name="dajoPrice" id="dajoPrice" 
+                oninput="onlyNumberWithComma(this);" placeholder="조각금액"/>
+            </div>
+        </div>
+        <div id="equalDiv">
+            <div class="flip-scroll">
+                <table class="mTable">
+                    <colgroup>
+                        <col width="25%" />
+                        <col width="25%" />
+                        <col width="25%" />
+                        <col width="25%" />
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th scope="col">파티원 수</th>
+                            <th scope="col">인당 분배금(메소)</th>
+                            <th scope="col">인당 분배금(원)</th>
+                            <th scope="col">인당 분배금(조각)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>	
+                            <td scope="row" data-label="파티원"><input type="text" name="memberCnt" id="memberCnt" 
+                                oninput="onlyNumberWithComma(this);" placeholder="파티원 수"/></td>
+                            <td data-label="인당 분배금(메소)"><span id="equalBunbaeMeso"></span></td>
+                            <td data-label="인당 분배금(원)"><span id="equalBunbaeWon"></span></td>
+                            <td data-label="인당 분배금(조각)"><span id="equalBunbaeDajo"></span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    
+        <div id="customDiv" style="display:none;">
+            <div class="flip-scroll">
+                <table class="mTable">
+                    <colgroup>
+                        <col width="15%" />
+                        <col width="15%" />
+                        <col width="30%" />
+                        <col width="20%" />
+                        <col width="20%" />
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th scope="col">닉네임</th>
+                            <th scope="col">분배지분</th>
+                            <th scope="col">인당 분배금(메소)</th>
+                            <th scope="col">인당 분배금(원)</th>
+                            <th scope="col">인당 분배금(조각)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="memberTable">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>

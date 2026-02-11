@@ -1,0 +1,68 @@
+---
+layout: default
+title: 과거와 현재 아이템 가치 - 메산기
+description: 메이플스토리 아이템의 과거와 현재 가치를 비교합니다.
+scripts:
+  - pages/valueOf.js
+---
+
+<section id="valueOf" class="six">
+    <div class="container">
+        <header>
+            <h2>과거와 현재 아이템 가치</h2>
+        </header>
+        <h4>*챌린저스 서버가 있는 시기에는, 과거메소를 챌린저스 서버 메소로 두고<br>
+        현재 월드의 시세와 챌린저스 서버의 시세를 비교하는데 활용할 수 있습니다.</h4>
+
+        <div class="inputDiv">
+            <div class="inputClass">
+                <label for="pastMeso">과거메소</label>
+                <input type="text" class="txt-input" name="pastMeso" id="pastMeso" 
+                oninput="onlyNumberWithComma(this);" placeholder="과거 메소 가격"/>
+            </div>
+        </div>
+        <div class="flip-scroll">
+            <table class="mTable">
+                <colgroup>
+                    <col width="30%" />
+                    <col width="70%" />
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th scope="col">현재 아이템 가격(메소)</th>
+                        <th scope="col">과거기준 가치(메소)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td scope="row" data-label="현재 아이템 가격(메소)"><input type="text" name="presentItem" id="presentItem" 
+                            oninput="onlyNumberWithComma(this);" placeholder="현재 아이템 가격"/></td>
+                        <td data-label="과거기준 가치(메소)"><span id="valueOf1"></span></td>
+                    </tr>
+                    
+                </tbody>
+            </table>
+        </div>
+        <div class="flip-scroll">
+            <table class="mTable">
+                <colgroup>
+                    <col width="30%" />
+                    <col width="70%" />
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th scope="col">과거 아이템 가격(메소)</th>
+                        <th scope="col">현재기준 가치(메소)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td scope="row" data-label="과거 아이템 가격(메소)"><input type="text" name="pastItem" id="pastItem" 
+                            oninput="onlyNumberWithComma(this);" placeholder="과거 아이템 가격"/></td>
+                        <td data-label="현재기준 가치(메소)"><span id="valueOf2"></span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>

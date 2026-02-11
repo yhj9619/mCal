@@ -1,0 +1,71 @@
+---
+layout: default
+title: 피시방 효율 - 메산기
+description: 메이플스토리 피시방 이용에 따른 효율을 계산합니다.
+scripts:
+  - pages/pcRoom.js
+---
+
+<section id="pcRoom" class="ten">
+    <div class="container">
+        <header>
+            <h2>피시방 효율</h2>
+        </header>
+
+        <div class="inputDiv">
+            <div class="inputClass">
+                <label for="pcFee">요금</label>
+                <input type="text" class="txt-input" name="pcFee" id="pcFee" 
+                oninput="onlyNumberWithComma(this);" placeholder="피시방 이용요금"/>
+            </div>
+            <div class="inputClass"> 
+                <label for="pcHH">시간</label>
+                <input type="text" class="txt-input" name="pcHH" id="pcHH" 
+                oninput="onlyNumberWithComma(this);" placeholder="피시방 이용시간(시간)"/>
+            </div>
+            <div class="inputClass">
+                <label for="pcMM">분</label>
+                <input type="text" class="txt-input" name="pcMM" id="pcMM" 
+                oninput="onlyNumberWithComma(this);" placeholder="피시방 이용시간(분)"/>
+            </div>
+            <div class="inputClass">
+                <label for="piecePrice">조각가격(메소)</label>
+                <input type="text" class="txt-input" name="piecePrice" id="piecePrice" 
+                oninput="onlyNumberWithComma(this);" placeholder="솔에르다 조각 가격"/>
+            </div>
+        </div>
+
+        <div class="flip-scroll">
+            <table class="mTable">
+                <colgroup>
+                    <col width="20%" />
+                    <col width="20%" />
+                    <col width="20%" />
+                    <col width="20%" />
+                    <col width="20%" />
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th scope="col">분<br>환산</th>
+                        <th scope="col">90분<br>가격(원)</th>
+                        <th scope="col">인게임<br>조각 가격</th>
+                        <th scope="col">평일 피방<br>조각 가격(원)</th>
+                        <th scope="col">주말 피방<br>조각 가격(원)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td data-label="분환산"><span id="pcRoom1"></span></td>
+                        <td data-label="90분 가격(원)"><span id="pcRoom2"></span></td>
+                        <td data-label="인게임조각 가격(원)"><span id="pcRoom3"></span></td>
+                        <td data-label="평일피방 조각 가격(원)"><span id="pcRoom4"></span></td>
+                        <td data-label="주말피방 조각 가격(원)"><span id="pcRoom5"></span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <p>Q. 그래서 피방 갈?말?<br>
+        A. <strong>평일</strong> : <span id="pcRoom6"></span> / <strong>주말</strong> : <span id="pcRoom7"></span></p>
+
+    </div>
+</section>
