@@ -2017,7 +2017,7 @@ input, select, textarea {
 
 /* Custom styles for menu search input */
 #nav #menuSearchInput {
-    height: 2.8em; /* 높이 증가 */
+    height: 1.8em; /* 높이 증가 */
     font-size: 1em; /* 폰트 크기 조정 */
     color: #fff; /* 입력 텍스트 색상 흰색 */
     background-color: rgba(255, 255, 255, 0.15); /* 배경색을 약간 더 진하게 */

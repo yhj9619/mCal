@@ -9,8 +9,18 @@ scripts:
 <section id="bunbae" class="four">
     <div class="container">
         <header>
-            <h2>보상분배계산기</h2>
+            <h2 class="accordion-header" style="cursor: pointer;">보상분배계산기 <span class="accordion-icon fa fa-chevron-down"></span></h2>
+            <div class="accordion-content" style="display: none;">
+                <p>
+                    메이플스토리에서 파티 플레이 후 얻은 보상을 파티원들에게 공정하게 분배하는 것은 매우 중요합니다.
+                    이 계산기는 레이드, 보스 처치 등으로 획득한 메소를 파티원 수에 따라 균등하게 나누거나,
+                    각자의 기여도에 따라 차등 분배하는 방식을 지원합니다.
+                    좌측의 공통 입력 항목 외에 판매 금액, 조각 금액, 파티원 수, 개별 분배 지분 등을 입력하여 활용하세요.
+                </p>
+                <hr style="margin: 2em 0;">
+            </div>
         </header>
+
         <div class="tab">
             <button id="equalBtn" class="active">균등 분배</button>
             <button id="customBtn">차등 분배</button>
@@ -19,7 +29,7 @@ scripts:
             <div class="inputClass tooltip-container">
                 <label for="saleMeso" class="tooltip-label">판매금액</label>
                 <input type="text" class="txt-input" name="saleMeso" id="saleMeso" 
-                oninput="onlyNumberWithComma(this);" placeholder="판매금액"/>
+                oninput="onlyNumberWithComma(this);" placeholder="수수료 제외 전 금액"/>
                 <span class="tooltip-text2">
                     수수료를 제외하기 전 금액을 입력해주세요.<br>
                     좌측에 선택된 경매장 수수료가 자동 적용됩니다.
@@ -28,7 +38,10 @@ scripts:
             <div class="inputClass ">
                 <label for="dajoPrice" class="tooltip-label">조각금액</label>
                 <input type="text" class="txt-input" name="dajoPrice" id="dajoPrice" 
-                oninput="onlyNumberWithComma(this);" placeholder="조각금액"/>
+                oninput="onlyNumberWithComma(this);" placeholder="솔 에르다 조각당 가격"/>
+                <span class="tooltip-text2">
+                    솔 에르다 조각을 현금화했을 때의 1개당 가격 (선택 사항)
+                </span>
             </div>
         </div>
         <div id="equalDiv">
@@ -59,6 +72,37 @@ scripts:
                     </tbody>
                 </table>
             </div>
+            <h4 class="accordion-header" style="cursor: pointer; margin-top: 1.5em; margin-bottom: 0.5em;">균등 분배 정보 <span class="accordion-icon fa fa-chevron-down"></span></h4>
+            <div class="accordion-content" style="display: none;">
+                <div class="flip-scroll">
+                    <table class="simpleTable">
+                        <thead>
+                            <tr>
+                                <th>구분</th>
+                                <th>설명</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>**균등 분배**</td>
+                                <td>파티원들에게 판매 금액을 동일하게 나누어 분배합니다. 모든 파티원의 기여도가 동일하다고 가정할 때 적합한 방식입니다.</td>
+                            </tr>
+                            <tr>
+                                <td>**판매금액**</td>
+                                <td>아이템 판매로 획득한 총 메소를 의미하며, 경매장 수수료를 제외하기 전의 금액을 입력합니다.</td>
+                            </tr>
+                            <tr>
+                                <td>**조각금액**</td>
+                                <td>솔 에르다 조각 1개당 인게임 메소 가치를 입력합니다. (선택 사항) 이 값을 입력하면 분배금을 조각 단위로도 확인할 수 있습니다.</td>
+                            </tr>
+                            <tr>
+                                <td>**파티원 수**</td>
+                                <td>보상을 분배할 총 파티원의 수입니다.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     
         <div id="customDiv" style="display:none;">
@@ -83,6 +127,37 @@ scripts:
                     <tbody id="memberTable">
                     </tbody>
                 </table>
+            </div>
+            <h4 class="accordion-header" style="cursor: pointer; margin-top: 1.5em; margin-bottom: 0.5em;">차등 분배 정보 <span class="accordion-icon fa fa-chevron-down"></span></h4>
+            <div class="accordion-content" style="display: none;">
+                <div class="flip-scroll">
+                    <table class="simpleTable">
+                        <thead>
+                            <tr>
+                                <th>구분</th>
+                                <th>설명</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>**차등 분배**</td>
+                                <td>파티원 각자의 기여도에 따라 분배 지분을 설정하여 보상을 다르게 나눕니다.</td>
+                            </tr>
+                            <tr>
+                                <td>**판매금액**</td>
+                                <td>아이템 판매로 획득한 총 메소를 의미하며, 경매장 수수료를 제외하기 전의 금액을 입력합니다.</td>
+                            </tr>
+                            <tr>
+                                <td>**조각금액**</td>
+                                <td>솔 에르다 조각 1개당 인게임 메소 가치를 입력합니다. (선택 사항) 이 값을 입력하면 분배금을 조각 단위로도 확인할 수 있습니다.</td>
+                            </tr>
+                            <tr>
+                                <td>**분배 지분**</td>
+                                <td>각 파티원이 받을 보상의 비율을 나타내는 상대적인 값입니다. 예를 들어, '2'와 '1'로 설정하면 2를 입력한 파티원이 1을 입력한 파티원보다 두 배의 보상을 받습니다.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

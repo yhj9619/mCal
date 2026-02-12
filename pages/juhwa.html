@@ -9,19 +9,28 @@ scripts:
 <section id="juhwa" class="eight">
     <div class="container">
         <header>
-            <h2>골드주화가치</h2>
+            <h2 class="accordion-header" style="cursor: pointer;">골드주화가치 <span class="accordion-icon fa fa-chevron-down"></span></h2>
+            <div class="accordion-content" style="display: none;">
+                <p>
+                    아즈모스 등으로 획득하는 골드 주화는 메소 또는 메이플포인트(메포)로 환산될 수 있습니다.
+                    이 계산기는 골드 주화의 현재 가치와 개수를 바탕으로,
+                    획득할 수 있는 메소량과 그에 상응하는 메포 가치를 분석하여 보여줍니다.
+                    아즈모스 코인샵 등에서 추가 보상을 구매할지 여부를 판단하는 데 도움이 됩니다.
+                </p>
+                <hr style="margin: 2em 0;">
+            </div>
         </header>
 
         <div class="inputDiv">
             <div class="inputClass">
                 <label for="juhwaVal">주화가격</label>
                 <input type="text" class="txt-input" name="juhwaVal" id="juhwaVal" 
-                oninput="onlyNumberWithComma(this);" placeholder="골드주화가격"/>
+                oninput="onlyNumberWithComma(this);" placeholder="골드주화 개당 경매장 가격"/>
             </div>
             <div class="inputClass">
                 <label for="juhwaCnt">주화갯수</label>
                 <input type="text" class="txt-input" name="juhwaCnt" id="juhwaCnt" 
-                oninput="onlyNumberWithComma(this);" placeholder="골드주화갯수"/>
+                oninput="onlyNumberWithComma(this);" placeholder="보유한 골드주화 갯수"/>
             </div>
         </div>
         <div class="flip-scroll">
@@ -44,7 +53,38 @@ scripts:
                 </tbody>
             </table>
         </div>
-        <p>Q.아즈모스 추가보상 살?말?<br>
-            A.<span id="juhwa3"></span></p>
+        <h4 class="accordion-header" style="cursor: pointer; margin-top: 1.5em; margin-bottom: 0.5em;">상세정보 <span class="accordion-icon fa fa-chevron-down"></span></h4>
+        <div class="accordion-content" style="display: none;">
+            <div class="flip-scroll">
+                <table class="simpleTable">
+                    <thead>
+                        <tr>
+                            <th>구분</th>
+                            <th>설명</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>**주화가격**</td>
+                            <td>매일 변동되는 골드 주화 1개당 거래되는 메소 가치입니다.</td>
+                        </tr>
+                        <tr>
+                            <td>**주화갯수**</td>
+                            <td>보유하고 있거나 계산하고자 하는 골드 주화의 총 갯수입니다.</td>
+                        </tr>
+                        <tr>
+                            <td>**획득메소(억)**</td>
+                            <td>입력된 주화들을 모두 판매했을 때 최종적으로 획득하는 메소량(억 단위)입니다. </td>
+                        </tr>
+                        <tr>
+                            <td>**주화 메포가치**</td>
+                            <td>획득한 메소량을 현재 메이플포인트(메포) 시세로 환산했을 때의 가치입니다.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <p style="margin-top: 2em;">Q. 아즈모스 추가 보상 구매, 과연 이득일까요?</p>
+        <p>A. <span id="juhwa3" style="font-weight: bold;"></span></p>
     </div>
 </section>

@@ -9,23 +9,33 @@ scripts:
 <section id="saleProfit" class="seven">
     <div class="container">
         <header>
-            <h2>메소판매차익</h2>
+            <h2 class="accordion-header" style="cursor: pointer;">메소판매차익 <span class="accordion-icon fa fa-chevron-down"></span></h2>
+            <div class="accordion-content" style="display: none;">
+                <p>
+                    메이플스토리에서 메소를 현금으로 환전하여 판매할 때 발생하는 차익과 수익률을 계산합니다.
+                    메소는 게임 내 주요 재화이므로, 시세 변동에 따라 매매 시점이 중요합니다.
+                    이 계산기는 메소 구매 시점의 가격과 현재 판매 시점의 가격을 비교하여,
+                    메소 거래를 통한 순수한 현금 이득과 투자 대비 수익률을 명확하게 파악할 수 있도록 돕습니다.
+                    좌측의 공통 입력 항목(메소시세, 메포시세, 경매장 수수료 등)을 정확하게 입력하여 최신 정보를 반영해 주세요.
+                </p>
+                <hr style="margin: 2em 0;">
+            </div>
         </header>
         <div class="inputClass">
             <label for="buyMesoPrice">구입당시 메소</label>
             <input type="text" class="txt-input" name="buyMesoPrice" id="buyMesoPrice" 
-            oninput="onlyNumberWithComma(this);" placeholder="구입당시 메소"/>
+            oninput="onlyNumberWithComma(this);" placeholder="구입당시 1억 메소당 가격"/>
         </div>
         <div class="inputDiv">
             <div class="inputClass">
                 <label for="buyMesoAmt">구매메소(억)</label>
                 <input type="text" class="txt-input" name="buyMesoAmt" id="buyMesoAmt" 
-                oninput="onlyNumberWithComma(this);" placeholder="구매메소"/>
+                oninput="onlyNumberWithComma(this);" placeholder="구매한 메소량 (억단위)"/>
             </div>
             <div class="inputClass">
                 <label for="buyMesoWon">투입금액(원)</label>
                 <input type="text" class="txt-input" name="buyMesoWon" id="buyMesoWon" 
-                oninput="onlyNumberWithComma(this);" placeholder="투입금액"/>
+                oninput="onlyNumberWithComma(this);" placeholder="메소 구매에 투입된 현금"/>
             </div>
         </div>
 
@@ -51,6 +61,45 @@ scripts:
                     </tr>
                 </tbody>
             </table>
+        </div>
+        <h4 class="accordion-header" style="cursor: pointer; margin-top: 1.5em; margin-bottom: 0.5em;">유형정보 <span class="accordion-icon fa fa-chevron-down"></span></h4>
+        <div class="accordion-content" style="display: none;">
+            <div class="flip-scroll">
+                <table class="simpleTable">
+                    <thead>
+                        <tr>
+                            <th>구분</th>
+                            <th>설명</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>**구입당시 메소**</td>
+                            <td>메소를 현금으로 구입했던 시점의 1억 메소당 현금 가격입니다.</td>
+                        </tr>
+                        <tr>
+                            <td>**구매메소(억)**</td>
+                            <td>현금을 지불하고 구입했던 총 메소량입니다 (억 단위).</td>
+                        </tr>
+                        <tr>
+                            <td>**투입금액(원)**</td>
+                            <td>메소를 구입하기 위해 실제 사용했던 현금 금액입니다. 이 항목은 '구입당시 메소'와 '구매메소(억)'를 통해 자동 계산되거나 직접 입력할 수 있습니다.</td>
+                        </tr>
+                        <tr>
+                            <td>**실수령 메소(억)**</td>
+                            <td>구매한 메소를 경매장에 판매했을 때, 수수료를 제외하고 최종적으로 현금으로 전환 가능한 메소량입니다.</td>
+                        </tr>
+                        <tr>
+                            <td>**판매수익(원)**</td>
+                            <td>메소 거래를 통해 발생한 순수 현금 수익입니다. 양수이면 이득, 음수이면 손실을 의미합니다.</td>
+                        </tr>
+                        <tr>
+                            <td>**수익률(%)**</td>
+                            <td>메소 구매에 투입한 현금 대비 수익의 비율입니다.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </section>

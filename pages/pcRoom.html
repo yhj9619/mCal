@@ -9,29 +9,37 @@ scripts:
 <section id="pcRoom" class="ten">
     <div class="container">
         <header>
-            <h2>피시방 효율</h2>
+            <h2 class="accordion-header" style="cursor: pointer;">피시방 효율 <span class="accordion-icon fa fa-chevron-down"></span></h2>
+            <div class="accordion-content" style="display: none;">
+                <p>
+                    메이플스토리에서 피시방 접속 시 조각을 주는 것이 피시방 이용 요금을 고려했을 때 그 효율이 항상 좋은 것은 아닙니다.
+                    이 계산기는 피시방 이용 요금과 시간을 바탕으로 획득 가능한 '솔 에르다 조각'의 가치를 분석하여 피시방 이용의 실제 효율을 판단하는 데 도움을 줍니다.
+                    좌측의 공통 입력 항목 외에 피시방 요금, 이용 시간 등을 정확하게 입력하여 최신 정보를 반영해 주세요.
+                </p>
+                <hr style="margin: 2em 0;">
+            </div>
         </header>
 
         <div class="inputDiv">
             <div class="inputClass">
                 <label for="pcFee">요금</label>
                 <input type="text" class="txt-input" name="pcFee" id="pcFee" 
-                oninput="onlyNumberWithComma(this);" placeholder="피시방 이용요금"/>
+                oninput="onlyNumberWithComma(this);" placeholder="피시방 시간당 이용요금"/>
             </div>
             <div class="inputClass"> 
                 <label for="pcHH">시간</label>
                 <input type="text" class="txt-input" name="pcHH" id="pcHH" 
-                oninput="onlyNumberWithComma(this);" placeholder="피시방 이용시간(시간)"/>
+                oninput="onlyNumberWithComma(this);" placeholder="총 이용 시간(시간)"/>
             </div>
             <div class="inputClass">
                 <label for="pcMM">분</label>
                 <input type="text" class="txt-input" name="pcMM" id="pcMM" 
-                oninput="onlyNumberWithComma(this);" placeholder="피시방 이용시간(분)"/>
+                oninput="onlyNumberWithComma(this);" placeholder="총 이용 시간(분)"/>
             </div>
             <div class="inputClass">
                 <label for="piecePrice">조각가격(메소)</label>
                 <input type="text" class="txt-input" name="piecePrice" id="piecePrice" 
-                oninput="onlyNumberWithComma(this);" placeholder="솔에르다 조각 가격"/>
+                oninput="onlyNumberWithComma(this);" placeholder="솔 에르다 조각당 경매장 가격"/>
             </div>
         </div>
 
@@ -64,8 +72,50 @@ scripts:
                 </tbody>
             </table>
         </div>
-        <p>Q. 그래서 피방 갈?말?<br>
-        A. <strong>평일</strong> : <span id="pcRoom6"></span> / <strong>주말</strong> : <span id="pcRoom7"></span></p>
-
+        <h4 class="accordion-header" style="cursor: pointer; margin-top: 1.5em; margin-bottom: 0.5em;">상세정보 <span class="accordion-icon fa fa-chevron-down"></span></h4>
+        <div class="accordion-content" style="display: none;">
+            <div class="flip-scroll">
+                <table class="simpleTable">
+                    <thead>
+                        <tr>
+                            <th>구분</th>
+                            <th>설명</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>**피시방 요금**</td>
+                            <td>시간당 피시방 이용 요금입니다.</td>
+                        </tr>
+                        <tr>
+                            <td>**피시방 이용시간**</td>
+                            <td>총 피시방 이용 시간을 시(HH)와 분(MM)으로 입력합니다.</td>
+                        </tr>
+                        <tr>
+                            <td>**솔 에르다 조각 가격**</td>
+                            <td>경매장에서 솔 에르다 조각 1개당 거래되는 메소 가격입니다.</td>
+                        </tr>
+                        <tr>
+                            <td>**분 환산**</td>
+                            <td>입력된 총 이용 시간을 분으로 환산한 값입니다.</td>
+                        </tr>
+                        <tr>
+                            <td>**90분 가격(원)**</td>
+                            <td>피시방 접속 보상 최소 시간인 90분 이용 시 소요되는 현금 비용입니다.</td>
+                        </tr>
+                        <tr>
+                            <td>**인게임 조각 가격(원)**</td>
+                            <td>솔 에르다 조각 1개를 메소로 구매할 경우 소요되는 현금 비용입니다.</td>
+                        </tr>
+                        <tr>
+                            <td>**평일/주말 피방 조각 가격(원)**</td>
+                            <td>피시방 보상으로 획득하는 솔 에르다 조각 1개당 실제 현금 비용입니다. 평일은 10개, 주말은 15개 획득 기준입니다.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <p style="margin-top: 2em;">Q. 그래서 피시방을 가는 것이 이득일까요?</p>
+        <p>A. <strong>평일</strong> : <span id="pcRoom6" style="font-weight: bold;"></span> / <strong>주말</strong> : <span id="pcRoom7" style="font-weight: bold;"></span></p>
     </div>
 </section>

@@ -144,7 +144,7 @@ function dataLoad(){
     console.log("dataLoad() 실행됨");
     var getLocal = function(key) { 
         var val = localStorage.getItem(key);
-        return val === "undefined" ? "" : val; // "undefined" 문자열이면 빈 문자열로 처리
+        return (val === "undefined" || val === "[object Object]") ? "" : val; // "undefined" 또는 "[object Object]" 문자열이면 빈 문자열로 처리
     };
 
     vPresentMeso = getLocal('presentMeso');
@@ -222,54 +222,63 @@ function dataLoad(){
 
 // 로컬 스토리지에 데이터 저장하기
 function saveData() {
-    var val = $("#presentMeso").val();
-    localStorage.setItem('presentMeso', val === "" ? "" : val);
-    var val = $("#presentMepo").val();
-    localStorage.setItem('presentMepo', val === "" ? "" : val);
-    var val = $("#percentMVP").val();
-    localStorage.setItem('percentMVP', val === "" ? "" : val);
-    var val = $("#discountRate").val();
-    localStorage.setItem('discountRate', val === "" ? "" : val);
-    localStorage.setItem('auctionCharge', $("input:radio[name='auctionCharge']:checked").val());
+    var valPresentMeso = $("#presentMeso").val();
+    localStorage.setItem('presentMeso', valPresentMeso === "" ? "" : valPresentMeso);
+    var valPresentMepo = $("#presentMepo").val();
+    localStorage.setItem('presentMepo', valPresentMepo === "" ? "" : valPresentMepo);
+    var valPercentMVP = $("#percentMVP").val();
+    localStorage.setItem('percentMVP', valPercentMVP === "" ? "" : valPercentMVP);
+    var valDiscountRate = $("#discountRate").val();
+    localStorage.setItem('discountRate', valDiscountRate === "" ? "" : valDiscountRate);
+    
+    var checkedAuctionCharge = $("input:radio[name='auctionCharge']:checked");
+    if (checkedAuctionCharge.length > 0) {
+        localStorage.setItem('auctionCharge', checkedAuctionCharge.val());
+    } else {
+        localStorage.setItem('auctionCharge', '5'); // 기본값 5%
+    }
 
     // 페이지별 값 저장
-    var val = $("#juhwaVal").val();
-    localStorage.setItem('juhwaVal', val === "" ? "" : val);
-    var val = $("#juhwaCnt").val();
-    localStorage.setItem('juhwaCnt', val === "" ? "" : val);
-    var val = $("#pcFee").val();
-    localStorage.setItem('pcFee', val === "" ? "" : val);
-    var val = $("#pcHH").val();
-    localStorage.setItem('pcHH', val === "" ? "" : val);
-    var val = $("#pcMM").val();
-    localStorage.setItem('pcMM', val === "" ? "" : val);
-    var val = $("#piecePrice").val();
-    localStorage.setItem('piecePrice', val === "" ? "" : val);
-    var val = $("#pastMeso").val();
-    localStorage.setItem('pastMeso', val === "" ? "" : val);
-    var val = $("#itemMesoVal");
-    localStorage.setItem('itemMesoVal', val === "" ? "" : val);
-    var val = $("#juHeunPrice").val();
-    localStorage.setItem('juHeunPrice', val === "" ? "" : val);
-    var val = $("#azmPotionPrice").val();
-    localStorage.setItem('azmPotionPrice', val === "" ? "" : val);
-    if ($('input[name="juHeun50Event"]:checked').length > 0) {
-        localStorage.setItem('juHeun50Event', $('input[name="juHeun50Event"]:checked').val());
-    } else { // 선택된 라디오 버튼이 없을 경우 기본값 저장
-        localStorage.setItem('juHeun50Event', '1');
+    var valJuhwaVal = $("#juhwaVal").val();
+    localStorage.setItem('juhwaVal', valJuhwaVal === "" ? "" : valJuhwaVal);
+    var valJuhwaCnt = $("#juhwaCnt").val();
+    localStorage.setItem('juhwaCnt', valJuhwaCnt === "" ? "" : valJuhwaCnt);
+    var valPcFee = $("#pcFee").val();
+    localStorage.setItem('pcFee', valPcFee === "" ? "" : valPcFee);
+    var valPcHH = $("#pcHH").val();
+    localStorage.setItem('pcHH', valPcHH === "" ? "" : valPcHH);
+    var valPcMM = $("#pcMM").val();
+    localStorage.setItem('pcMM', valPcMM === "" ? "" : valPcMM);
+    var valPiecePrice = $("#piecePrice").val();
+    localStorage.setItem('piecePrice', valPiecePrice === "" ? "" : valPiecePrice);
+    var valPastMeso = $("#pastMeso").val();
+    localStorage.setItem('pastMeso', valPastMeso === "" ? "" : valPastMeso);
+    var valItemMesoVal = $("#itemMesoVal").val(); // <-- .val() 추가!
+    localStorage.setItem('itemMesoVal', valItemMesoVal === "" ? "" : valItemMesoVal);
+    var valJuHeunPrice = $("#juHeunPrice").val();
+    localStorage.setItem('juHeunPrice', valJuHeunPrice === "" ? "" : valJuHeunPrice);
+    var valAzmPotionPrice = $("#azmPotionPrice").val();
+    localStorage.setItem('azmPotionPrice', valAzmPotionPrice === "" ? "" : valAzmPotionPrice);
+    
+    var checkedJuHeun50Event = $('input[name="juHeun50Event"]:checked');
+    if (checkedJuHeun50Event.length > 0) {
+        localStorage.setItem('juHeun50Event', checkedJuHeun50Event.val());
+    } else {
+        localStorage.setItem('juHeun50Event', '1'); // 기본값 '1' (일반)
     }
-    var val = $("#saleMeso").val();
-    localStorage.setItem('saleMeso', val === "" ? "" : val);
-    var val = $("#dajoPrice").val();
-    localStorage.setItem('dajoPrice', val === "" ? "" : val);
-    var val = $("#memberCnt").val();
-    localStorage.setItem('memberCnt', val === "" ? "" : val);
-    var val = $("#buyMesoPrice").val();
-    localStorage.setItem('buyMesoPrice', val === "" ? "" : val);
-    var val = $("#buyMesoAmt").val();
-    localStorage.setItem('buyMesoAmt', val === "" ? "" : val);
-    var val = $("#buyMesoWon").val();
-    localStorage.setItem('buyMesoWon', val === "" ? "" : val);
+    
+    var valSaleMeso = $("#saleMeso").val();
+    localStorage.setItem('saleMeso', valSaleMeso === "" ? "" : valSaleMeso);
+    var valDajoPrice = $("#dajoPrice").val();
+    localStorage.setItem('dajoPrice', valDajoPrice === "" ? "" : valDajoPrice);
+    var valMemberCnt = $("#memberCnt").val();
+    localStorage.setItem('memberCnt', valMemberCnt === "" ? "" : valMemberCnt);
+    var valBuyMesoPrice = $("#buyMesoPrice").val();
+    localStorage.setItem('buyMesoPrice', valBuyMesoPrice === "" ? "" : valBuyMesoPrice);
+    var valBuyMesoAmt = $("#buyMesoAmt").val();
+    localStorage.setItem('buyMesoAmt', valBuyMesoAmt === "" ? "" : valBuyMesoAmt);
+    var valBuyMesoWon = $("#buyMesoWon").val();
+    localStorage.setItem('buyMesoWon', valBuyMesoWon === "" ? "" : valBuyMesoWon);
 }
 
 // 데이터 초기화

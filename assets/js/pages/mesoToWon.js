@@ -8,11 +8,13 @@ function run_page_calculations() {
 
 // 아이템의 현금가치 계산 로직
 function fn_mesoToWon(){
-    // vItemMesoVal 로컬 스토리지 값 로드 (global.js에서 처리되지만, 페이지별 초기값 설정을 위해 다시 한번)
-    vItemMesoVal = localStorage.getItem('itemMesoVal');
-    if (vItemMesoVal) {
-        document.getElementById('itemMesoVal').value = vItemMesoVal;
-    }
+    console.log("fn_mesoToWon() 실행됨. #itemMesoVal 값:", $("#itemMesoVal").val()); 
+    // vItemMesoVal 로컬 스토리지 값 로드는 global.js의 dataLoad()에서 처리합니다.
+    // 이 파일에서는 DOM에서 직접 값을 가져와 사용합니다.
+    // var itemMesoVal = localStorage.getItem('itemMesoVal'); // 이 부분은 global.js에서 처리하므로 제거
+    // if (itemMesoVal) { // 이 부분도 global.js에서 처리하므로 제거
+    //     document.getElementById('itemMesoVal').value = itemMesoVal;
+    // }
 
     var itemMesoVal = $("#itemMesoVal").val().replace(/,/g, '');
     var psm = Number(vPresentMeso); // vPresentMeso는 global.js에서 설정됨

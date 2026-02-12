@@ -9,9 +9,26 @@ scripts:
 <section id="juHeunVal" class="nine">
     <div class="container">
         <header>
-            <h2>주흔&아즈모스코인가치</h2>
+            <h2 class="accordion-header" style="cursor: pointer;">주흔&아즈모스코인가치 <span class="accordion-icon fa fa-chevron-down"></span></h2>
+            <div class="accordion-content" style="display: none;">
+                <p>
+                    메이플스토리에서 주문의 흔적(주흔)과 아즈모스 코인은 아이템 강화 및 재화 환산에 중요한 역할을 합니다.
+                    이 계산기는 주흔과 아즈모스 코인샵 아이템의 시세에 따라 그 가치를 메소와 현금으로 환산하여 보여줍니다.
+                    아이템 강화 효율, 코인샵 구매 여부, 재화 수급 방식 등을 판단하는 데 도움이 됩니다.
+                    좌측의 공통 입력 항목 외에 주흔 가격, 영약 가격 등을 정확하게 입력하여 최신 정보를 반영해 주세요.
+                </p>
+                <hr style="margin: 2em 0;">
+            </div>
         </header>
-        <h3>주흔가치</h3>
+
+        <h3 class="accordion-header" style="cursor: pointer;">주흔가치 <span class="accordion-icon fa fa-chevron-down"></span></h3>
+        <div class="accordion-content" style="display: none;">
+            <p>
+                주문의 흔적은 아이템 강화에 필수적인 재화이며, 이 계산기는 주흔의 개당 시세를 바탕으로
+                주요 주문서(이노센트, 순백의 주문서, 아크이노센트, 황금 망치 등)의 메소 및 현금 가치를 분석합니다.
+                주흔 50% 할인 이벤트 여부에 따라 가치가 달라지므로 정확한 계산을 위해 선택해 주세요.
+            </p>
+        </div>
         <div>
             <div class="radioSelect"> 
                 <input type="radio" id="N" name="juHeun50Event" value="1"><label for="N">일반</label>
@@ -20,7 +37,7 @@ scripts:
             <div class="inputClass">
                 <label for="juHeunPrice">주흔가격</label>
                 <input type="text" class="txt-input" name="juHeunPrice" id="juHeunPrice" 
-                oninput="onlyNumberWithComma(this);" placeholder="주흔 개당가격"/>
+                oninput="onlyNumberWithComma(this);" placeholder="주흔 개당 경매장 가격"/>
             </div>
         </div>
         
@@ -67,21 +84,61 @@ scripts:
                     <tr>
                         <th scope="row" data-label="구분">장당</th>
                         <td data-label="갯수"><input type="text" name="juHeunPiece" id="juHeunPiece" 
-                            oninput="onlyNumberWithComma(this);" placeholder="주흔 장 수"/></td>
+                            oninput="onlyNumberWithComma(this);" placeholder="계산할 주흔 장 수"/></td>
                         <td data-label="메소가치"><span id="juHeunVal4"></span></td>
                         <td data-label="현금가치"><span id="juHeunVal5"></span></td>
                     </tr>
                     <tr>
                         <th scope="row" data-label="구분">묶음(90000)</th>
                         <td data-label="갯수"><input type="text" name="juHeunBundle" id="juHeunBundle" 
-                            oninput="onlyNumberWithComma(this);" placeholder="주흔 묶음 수"/></td>
+                            oninput="onlyNumberWithComma(this);" placeholder="계산할 주흔 묶음 수"/></td>
                         <td data-label="메소가치"><span id="juHeunVal6"></span></td>
                         <td data-label="현금가치"><span id="juHeunVal7"></span></td>
                     </tr>
                 </tbody>
             </table>
         </div>
-        <h3>아즈모스코인가치</h3>
+        <h4 class="accordion-header" style="cursor: pointer; margin-top: 1.5em; margin-bottom: 0.5em;">상세정보 <span class="accordion-icon fa fa-chevron-down"></span></h4>
+        <div class="accordion-content" style="display: none;">
+            <div class="flip-scroll">
+                <table class="simpleTable">
+                    <thead>
+                        <tr>
+                            <th>구분</th>
+                            <th>설명</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>**주흔가격**</td>
+                            <td>경매장에서 주문의 흔적 1개당 거래되는 메소 가격입니다.</td>
+                        </tr>
+                        <tr>
+                            <td>**주흔 50% 이벤트**</td>
+                            <td>주흔 50% 할인 이벤트가 진행 중인지 여부를 선택합니다.</td>
+                        </tr>
+                        <tr>
+                            <td>**이노센트 / 순줌 / 아크이노 / 황망**</td>
+                            <td>해당 주문서를 만드는 데 필요한 주흔의 개수를 바탕으로, 현재 주흔 시세에 따른 메소 및 현금 가치를 계산합니다.</td>
+                        </tr>
+                        <tr>
+                            <td>**장당 / 묶음(90000)**</td>
+                            <td>원하는 주흔의 개수 또는 묶음(90000개 단위)을 입력하여 총 메소 가치와 현금 가치를 계산합니다.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <h3 class="accordion-header" style="cursor: pointer;">아즈모스코인가치 <span class="accordion-icon fa fa-chevron-down"></span></h3>
+        <div class="accordion-content" style="display: none;">
+            <p>
+                아즈모스 코인은 아즈모스 협곡을 통해 획득가능한 재화입니다.
+                이 계산기는 아즈모스 코인샵에서 판매하는 아이템 중 유일하게 경매장 거래가 가능한
+                '아즈모스 영약'의 시세를 기준으로 다른 아이템들의 상대적인 가치를 메소와 현금으로 환산합니다.
+                이를 통해 코인샵에서 어떤 아이템을 구매하는 것이 가장 이득인지 판단할 수 있습니다.
+            </p>
+        </div>
         <div class="inputClass tooltip-container">
             <label for="azmPotionPrice" class="tooltip-label">아즈모스영약가격</label>
             <input type="text" class="txt-input" name="azmPotionPrice" id="azmPotionPrice" 
@@ -120,7 +177,34 @@ scripts:
                 </tbody>
             </table>
         </div>
-        <p>Q. 순줌/아크이노는 어디서 수급해요?<br>
-            A. <span id="azmVal6"></p>
+        <h4 class="accordion-header" style="cursor: pointer; margin-top: 1.5em; margin-bottom: 0.5em;">상세정보 <span class="accordion-icon fa fa-chevron-down"></span></h4>
+        <div class="accordion-content" style="display: none;">
+            <div class="flip-scroll">
+                <table class="simpleTable">
+                    <thead>
+                        <tr>
+                            <th>구분</th>
+                            <th>설명</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>**아즈모스영약가격**</td>
+                            <td>아즈모스 코인샵에서 판매하는 아이템 중 경매장 거래가 가능한 '영약'의 경매장 가격입니다. 이 값을 기준으로 다른 코인샵 아이템들의 가치를 추정합니다.</td>
+                        </tr>
+                        <tr>
+                            <td>**강환불/수에큡 등**</td>
+                            <td>각 아이템의 코인샵 가격을 아즈모스 영약의 가치로 환산하여, 메소 및 현금 가치를 계산합니다.</td>
+                        </tr>
+                        <tr>
+                            <td>**순줌/아크이노 수급처 비교**</td>
+                            <td>주흔으로 순백의 주문서(순줌)나 아크이노센트를 제작하는 것과, 아즈모스 코인샵에서 구매하는 것 중 어떤 방법이 더 효율적인지 비교 분석하여 추천해 줍니다.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <p style="margin-top: 2em;">Q. 순줌/아크이노는 어디서 수급하는 게 효율적일까요?</p>
+        <p>A. <span id="azmVal6" style="font-weight: bold;"></span></p>
     </div>
 </section>

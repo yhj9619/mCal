@@ -9,16 +9,55 @@ scripts:
 <section id="valueOf" class="six">
     <div class="container">
         <header>
-            <h2>과거와 현재 아이템 가치</h2>
+            <h2 class="accordion-header" style="cursor: pointer;">과거와 현재 아이템 가치 <span class="accordion-icon fa fa-chevron-down"></span></h2>
+            <div class="accordion-content" style="display: none;">
+                <p>
+                    메이플스토리의 경제는 시간의 흐름에 따라 메소 가치나 아이템의 희소성이 변동될 수 있습니다.
+                    이 계산기는 특정 아이템의 과거 메소 가격과 현재 메소 가격을 비교하여,
+                    시간이 지남에 따라 아이템의 실제 가치가 어떻게 변화했는지 분석할 수 있도록 돕습니다.
+                    이를 통해 투자 가치나 장비 선택에 대한 현명한 결정을 내릴 수 있습니다.
+                </p>
+                <hr style="margin: 2em 0;">
+            </div>
         </header>
-        <h4>*챌린저스 서버가 있는 시기에는, 과거메소를 챌린저스 서버 메소로 두고<br>
-        현재 월드의 시세와 챌린저스 서버의 시세를 비교하는데 활용할 수 있습니다.</h4>
+
+        <h4 class="accordion-header" style="cursor: pointer; margin-top: 1.5em; margin-bottom: 0.5em;">상세정보 <span class="accordion-icon fa fa-chevron-down"></span></h4>
+        <div class="accordion-content" style="display: none;">
+            <div class="flip-scroll">
+                <table class="simpleTable">
+                    <thead>
+                        <tr>
+                            <th>구분</th>
+                            <th>설명</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>**과거메소**</td>
+                            <td>과거 특정 시점 또는 비교 기준으로 삼을 메이플스토리의 1억 메소당 현금 가치입니다. (예: 챌린저스 서버 시세)</td>
+                        </tr>
+                        <tr>
+                            <td>**현재 아이템 가격(메소)**</td>
+                            <td>현재 시점에서 비교하고자 하는 아이템의 메소 가격입니다.</td>
+                        </tr>
+                        <tr>
+                            <td>**과거 아이템 가격(메소)**</td>
+                            <td>과거 특정 시점에서 비교하고자 하는 아이템의 메소 가격입니다.</td>
+                        </tr>
+                        <tr>
+                            <td>**활용 팁**</td>
+                            <td>챌린저스 서버가 있는 시기에는, 과거메소를 챌린저스 서버 메소로 두고 현재 월드의 시세와 챌린저스 서버의 시세를 비교하는데 활용할 수 있습니다.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
         <div class="inputDiv">
             <div class="inputClass">
                 <label for="pastMeso">과거메소</label>
                 <input type="text" class="txt-input" name="pastMeso" id="pastMeso" 
-                oninput="onlyNumberWithComma(this);" placeholder="과거 메소 가격"/>
+                oninput="onlyNumberWithComma(this);" placeholder="과거 1억 메소당 가격"/>
             </div>
         </div>
         <div class="flip-scroll">
