@@ -111,39 +111,47 @@ function setNumber(){
 
 // 초기 기본값 설정
 function firstValSetting(){
-    if ($("#presentMeso").length > 0 && !localStorage.getItem('presentMeso')) $("#presentMeso").val('850');
-    if ($("#presentMepo").length > 0 && !localStorage.getItem('presentMepo')) $("#presentMepo").val('1,280');
-    if ($("#percentMVP").length > 0 && !localStorage.getItem('percentMVP')) $("#percentMVP").val('7,500');
-    if ($("#discountRate").length > 0 && !localStorage.getItem('discountRate')) $("#discountRate").val('0');
-    if ($('input[name="auctionCharge"]').length > 0 && !localStorage.getItem('auctionCharge')) $('input[name="auctionCharge"]')[0].checked = true;
+    var getLocal = function(key) { return localStorage.getItem(key); };
+    var isEmptyOrUndefined = function(val) { return val === null || val === "" || val === "undefined"; };
+
+    if ($("#presentMeso").length > 0 && isEmptyOrUndefined(getLocal('presentMeso'))) $("#presentMeso").val('850');
+    if ($("#presentMepo").length > 0 && isEmptyOrUndefined(getLocal('presentMepo'))) $("#presentMepo").val('1,280');
+    if ($("#percentMVP").length > 0 && isEmptyOrUndefined(getLocal('percentMVP'))) $("#percentMVP").val('7,500');
+    if ($("#discountRate").length > 0 && isEmptyOrUndefined(getLocal('discountRate'))) $("#discountRate").val('0');
+    if ($('input[name="auctionCharge"]').length > 0 && isEmptyOrUndefined(getLocal('auctionCharge'))) $('input[name="auctionCharge"]')[0].checked = true;
 
     // 페이지별 초기값
-    if ($("#juhwaVal").length > 0 && !localStorage.getItem('juhwaVal')) $("#juhwaVal").val('83,942,300');
-    if ($("#pcFee").length > 0 && !localStorage.getItem('pcFee')) $("#pcFee").val('3,000');
-    if ($("#pcHH").length > 0 && !localStorage.getItem('pcHH')) $("#pcHH").val('2');
-    if ($("#pcMM").length > 0 && !localStorage.getItem('pcMM')) $("#pcMM").val('40');
-    if ($("#piecePrice").length > 0 && !localStorage.getItem('piecePrice')) $("#piecePrice").val('9,999,999');
-    if ($("#pastMeso").length > 0 && !localStorage.getItem('pastMeso')) $("#pastMeso").val('1,800');
-    if ($("#itemMesoVal").length > 0 && !localStorage.getItem('itemMesoVal')) $("#itemMesoVal").val('0');
-    if ($("#juHeunPrice").length > 0 && !localStorage.getItem('juHeunPrice')) $("#juHeunPrice").val('3,000');
-    if ($("#azmPotionPrice").length > 0 && !localStorage.getItem('azmPotionPrice')) $("#azmPotionPrice").val('6,666,666');
-    if ($('input[name="juHeun50Event"]').length > 0 && !localStorage.getItem('juHeun50Event')) $('input[name="juHeun50Event"]')[0].checked = true;
-    if ($("#saleMeso").length > 0 && !localStorage.getItem('saleMeso')) $("#saleMeso").val('0');
-    if ($("#dajoPrice").length > 0 && !localStorage.getItem('dajoPrice')) $("#dajoPrice").val('0');
-    if ($("#memberCnt").length > 0 && !localStorage.getItem('memberCnt')) $("#memberCnt").val('1');
-    if ($("#buyMesoPrice").length > 0 && !localStorage.getItem('buyMesoPrice')) $("#buyMesoPrice").val('1,500');
-    if ($("#buyMesoAmt").length > 0 && !localStorage.getItem('buyMesoAmt')) $("#buyMesoAmt").val('10');
-    if ($("#buyMesoWon").length > 0 && !localStorage.getItem('buyMesoWon')) $("#buyMesoWon").val('15,000');
+    if ($("#juhwaVal").length > 0 && isEmptyOrUndefined(getLocal('juhwaVal'))) $("#juhwaVal").val('83,942,300');
+    if ($("#pcFee").length > 0 && isEmptyOrUndefined(getLocal('pcFee'))) $("#pcFee").val('3,000');
+    if ($("#pcHH").length > 0 && isEmptyOrUndefined(getLocal('pcHH'))) $("#pcHH").val('2');
+    if ($("#pcMM").length > 0 && isEmptyOrUndefined(getLocal('pcMM'))) $("#pcMM").val('40');
+    if ($("#piecePrice").length > 0 && isEmptyOrUndefined(getLocal('piecePrice'))) $("#piecePrice").val('9,999,999');
+    if ($("#pastMeso").length > 0 && isEmptyOrUndefined(getLocal('pastMeso'))) $("#pastMeso").val('1,800');
+    if ($("#itemMesoVal").length > 0 && isEmptyOrUndefined(getLocal('itemMesoVal'))) $("#itemMesoVal").val('0');
+    if ($("#juHeunPrice").length > 0 && isEmptyOrUndefined(getLocal('juHeunPrice'))) $("#juHeunPrice").val('3,000');
+    if ($("#azmPotionPrice").length > 0 && isEmptyOrUndefined(getLocal('azmPotionPrice'))) $("#azmPotionPrice").val('6,666,666');
+    if ($('input[name="juHeun50Event"]').length > 0 && isEmptyOrUndefined(getLocal('juHeun50Event'))) $('input[name="juHeun50Event"]')[0].checked = true;
+    if ($("#saleMeso").length > 0 && isEmptyOrUndefined(getLocal('saleMeso'))) $("#saleMeso").val('0');
+    if ($("#dajoPrice").length > 0 && isEmptyOrUndefined(getLocal('dajoPrice'))) $("#dajoPrice").val('0');
+    if ($("#memberCnt").length > 0 && isEmptyOrUndefined(getLocal('memberCnt'))) $("#memberCnt").val('1');
+    if ($("#buyMesoPrice").length > 0 && isEmptyOrUndefined(getLocal('buyMesoPrice'))) $("#buyMesoPrice").val('1,500');
+    if ($("#buyMesoAmt").length > 0 && isEmptyOrUndefined(getLocal('buyMesoAmt'))) $("#buyMesoAmt").val('10');
+    if ($("#buyMesoWon").length > 0 && isEmptyOrUndefined(getLocal('buyMesoWon'))) $("#buyMesoWon").val('15,000');
 }
 
 // 로컬 스토리지에서 데이터 불러오기
 function dataLoad(){
     console.log("dataLoad() 실행됨");
-    vPresentMeso = localStorage.getItem('presentMeso');
-    vPresentMepo = localStorage.getItem('presentMepo');
-    vPercentMVP = localStorage.getItem('percentMVP');
-    vDiscountRate = localStorage.getItem('discountRate');
-    vAuctionCharge = localStorage.getItem('auctionCharge');
+    var getLocal = function(key) { 
+        var val = localStorage.getItem(key);
+        return val === "undefined" ? "" : val; // "undefined" 문자열이면 빈 문자열로 처리
+    };
+
+    vPresentMeso = getLocal('presentMeso');
+    vPresentMepo = getLocal('presentMepo');
+    vPercentMVP = getLocal('percentMVP');
+    vDiscountRate = getLocal('discountRate');
+    vAuctionCharge = getLocal('auctionCharge');
 
     if (vPresentMeso && $("#presentMeso").length > 0) $('#presentMeso').val(vPresentMeso);
     if (vPresentMepo && $("#presentMepo").length > 0) $('#presentMepo').val(vPresentMepo);
@@ -156,88 +164,112 @@ function dataLoad(){
     }
 
     // 페이지별 값 로드
-    vJuhwaVal = localStorage.getItem('juhwaVal');
+    vJuhwaVal = getLocal('juhwaVal');
     if (vJuhwaVal && $('#juhwaVal').length > 0) $('#juhwaVal').val(vJuhwaVal);
 
-    vJuhwaCnt = localStorage.getItem('juhwaCnt');
+    vJuhwaCnt = getLocal('juhwaCnt');
     if (vJuhwaCnt && $('#juhwaCnt').length > 0) $('#juhwaCnt').val(vJuhwaCnt);
 
-    vPcFee = localStorage.getItem('pcFee');
+    vPcFee = getLocal('pcFee');
     if (vPcFee && $('#pcFee').length > 0) $('#pcFee').val(vPcFee);
 
-    vPcHH = localStorage.getItem('pcHH');
+    vPcHH = getLocal('pcHH');
     if (vPcHH && $('#pcHH').length > 0) $('#pcHH').val(vPcHH);
 
-    vPcMM = localStorage.getItem('pcMM');
+    vPcMM = getLocal('pcMM');
     if (vPcMM && $('#pcMM').length > 0) $('#pcMM').val(vPcMM);
 
-    vPiecePrice = localStorage.getItem('piecePrice');
+    vPiecePrice = getLocal('piecePrice');
     if (vPiecePrice && $('#piecePrice').length > 0) $('#piecePrice').val(vPiecePrice);
 
-    vPastMeso = localStorage.getItem('pastMeso');
+    vPastMeso = getLocal('pastMeso');
     if (vPastMeso && $('#pastMeso').length > 0) $('#pastMeso').val(vPastMeso);
 
-    vItemMesoVal = localStorage.getItem('itemMesoVal');
+    vItemMesoVal = getLocal('itemMesoVal');
     if (vItemMesoVal && $('#itemMesoVal').length > 0) $('#itemMesoVal').val(vItemMesoVal);
 
-    vJuHeunPrice = localStorage.getItem('juHeunPrice');
+    vJuHeunPrice = getLocal('juHeunPrice');
     if (vJuHeunPrice && $('#juHeunPrice').length > 0) $('#juHeunPrice').val(vJuHeunPrice);
 
-    vAzmPotionPrice = localStorage.getItem('azmPotionPrice');
+    vAzmPotionPrice = getLocal('azmPotionPrice');
     if (vAzmPotionPrice && $('#azmPotionPrice').length > 0) $('#azmPotionPrice').val(vAzmPotionPrice);
 
-    var juHeun50Event = localStorage.getItem('juHeun50Event');
+    var juHeun50Event = getLocal('juHeun50Event');
     if (juHeun50Event && $('input[name="juHeun50Event"]').length > 0) {
         $('input[name="juHeun50Event"][value="' + juHeun50Event + '"]').prop("checked", true);
+    } else if ($('input[name="juHeun50Event"]').length > 0) { // 값이 없을 경우 기본값 설정
+        $('input[name="juHeun50Event"][value="1"]').prop("checked", true);
     }
 
-    vSaleMeso = localStorage.getItem('saleMeso');
+    vSaleMeso = getLocal('saleMeso');
     if (vSaleMeso && $('#saleMeso').length > 0) $('#saleMeso').val(vSaleMeso);
 
-    vDajoPrice = localStorage.getItem('dajoPrice');
+    vDajoPrice = getLocal('dajoPrice');
     if (vDajoPrice && $('#dajoPrice').length > 0) $('#dajoPrice').val(vDajoPrice);
 
-    vMemberCnt = localStorage.getItem('memberCnt');
+    vMemberCnt = getLocal('memberCnt');
     if (vMemberCnt && $('#memberCnt').length > 0) $('#memberCnt').val(vMemberCnt);
     
-    vBuyMesoPrice = localStorage.getItem('buyMesoPrice');
+    vBuyMesoPrice = getLocal('buyMesoPrice');
     if (vBuyMesoPrice && $('#buyMesoPrice').length > 0) $('#buyMesoPrice').val(vBuyMesoPrice);
     
-    vBuyMesoAmt = localStorage.getItem('buyMesoAmt');
+    vBuyMesoAmt = getLocal('buyMesoAmt');
     if (vBuyMesoAmt && $('#buyMesoAmt').length > 0) $('#buyMesoAmt').val(vBuyMesoAmt);
     
-    vBuyMesoWon = localStorage.getItem('buyMesoWon');
+    vBuyMesoWon = getLocal('buyMesoWon');
     if (vBuyMesoWon && $('#buyMesoWon').length > 0) $('#buyMesoWon').val(vBuyMesoWon);
 }
 
 // 로컬 스토리지에 데이터 저장하기
 function saveData() {
-    localStorage.setItem('presentMeso', $("#presentMeso").val());
-    localStorage.setItem('presentMepo', $("#presentMepo").val());
-    localStorage.setItem('percentMVP', $("#percentMVP").val());
-    localStorage.setItem('discountRate', $("#discountRate").val());
+    var val = $("#presentMeso").val();
+    localStorage.setItem('presentMeso', val === "" ? "" : val);
+    var val = $("#presentMepo").val();
+    localStorage.setItem('presentMepo', val === "" ? "" : val);
+    var val = $("#percentMVP").val();
+    localStorage.setItem('percentMVP', val === "" ? "" : val);
+    var val = $("#discountRate").val();
+    localStorage.setItem('discountRate', val === "" ? "" : val);
     localStorage.setItem('auctionCharge', $("input:radio[name='auctionCharge']:checked").val());
 
     // 페이지별 값 저장
-    localStorage.setItem('juhwaVal', $("#juhwaVal").val());
-    localStorage.setItem('juhwaCnt', $("#juhwaCnt").val());
-    localStorage.setItem('pcFee', $("#pcFee").val());
-    localStorage.setItem('pcHH', $("#pcHH").val());
-    localStorage.setItem('pcMM', $("#pcMM").val());
-    localStorage.setItem('piecePrice', $("#piecePrice").val());
-    localStorage.setItem('pastMeso', $("#pastMeso").val());
-    localStorage.setItem('itemMesoVal', $("#itemMesoVal").val());
-    localStorage.setItem('juHeunPrice', $("#juHeunPrice").val());
-    localStorage.setItem('azmPotionPrice', $("#azmPotionPrice").val());
+    var val = $("#juhwaVal").val();
+    localStorage.setItem('juhwaVal', val === "" ? "" : val);
+    var val = $("#juhwaCnt").val();
+    localStorage.setItem('juhwaCnt', val === "" ? "" : val);
+    var val = $("#pcFee").val();
+    localStorage.setItem('pcFee', val === "" ? "" : val);
+    var val = $("#pcHH").val();
+    localStorage.setItem('pcHH', val === "" ? "" : val);
+    var val = $("#pcMM").val();
+    localStorage.setItem('pcMM', val === "" ? "" : val);
+    var val = $("#piecePrice").val();
+    localStorage.setItem('piecePrice', val === "" ? "" : val);
+    var val = $("#pastMeso").val();
+    localStorage.setItem('pastMeso', val === "" ? "" : val);
+    var val = $("#itemMesoVal");
+    localStorage.setItem('itemMesoVal', val === "" ? "" : val);
+    var val = $("#juHeunPrice").val();
+    localStorage.setItem('juHeunPrice', val === "" ? "" : val);
+    var val = $("#azmPotionPrice").val();
+    localStorage.setItem('azmPotionPrice', val === "" ? "" : val);
     if ($('input[name="juHeun50Event"]:checked').length > 0) {
         localStorage.setItem('juHeun50Event', $('input[name="juHeun50Event"]:checked').val());
+    } else { // 선택된 라디오 버튼이 없을 경우 기본값 저장
+        localStorage.setItem('juHeun50Event', '1');
     }
-    localStorage.setItem('saleMeso', $("#saleMeso").val());
-    localStorage.setItem('dajoPrice', $("#dajoPrice").val());
-    localStorage.setItem('memberCnt', $("#memberCnt").val());
-    localStorage.setItem('buyMesoPrice', $("#buyMesoPrice").val());
-    localStorage.setItem('buyMesoAmt', $("#buyMesoAmt").val());
-    localStorage.setItem('buyMesoWon', $("#buyMesoWon").val());
+    var val = $("#saleMeso").val();
+    localStorage.setItem('saleMeso', val === "" ? "" : val);
+    var val = $("#dajoPrice").val();
+    localStorage.setItem('dajoPrice', val === "" ? "" : val);
+    var val = $("#memberCnt").val();
+    localStorage.setItem('memberCnt', val === "" ? "" : val);
+    var val = $("#buyMesoPrice").val();
+    localStorage.setItem('buyMesoPrice', val === "" ? "" : val);
+    var val = $("#buyMesoAmt").val();
+    localStorage.setItem('buyMesoAmt', val === "" ? "" : val);
+    var val = $("#buyMesoWon").val();
+    localStorage.setItem('buyMesoWon', val === "" ? "" : val);
 }
 
 // 데이터 초기화
