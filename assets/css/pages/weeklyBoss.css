@@ -1,0 +1,240 @@
+/* 주간보스 시급계산기 전용 스타일 */
+
+/* 테이블 전체 컨테이너 (그림자 및 테두리) */
+#boss-table-header, 
+#boss-list-container {
+    max-width: 100%;
+    overflow-x: auto;
+}
+
+#boss-table-header {
+    background-color: #f0f0f0; /* 헤더 배경색 (simpleTable style) */
+    color: #555; /* 헤더 텍스트 색상 */
+    font-weight: 600;
+    border: 1px solid #e0e0e0;
+    border-bottom: 2px solid #d0d0d0;
+    border-radius: 8px 8px 0 0;
+    margin-top: 2em;
+}
+
+#boss-list-container {
+    border: 1px solid #e0e0e0;
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+    background-color: #fff;
+    margin-bottom: 2em;
+}
+
+.boss-row {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #eee;
+    padding: 0.8em 0.5em;
+    transition: background-color 0.2s ease-in-out;
+    cursor: pointer;
+    background-color: #fff;
+    font-size: 0.9em;
+}
+
+.boss-row:last-child {
+    border-bottom: none;
+}
+
+.boss-row:hover {
+    background-color: #f5f5f5; /* 호버 시 배경색 (simpleTable style) */
+}
+
+.boss-row.selected {
+    background-color: #fffde7; /* 선택된 행 배경색 (연한 노란색/아이보리) */
+    position: relative;
+}
+
+.boss-row.selected::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background-color: #f5a207; /* 강조색 */
+}
+
+.boss-row.selected:hover {
+    background-color: #fff9c4;
+}
+
+/* 헤더 행 스타일 */
+.boss-row.header {
+    cursor: default;
+    padding: 1em 0.5em;
+    border: none;
+    background: transparent;
+}
+
+.boss-row.header .header-item {
+    text-align: center;
+    font-size: 1em;
+}
+
+/* 컬럼별 너비 및 정렬 */
+.boss-name { 
+    width: 20%; 
+    padding-left: 1em; 
+    font-weight: 600;
+    color: #444;
+}
+
+.boss-difficulty { 
+    width: 12%; 
+    text-align: center; 
+}
+
+.party-size-per-boss { 
+    width: 8%; 
+    text-align: center; 
+}
+
+.crystal-price { 
+    width: 16%; 
+    text-align: right; 
+    padding-right: 1.5em;
+    color: #2e7d32;
+    font-weight: 600;
+}
+
+.clear-time-per-boss { 
+    width: 12%; 
+    text-align: center; 
+}
+
+.actual-clear-time { 
+    width: 10%; 
+    text-align: center; 
+}
+
+.hourly-rate-won { 
+    width: 22%; 
+    text-align: right; 
+    padding-right: 1em; 
+    font-weight: bold;
+    color: #c62828;
+}
+
+/* 테이블 내 입력 요소 스타일 */
+.boss-row select, 
+.boss-row input {
+    width: 90%;
+    max-width: 90px; /* 너무 넓어지지 않게 최대 너비 제한 */
+    margin: 0 auto;
+    height: 32px !important;
+    padding: 0 0.5em !important;
+    font-size: 0.95em !important;
+    border: 1px solid #ccc !important;
+    border-radius: 4px !important;
+    background-color: white !important;
+    text-align: center !important;
+    line-height: normal !important;
+}
+
+.party-size-per-boss select {
+    max-width: 60px; /* 인원 선택창은 더 작게 */
+}
+
+.actual-clear-time input {
+    max-width: 60px; /* 클리어타임 입력창도 더 작게 */
+}
+
+.boss-row select {
+    text-align-last: center; /* Select text center align */
+}
+
+/* 결과 요약 영역 스타일 */
+#boss-summary {
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    background-color: #fcfcfc !important;
+}
+
+#selected-boss-count { 
+    color: #f5a207; 
+    font-weight: bold; 
+    font-size: 1.1em; 
+}
+
+#weekly-profit { 
+    color: #2e7d32; 
+    font-weight: bold; 
+    font-size: 1.1em; 
+}
+
+#total-clear-time-hours { 
+    font-weight: bold; 
+    color: #555;
+}
+
+#total-weekly-hourly-wage { 
+    color: #c62828; 
+    font-weight: 800; 
+    font-size: 1.3em; 
+}
+
+/* 반응형 (모바일) 스타일 */
+@media screen and (max-width: 980px) {
+    #boss-table-header {
+        display: none; /* 헤더 숨김 */
+    }
+
+    #boss-list-container {
+        border: none;
+        background: transparent;
+    }
+    
+    .boss-row {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1.5em;
+        margin-bottom: 1em;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+    }
+
+    .boss-row.selected::before {
+        width: 8px;
+        border-radius: 8px 0 0 8px;
+    }
+
+    .boss-name { 
+        width: 100%; 
+        font-size: 1.2em; 
+        margin-bottom: 1em; 
+        padding-left: 0;
+        border-bottom: 2px solid #eee;
+        padding-bottom: 0.5em;
+    }
+
+    .boss-difficulty, .party-size-per-boss, .crystal-price, .clear-time-per-boss, .actual-clear-time, .hourly-rate-won {
+        width: 100%;
+        text-align: left;
+        padding: 0.5em 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid #f9f9f9;
+    }
+
+    /* 레이블 추가 (모바일에서 어떤 값인지 보여주기 위함) */
+    .boss-difficulty::before { content: "난이도"; font-weight: bold; color: #888; font-size: 0.9em; }
+    .party-size-per-boss::before { content: "파티인원"; font-weight: bold; color: #888; font-size: 0.9em; }
+    .crystal-price::before { content: "인당 메소"; font-weight: bold; color: #888; font-size: 0.9em; }
+    .clear-time-per-boss::before { content: "최저시급컷"; font-weight: bold; color: #888; font-size: 0.9em; }
+    .actual-clear-time::before { content: "클리어타임"; font-weight: bold; color: #888; font-size: 0.9em; }
+    .hourly-rate-won::before { content: "시급환산"; font-weight: bold; color: #888; font-size: 0.9em; }
+
+    .boss-row select, .boss-row input {
+        width: 60%;
+        margin: 0;
+        text-align: right !important;
+        text-align-last: right !important;
+    }
+}

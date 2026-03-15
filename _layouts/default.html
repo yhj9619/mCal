@@ -22,6 +22,13 @@
 
 		<link rel="stylesheet" href="{{ site.baseurl }}/assets/css/index.css" />
 		
+		<!-- 페이지별 스타일시트가 있다면 여기에 추가될 수 있습니다. -->
+		{% if page.stylesheets %}
+			{% for stylesheet in page.stylesheets %}
+				<link rel="stylesheet" href="{{ site.baseurl }}/assets/css/{{ stylesheet }}" />
+			{% endfor %}
+		{% endif %}
+
 		<!-- 네이버 애널리틱스 -->
 		<script type="text/javascript" src="//wcs.naver.net/wcslog.js"></script>
 		<script type="text/javascript">
