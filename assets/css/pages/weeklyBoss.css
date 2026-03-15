@@ -78,14 +78,14 @@
 
 /* 컬럼별 너비 및 정렬 */
 .boss-name { 
-    width: 20%; 
+    width: 18%; 
     padding-left: 1em; 
     font-weight: 600;
     color: #444;
 }
 
 .boss-difficulty { 
-    width: 12%; 
+    width: 14%; 
     text-align: center; 
 }
 
@@ -108,12 +108,12 @@
 }
 
 .actual-clear-time { 
-    width: 10%; 
+    width: 11%; 
     text-align: center; 
 }
 
 .hourly-rate-won { 
-    width: 22%; 
+    width: 21%; 
     text-align: right; 
     padding-right: 1em; 
     font-weight: bold;
@@ -124,7 +124,7 @@
 .boss-row select, 
 .boss-row input {
     width: 90%;
-    max-width: 90px; /* 너무 넓어지지 않게 최대 너비 제한 */
+    max-width: 100px; /* 익스트림 등 긴 텍스트를 위해 상한 조정 */
     margin: 0 auto;
     height: 32px !important;
     padding: 0 0.5em !important;
@@ -141,7 +141,7 @@
 }
 
 .actual-clear-time input {
-    max-width: 60px; /* 클리어타임 입력창도 더 작게 */
+    max-width: 70px; /* 30 등 숫자가 안 잘리도록 약간 확대 */
 }
 
 .boss-row select {
