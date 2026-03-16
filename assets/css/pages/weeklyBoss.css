@@ -1,114 +1,94 @@
-/* 주간보스 시급계산기 전용 스타일 */
+/* 주간보스 시급계산기 전용 스타일 (데스크탑 & 모바일 통합 최적화) */
 
-#weeklyBoss .boss-row {
+/* 테이블 전체 컨테이너 */
+#boss-table-header, 
+#boss-list-container {
+    max-width: 100%;
+}
+
+#boss-table-header {
+    background-color: #f0f0f0;
+    color: #555;
+    font-weight: 600;
+    border: 1px solid #e0e0e0;
+    border-bottom: 2px solid #d0d0d0;
+    border-radius: 8px 8px 0 0;
+    margin-top: 2em;
+}
+
+#boss-list-container {
+    border: 1px solid #e0e0e0;
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+    background-color: #fff;
+    margin-bottom: 2em;
+}
+
+.boss-row {
     display: flex;
     align-items: center;
-    padding: 0.5em;
     border-bottom: 1px solid #eee;
-    transition: background-color 0.2s;
+    padding: 0.8em 0.5em;
+    transition: background-color 0.2s ease-in-out;
     cursor: pointer;
-}
-
-#weeklyBoss .boss-row:hover {
-    background-color: #f5f5f5;
-}
-
-#weeklyBoss .boss-row.selected {
-    background-color: #fff9e6;
-    border-left: 4px solid #f5a623;
-}
-
-#weeklyBoss .boss-row.header {
-    background-color: #eee;
-    font-weight: bold;
-    cursor: default;
-    position: sticky;
-    top: 0;
-    z-index: 10;
-}
-
-#weeklyBoss .boss-row > span {
-    flex: 1;
-    padding: 0 0.5em;
-    text-align: center;
+    background-color: #fff;
     font-size: 0.9em;
 }
 
-#weeklyBoss .boss-name { flex: 1.5 !important; font-weight: 600; }
-#weeklyBoss .boss-difficulty select, 
-#weeklyBoss .party-size-per-boss select {
-    width: 100%;
-    padding: 4px 24px 4px 8px; /* 우측 화살표 공간 확보 */
-    font-size: 0.85em;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    background-color: #fff;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'%3E%3C/path%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 8px center;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    color: #555;
-    font-weight: 500;
-    text-align: left;
-    height: auto;
-    line-height: normal;
+.boss-row:hover { background-color: #f5f5f5; }
+
+.boss-row.selected {
+    background-color: #fffde7;
+    position: relative;
+    box-shadow: inset 4px 0 0 #f5a207;
 }
 
-#weeklyBoss .boss-difficulty select:hover, 
-#weeklyBoss .party-size-per-boss select:hover {
-    border-color: #f5a623;
-    background-color: #fffaf0;
+.boss-row.header {
+    cursor: default;
+    padding: 1em 0.5em;
+    border: none;
+    background: transparent;
 }
 
-#weeklyBoss .boss-difficulty select:focus, 
-#weeklyBoss .party-size-per-boss select:focus {
-    outline: none;
-    border-color: #f5a623;
-    box-shadow: 0 0 0 2px rgba(245, 166, 35, 0.1);
-}
+.boss-row > span { text-align: center; }
 
-#weeklyBoss .actual-clear-time input {
-    width: 100%;
-    padding: 4px 8px;
-    font-size: 0.85em;
-    text-align: center;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    transition: all 0.2s ease;
-    height: auto;
-    line-height: normal;
-}
+/* 컬럼별 너비 (데스크탑) */
+.boss-name { width: 20%; padding-left: 1em; font-weight: 600; text-align: left !important; }
+.boss-difficulty { width: 15%; }
+.party-size-per-boss { width: 10%; }
+.crystal-price { width: 15%; text-align: right !important; padding-right: 1em; font-weight: 600; color: #2e7d32; }
+.clear-time-per-boss { width: 12%; }
+.actual-clear-time { width: 13%; }
+.hourly-rate-won { width: 15%; text-align: right !important; padding-right: 1em; font-weight: bold; color: #c62828; }
 
-#weeklyBoss .actual-clear-time input:focus {
-    outline: none;
-    border-color: #f5a623;
-    background-color: #fffaf0;
-}
-
-/* 캐릭터 탭 스타일 */
+/* 캐릭터 관리 탭 */
 .character-management {
     margin-bottom: 1.5em;
     border-bottom: 2px solid #ddd;
     display: flex;
     align-items: flex-end;
-    flex-wrap: wrap;
     gap: 5px;
+    overflow-x: auto; /* 모바일 가로 스크롤 */
+    white-space: nowrap;
+    padding-bottom: 5px;
+    -ms-overflow-style: none; /* IE 스크롤바 숨김 */
+    scrollbar-width: none; /* 파이어폭스 스크롤바 숨김 */
 }
+.character-management::-webkit-scrollbar { display: none; }
 
 .char-tab {
-    padding: 0.5em 1.2em;
+    padding: 0.6em 1.2em;
     background: #f0f0f0;
     border: 1px solid #ddd;
     border-bottom: none;
-    border-radius: 5px 5px 0 0;
+    border-radius: 8px 8px 0 0;
     cursor: pointer;
     font-weight: bold;
-    transition: all 0.2s;
-    position: relative;
     display: flex;
     align-items: center;
     gap: 8px;
+    transition: all 0.2s;
+    flex-shrink: 0;
 }
 
 .char-tab.active {
@@ -116,90 +96,71 @@
     color: white;
     border-color: #f5a623;
     transform: translateY(-2px);
-    box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
-}
-
-.add-char-btn {
-    padding: 0.5em 1em;
-    background: #444;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    margin-bottom: 5px;
-    cursor: pointer;
-    font-size: 0.8em;
 }
 
 .delete-char-btn {
-    font-size: 14px;
-    background: rgba(0,0,0,0.1);
-    color: #888;
-    border: none;
-    border-radius: 50%;
-    width: 22px; /* 크기 약간 확대 */
-    height: 22px;
-    min-width: 22px; /* 찌그러짐 방지 */
-    min-height: 22px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    padding: 0;
-    line-height: 1;
-    margin-left: 5px;
+    width: 18px; height: 18px; border-radius: 50%; border: none;
+    background: rgba(0,0,0,0.1); color: #888; font-size: 12px;
+    display: flex; align-items: center; justify-content: center; cursor: pointer;
 }
+.char-tab.active .delete-char-btn { background: rgba(255,255,255,0.3); color: white; }
+.delete-char-btn:hover { background: #e74c3c !important; color: white !important; }
 
-.delete-char-btn:hover {
-    background: #e74c3c;
-    color: white;
-}
-
-.char-nickname-section {
-    margin-bottom: 1em;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.char-nickname-section input {
-    width: 200px !important;
-    text-align: left !important;
-    padding: 0.5em !important;
-    font-weight: bold;
-}
-
-/* 요약 영역 확장 */
-.summary-container {
-    display: flex;
-    gap: 20px;
-    margin-bottom: 1.5em;
-}
-
+/* 요약 카드 */
+.summary-container { display: flex; gap: 15px; margin-bottom: 1.5em; }
 .summary-card {
-    flex: 1;
-    padding: 1.5em;
-    background: #f9f9f9;
-    border-radius: 0.5em;
-    border-top: 4px solid #ccc;
+    flex: 1; padding: 1.2em; background: #f9f9f9; border-radius: 10px;
+    border-top: 4px solid #f5a623; box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
+.summary-card.account { border-top-color: #444; background: #f0f0f0; }
+.summary-card h3 { font-size: 1em; font-weight: bold; margin-bottom: 0.8em; color: #333; border-bottom: 1px solid #ddd; padding-bottom: 0.5em; }
 
-.summary-card.account {
-    border-top-color: #555;
-    background: #f0f0f0;
+/* 셀렉트 및 입력창 디자인 */
+.boss-row select, .boss-row input {
+    width: 100%; padding: 4px 8px; border-radius: 6px; border: 1px solid #ccc;
+    background-color: #fff; font-size: 0.9em; transition: border-color 0.2s;
 }
+.boss-row select:hover, .boss-row input:focus { border-color: #f5a623; outline: none; }
 
-.summary-card h3 {
-    font-size: 1.1em;
-    margin-bottom: 1em;
-    color: #333;
-}
-
+/* 반응형 (모바일) 최적화 */
 @media screen and (max-width: 960px) {
-    .summary-container {
+    #boss-table-header { display: none; }
+    #boss-list-container { border: none; background: transparent; }
+    
+    .summary-container { flex-direction: column; }
+    
+    .boss-row {
         flex-direction: column;
+        align-items: flex-start;
+        padding: 1.2em;
+        margin-bottom: 12px;
+        border: 1px solid #ddd;
+        border-radius: 12px;
+        box-shadow: 0 3px 6px rgba(0,0,0,0.05);
     }
-    #weeklyBoss .boss-row > span {
-        font-size: 0.75em;
+
+    .boss-name { 
+        width: 100%; font-size: 1.1em; margin-bottom: 0.8em; padding-left: 0;
+        border-bottom: 2px solid #f5a623; padding-bottom: 0.4em; color: #333;
     }
+
+    .boss-difficulty, .party-size-per-boss, .crystal-price, 
+    .clear-time-per-boss, .actual-clear-time, .hourly-rate-won {
+        width: 100%; display: flex; justify-content: space-between; align-items: center;
+        padding: 0.4em 0; border-bottom: 1px solid #f5f5f5;
+    }
+
+    /* 모바일 레이블 주입 */
+    .boss-difficulty::before { content: "난이도"; font-weight: bold; color: #888; font-size: 0.85em; }
+    .party-size-per-boss::before { content: "파티인원"; font-weight: bold; color: #888; font-size: 0.85em; }
+    .crystal-price::before { content: "획득 메소"; font-weight: bold; color: #888; font-size: 0.85em; }
+    .clear-time-per-boss::before { content: "최저시급컷(분)"; font-weight: bold; color: #888; font-size: 0.85em; }
+    .actual-clear-time::before { content: "클리어타임(분)"; font-weight: bold; color: #888; font-size: 0.85em; }
+    .hourly-rate-won::before { content: "시급환산(원)"; font-weight: bold; color: #888; font-size: 0.85em; }
+
+    .boss-row select, .boss-row input {
+        width: 50% !important; max-width: none; text-align: right !important;
+    }
+    
+    .crystal-price, .hourly-rate-won { padding-right: 0 !important; }
 }
