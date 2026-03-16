@@ -35,9 +35,56 @@
 }
 
 #weeklyBoss .boss-name { flex: 1.5 !important; font-weight: 600; }
-#weeklyBoss .boss-difficulty select { width: 100%; padding: 0.2em; font-size: 0.85em; }
-#weeklyBoss .party-size-per-boss select { width: 100%; padding: 0.2em; font-size: 0.85em; }
-#weeklyBoss .actual-clear-time input { width: 100%; padding: 0.2em; font-size: 0.85em; text-align: center; }
+#weeklyBoss .boss-difficulty select, 
+#weeklyBoss .party-size-per-boss select {
+    width: 100%;
+    padding: 4px 24px 4px 8px; /* 우측 화살표 공간 확보 */
+    font-size: 0.85em;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    background-color: #fff;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'%3E%3C/path%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: #555;
+    font-weight: 500;
+    text-align: left;
+    height: auto;
+    line-height: normal;
+}
+
+#weeklyBoss .boss-difficulty select:hover, 
+#weeklyBoss .party-size-per-boss select:hover {
+    border-color: #f5a623;
+    background-color: #fffaf0;
+}
+
+#weeklyBoss .boss-difficulty select:focus, 
+#weeklyBoss .party-size-per-boss select:focus {
+    outline: none;
+    border-color: #f5a623;
+    box-shadow: 0 0 0 2px rgba(245, 166, 35, 0.1);
+}
+
+#weeklyBoss .actual-clear-time input {
+    width: 100%;
+    padding: 4px 8px;
+    font-size: 0.85em;
+    text-align: center;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+    height: auto;
+    line-height: normal;
+}
+
+#weeklyBoss .actual-clear-time input:focus {
+    outline: none;
+    border-color: #f5a623;
+    background-color: #fffaf0;
+}
 
 /* 캐릭터 탭 스타일 */
 .character-management {

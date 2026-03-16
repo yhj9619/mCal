@@ -222,9 +222,16 @@ input, select, textarea {
 /* Container */
 
 	.container {
-		margin: 0 0 0 50px; /* 중앙 정렬에서 좌측 정렬 + 50px 마진으로 변경 */
+		margin: 0 auto;
 		max-width: 100%;
 		width: 1100px;
+	}
+
+	/* 데스크탑에서 사이드바 옆 좌측 정렬 및 여백 적용 */
+	@media screen and (min-width: 961px) {
+		.container {
+			margin: 0 0 0 50px; 
+		}
 	}
 
 		@media screen and (min-width: 961px) and (max-width: 1880px) {
@@ -255,6 +262,8 @@ input, select, textarea {
 
 			.container {
 				width: 100%;
+				margin: 0 auto; /* 모바일은 다시 중앙(꽉 차게) */
+				padding: 0 20px; /* 양옆 최소 여백 부여 */
 			}
 
 		}
