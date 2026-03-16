@@ -84,21 +84,28 @@
 }
 
 .delete-char-btn {
-    font-size: 0.7em;
-    background: rgba(0,0,0,0.2);
-    color: white;
+    font-size: 14px;
+    background: rgba(0,0,0,0.1);
+    color: #888;
     border: none;
     border-radius: 50%;
-    width: 18px;
-    height: 18px;
+    width: 22px; /* 크기 약간 확대 */
+    height: 22px;
+    min-width: 22px; /* 찌그러짐 방지 */
+    min-height: 22px;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    transition: all 0.2s ease;
+    padding: 0;
+    line-height: 1;
+    margin-left: 5px;
 }
 
 .delete-char-btn:hover {
     background: #e74c3c;
+    color: white;
 }
 
 .char-nickname-section {
