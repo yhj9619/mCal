@@ -23,24 +23,62 @@ stylesheets:
             </div>
         </header>
 
+        <!-- 캐릭터 관리 탭 -->
+        <div class="character-management" id="character-tabs">
+            <!-- 탭이 동적으로 생성됩니다 -->
+            <button class="add-char-btn" onclick="addNewCharacter()">+ 캐릭터 추가</button>
+        </div>
+
+        <div class="char-nickname-section">
+            <label for="char-nickname">캐릭터 닉네임:</label>
+            <input type="text" id="char-nickname" placeholder="닉네임 입력" onchange="updateNickname(this.value)">
+        </div>
+
         <!-- 결과 표시 영역 -->
-        <div id="boss-summary" style="margin-bottom: 1em; padding: 1.5em; background-color: #f9f9f9; border-radius: 0.5em;">
-            <div class="row gtr-uniform">
-                <div class="col-6 col-12-mobile">
-                    <strong>선택된 보스:</strong>
-                    <div id="selected-boss-count">0 / 12</div>
+        <div class="summary-container">
+            <!-- 현재 캐릭터 요약 -->
+            <div class="summary-card">
+                <h3>현재 캐릭터 요약</h3>
+                <div class="row gtr-uniform">
+                    <div class="col-6 col-12-mobile">
+                        <strong>선택 보스:</strong>
+                        <div id="selected-boss-count">0 / 12</div>
+                    </div>
+                    <div class="col-6 col-12-mobile">
+                        <strong>수익:</strong>
+                        <div id="weekly-profit">0 메소</div>
+                    </div>
+                    <div class="col-6 col-12-mobile">
+                        <strong>시간:</strong>
+                        <div id="total-clear-time-hours">0분 (0시간)</div>
+                    </div>
+                    <div class="col-6 col-12-mobile">
+                        <strong>시급:</strong>
+                        <div id="total-weekly-hourly-wage">0 원</div>
+                    </div>
                 </div>
-                <div class="col-6 col-12-mobile">
-                    <strong>주간 수익:</strong>
-                    <div id="weekly-profit">0 메소</div>
-                </div>
-                <div class="col-6 col-12-mobile">
-                    <strong>총 주간 클리어 시간:</strong>
-                    <div id="total-clear-time-hours">0 시간</div>
-                </div>
-                <div class="col-6 col-12-mobile">
-                    <strong>보스 시급:</strong>
-                    <div id="total-weekly-hourly-wage">0 원</div>
+            </div>
+
+            <!-- 계정 전체 요약 -->
+            <div class="summary-card account">
+                <h3>계정 전체 요약 (합산)</h3>
+                <div class="row gtr-uniform">
+                    <div class="col-6 col-12-mobile">
+                        <strong>총 캐릭터:</strong>
+                        <div id="total-char-count">0명</div>
+                    </div>
+                    <div class="col-6 col-12-mobile">
+                        <strong>총 수익:</strong>
+                        <div id="account-total-profit">0 메소</div>
+                    </div>
+                    <div class="col-6 col-12-mobile">
+                        <strong>총 시간:</strong>
+                        <div id="account-total-time">0분 (0시간)</div>
+                    </div>
+                    <div class="col-6 col-12-mobile">
+                        <strong>계정 시급:</strong>
+                        <div id="account-hourly-wage">0 원</div>
+                    </div>
                 </div>
             </div>
         </div>
