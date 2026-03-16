@@ -27,7 +27,7 @@ function run_page_calculations() {
     if (container.children().length === 0) {
         // 보스 목록 렌더링
         bossData.forEach((boss, index) => {
-            let difficultyOptions = Object.keys(boss.difficulties).map(d => `<option value="${d}">${d}</option>`).join('');
+            let difficultyOptions = Object.keys(boss.difficulties).reverse().map(d => `<option value="${d}">${d}</option>`).join('');
             let maxParty = boss.maxPartySize || 6;
             let partyOptions = '';
             for (let i = 1; i <= maxParty; i++) {
@@ -127,12 +127,12 @@ function run_page_calculations() {
 
             let perPersonWon = perPersonMeso / oneHunMil * vPresentMeso;
             let maxTimeInMinutes = (perPersonWon > 0) ? perPersonWon / MINIMUM_WAGE_PER_MINUTE : 0;
-            $(`#clear-time-${index}`).text(`${Math.floor(maxTimeInMinutes)}분`);
+            $(`#clear-time-${index}`).text(`${Math.floor(maxTimeInMinutes)}`);
 
             let actualTime = parseInt($(`#actual-time-${index}`).val());
             if (actualTime > 0) {
                 let hourlyRateWon = (perPersonWon / actualTime) * 60;
-                $(`#hourly-rate-${index}`).text(Math.floor(hourlyRateWon).toLocaleString() + '원');
+                $(`#hourly-rate-${index}`).text(Math.floor(hourlyRateWon).toLocaleString());
             } else {
                 $(`#hourly-rate-${index}`).text('');
             }
