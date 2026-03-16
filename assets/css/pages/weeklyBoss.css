@@ -1,15 +1,14 @@
-/* 주간보스 시급계산기 전용 스타일 */
+/* 주간보스 시급계산기 전용 스타일 (데스크탑 & 모바일 통합 최적화) */
 
-/* 테이블 전체 컨테이너 (그림자 및 테두리) */
+/* 테이블 전체 컨테이너 */
 #boss-table-header, 
 #boss-list-container {
     max-width: 100%;
-    overflow-x: auto;
 }
 
 #boss-table-header {
-    background-color: #f0f0f0; /* 헤더 배경색 (simpleTable style) */
-    color: #555; /* 헤더 텍스트 색상 */
+    background-color: #f0f0f0;
+    color: #555;
     font-weight: 600;
     border: 1px solid #e0e0e0;
     border-bottom: 2px solid #d0d0d0;
@@ -36,34 +35,14 @@
     font-size: 0.9em;
 }
 
-.boss-row:last-child {
-    border-bottom: none;
-}
-
-.boss-row:hover {
-    background-color: #f5f5f5; /* 호버 시 배경색 (simpleTable style) */
-}
+.boss-row:hover { background-color: #f5f5f5; }
 
 .boss-row.selected {
-    background-color: #fffde7; /* 선택된 행 배경색 (연한 노란색/아이보리) */
+    background-color: #fffde7;
     position: relative;
+    box-shadow: inset 4px 0 0 #f5a207;
 }
 
-.boss-row.selected::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 4px;
-    background-color: #f5a207; /* 강조색 */
-}
-
-.boss-row.selected:hover {
-    background-color: #fff9c4;
-}
-
-/* 헤더 행 스타일 */
 .boss-row.header {
     cursor: default;
     padding: 1em 0.5em;
@@ -71,170 +50,130 @@
     background: transparent;
 }
 
-.boss-row.header .header-item {
-    text-align: center;
-    font-size: 1em;
-}
+.boss-row > span { text-align: center; }
 
-/* 컬럼별 너비 및 정렬 */
-.boss-name { 
-    width: 18%; 
-    padding-left: 1em; 
-    font-weight: 600;
-    color: #444;
-}
+/* 컬럼별 너비 (데스크탑) */
+.boss-name { width: 20%; padding-left: 1em; font-weight: 600; text-align: left !important; }
+.boss-difficulty { width: 15%; }
+.party-size-per-boss { width: 10%; }
+.crystal-price { width: 15%; text-align: right !important; padding-right: 1em; font-weight: 600; color: #2e7d32; }
+.clear-time-per-boss { width: 12%; }
+.actual-clear-time { width: 13%; }
+.hourly-rate-won { width: 15%; text-align: right !important; padding-right: 1em; font-weight: bold; color: #c62828; }
 
-.boss-difficulty { 
-    width: 14%; 
-    text-align: center; 
+/* 캐릭터 관리 탭 */
+.character-management {
+    margin-bottom: 1.5em;
+    border-bottom: 2px solid #ddd;
+    display: flex;
+    align-items: flex-end;
+    gap: 5px;
+    overflow-x: auto; /* 모바일 가로 스크롤 */
+    white-space: nowrap;
+    padding-bottom: 5px;
+    -ms-overflow-style: none; /* IE 스크롤바 숨김 */
+    scrollbar-width: none; /* 파이어폭스 스크롤바 숨김 */
 }
+.character-management::-webkit-scrollbar { display: none; }
 
-.party-size-per-boss { 
-    width: 8%; 
-    text-align: center; 
-}
-
-.crystal-price { 
-    width: 16%; 
-    text-align: right; 
-    padding-right: 1.5em;
-    color: #2e7d32;
-    font-weight: 600;
-}
-
-.clear-time-per-boss { 
-    width: 12%; 
-    text-align: center; 
-}
-
-.actual-clear-time { 
-    width: 11%; 
-    text-align: center; 
-}
-
-.hourly-rate-won { 
-    width: 21%; 
-    text-align: right; 
-    padding-right: 1em; 
+.char-tab {
+    padding: 0.6em 1.2em;
+    background: #f0f0f0;
+    border: 1px solid #ddd;
+    border-bottom: none;
+    border-radius: 8px 8px 0 0;
+    cursor: pointer;
     font-weight: bold;
-    color: #c62828;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s;
+    flex-shrink: 0;
 }
 
-/* 테이블 내 입력 요소 스타일 */
-.boss-row select, 
-.boss-row input {
-    width: 90%;
-    max-width: 100px; /* 익스트림 등 긴 텍스트를 위해 상한 조정 */
-    margin: 0 auto;
-    height: 32px !important;
-    padding: 0 0.5em !important;
-    font-size: 0.95em !important;
-    border: 1px solid #ccc !important;
-    border-radius: 4px !important;
-    background-color: white !important;
-    text-align: center !important;
-    line-height: normal !important;
+.char-tab.active {
+    background: #f5a623;
+    color: white;
+    border-color: #f5a623;
+    transform: translateY(-2px);
 }
 
-.party-size-per-boss select {
-    max-width: 60px; /* 인원 선택창은 더 작게 */
+.delete-char-btn {
+    width: 20px;
+    height: 20px;
+    min-width: 20px; /* 찌그러짐 방지 */
+    min-height: 20px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(0,0,0,0.1);
+    color: #888;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    line-height: 1;
+    padding: 0;
 }
+.char-tab.active .delete-char-btn { background: rgba(255,255,255,0.3); color: white; }
+.delete-char-btn:hover { background: #e74c3c !important; color: white !important; }
 
-.actual-clear-time input {
-    max-width: 70px; /* 30 등 숫자가 안 잘리도록 약간 확대 */
+/* 요약 카드 */
+.summary-container { display: flex; gap: 15px; margin-bottom: 1.5em; }
+.summary-card {
+    flex: 1; padding: 1.2em; background: #f9f9f9; border-radius: 10px;
+    border-top: 4px solid #f5a623; box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
+.summary-card.account { border-top-color: #444; background: #f0f0f0; }
+.summary-card h3 { font-size: 1em; font-weight: bold; margin-bottom: 0.8em; color: #333; border-bottom: 1px solid #ddd; padding-bottom: 0.5em; }
 
-.boss-row select {
-    text-align-last: center; /* Select text center align */
+/* 셀렉트 및 입력창 디자인 */
+.boss-row select, .boss-row input {
+    width: 100%; padding: 4px 8px; border-radius: 6px; border: 1px solid #ccc;
+    background-color: #fff; font-size: 0.9em; transition: border-color 0.2s;
 }
+.boss-row select:hover, .boss-row input:focus { border-color: #f5a623; outline: none; }
 
-/* 결과 요약 영역 스타일 */
-#boss-summary {
-    border: 1px solid #e0e0e0;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    background-color: #fcfcfc !important;
-}
-
-#selected-boss-count { 
-    color: #f5a207; 
-    font-weight: bold; 
-    font-size: 1.1em; 
-}
-
-#weekly-profit { 
-    color: #2e7d32; 
-    font-weight: bold; 
-    font-size: 1.1em; 
-}
-
-#total-clear-time-hours { 
-    font-weight: bold; 
-    color: #555;
-}
-
-#total-weekly-hourly-wage { 
-    color: #c62828; 
-    font-weight: 800; 
-    font-size: 1.3em; 
-}
-
-/* 반응형 (모바일) 스타일 */
-@media screen and (max-width: 980px) {
-    #boss-table-header {
-        display: none; /* 헤더 숨김 */
-    }
-
-    #boss-list-container {
-        border: none;
-        background: transparent;
-    }
+/* 반응형 (모바일) 최적화 */
+@media screen and (max-width: 960px) {
+    #boss-table-header { display: none; }
+    #boss-list-container { border: none; background: transparent; }
+    
+    .summary-container { flex-direction: column; }
     
     .boss-row {
         flex-direction: column;
         align-items: flex-start;
-        padding: 1.5em;
-        margin-bottom: 1em;
+        padding: 1.2em;
+        margin-bottom: 12px;
         border: 1px solid #ddd;
-        border-radius: 8px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.03);
-    }
-
-    .boss-row.selected::before {
-        width: 8px;
-        border-radius: 8px 0 0 8px;
+        border-radius: 12px;
+        box-shadow: 0 3px 6px rgba(0,0,0,0.05);
     }
 
     .boss-name { 
-        width: 100%; 
-        font-size: 1.2em; 
-        margin-bottom: 1em; 
-        padding-left: 0;
-        border-bottom: 2px solid #eee;
-        padding-bottom: 0.5em;
+        width: 100%; font-size: 1.1em; margin-bottom: 0.8em; padding-left: 0;
+        border-bottom: 2px solid #f5a623; padding-bottom: 0.4em; color: #333;
     }
 
-    .boss-difficulty, .party-size-per-boss, .crystal-price, .clear-time-per-boss, .actual-clear-time, .hourly-rate-won {
-        width: 100%;
-        text-align: left;
-        padding: 0.5em 0;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        border-bottom: 1px solid #f9f9f9;
+    .boss-difficulty, .party-size-per-boss, .crystal-price, 
+    .clear-time-per-boss, .actual-clear-time, .hourly-rate-won {
+        width: 100%; display: flex; justify-content: space-between; align-items: center;
+        padding: 0.4em 0; border-bottom: 1px solid #f5f5f5;
     }
 
-    /* 레이블 추가 (모바일에서 어떤 값인지 보여주기 위함) */
-    .boss-difficulty::before { content: "난이도"; font-weight: bold; color: #888; font-size: 0.9em; }
-    .party-size-per-boss::before { content: "파티인원"; font-weight: bold; color: #888; font-size: 0.9em; }
-    .crystal-price::before { content: "인당 메소"; font-weight: bold; color: #888; font-size: 0.9em; }
-    .clear-time-per-boss::before { content: "최저시급컷"; font-weight: bold; color: #888; font-size: 0.9em; }
-    .actual-clear-time::before { content: "클리어타임"; font-weight: bold; color: #888; font-size: 0.9em; }
-    .hourly-rate-won::before { content: "시급환산"; font-weight: bold; color: #888; font-size: 0.9em; }
+    /* 모바일 레이블 주입 */
+    .boss-difficulty::before { content: "난이도"; font-weight: bold; color: #888; font-size: 0.85em; }
+    .party-size-per-boss::before { content: "파티인원"; font-weight: bold; color: #888; font-size: 0.85em; }
+    .crystal-price::before { content: "획득 메소"; font-weight: bold; color: #888; font-size: 0.85em; }
+    .clear-time-per-boss::before { content: "최저시급컷(분)"; font-weight: bold; color: #888; font-size: 0.85em; }
+    .actual-clear-time::before { content: "클리어타임(분)"; font-weight: bold; color: #888; font-size: 0.85em; }
+    .hourly-rate-won::before { content: "시급환산(원)"; font-weight: bold; color: #888; font-size: 0.85em; }
 
     .boss-row select, .boss-row input {
-        width: 60%;
-        margin: 0;
-        text-align: right !important;
-        text-align-last: right !important;
+        width: 50% !important; max-width: none; text-align: right !important;
     }
+    
+    .crystal-price, .hourly-rate-won { padding-right: 0 !important; }
 }

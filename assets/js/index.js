@@ -33,6 +33,11 @@ const option = {
   };
 
 $(document).ready(function() {
+    $('.menu-toggle').click(function(e) {
+        e.preventDefault();
+        $('#topNav .menu').toggleClass('active');
+    });
+
     firstValSetting();
     dataLoad();
     fn_collection("");

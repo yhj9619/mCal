@@ -1,3 +1,99 @@
+#top-logo{
+    margin: 1.75em 1.5em 1.5em 1.5em;
+    min-height: 48px;
+}
+
+#top-logo h1 {
+    color: #fff;
+    font-weight: 600;
+    font-size: 1em;
+    line-height: 1em;
+}
+
+#top-logo .image {
+    left: 0;
+    top: 0;
+}
+
+#topNav {
+  background: #222;
+  color: white;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 2000;
+}
+
+#topNav .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+}
+
+#topNav .menu {
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 18px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+#topNav .menu li {
+  margin: 0 15px;
+}
+
+#topNav .menu li a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+
+#header {
+  /* padding-top: 120px; */
+}
+
+#main {
+  padding-top: 0px;
+}
+
+/* 햄버거 버튼 (모바일 전용) */
+.menu-toggle {
+  font-size: 14px;
+  color: white;
+  cursor: pointer;
+  display: none;
+}
+
+@media (max-width: 961px) {
+   #topNav .menu {
+    display: none;
+    flex-direction: column;
+    background: #222;
+    width: 100%;
+    font-size: 14px;
+  }
+
+  #topNav .menu.active {
+    display: flex;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+
+  #header {
+    /* padding-top: 60px; /* 모바일에서 메뉴 높이 더 클 수 있음 */
+  }
+
+   #main {
+    padding-top: 0px; /* 모바일에서 메뉴 높이 더 클 수 있음 */
+  }
+
+}
+
 .sticky-top {
     position: sticky;
     top: 0;
@@ -5,7 +101,6 @@
     background-color: #222629; /* 배경색 없으면 아래 내용과 겹쳐 보일 수 있음 */
     padding: 10px 0;
   }
-
 
 input{
     font-family: 'Noto Sans KR','Noto Sans Korean', "Nanum Gothic", sans-serif !important;
@@ -180,7 +275,7 @@ td input{
 }
 
 /* https://seraphinaciel.github.io/%ED%91%9C/ */
-@media screen and (max-width: 736px) {
+@media screen and (max-width: 961px) {
     .mTable caption {
         font-size: 1.3em;
     }
@@ -233,4 +328,19 @@ td input{
     .mTable td:last-child {
         border-bottom: 0;
     }
+}
+
+/* 최상단 로고와 입력란 사이 간격 축소 */
+#logo {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+#logo p {
+    margin-bottom: 0.5em !important;
+}
+
+#logo + .sticky-top {
+    padding-top: 0 !important;
+}
 }
