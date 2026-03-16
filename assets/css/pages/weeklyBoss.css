@@ -66,48 +66,62 @@
     margin-bottom: 1.5em;
     border-bottom: 2px solid #ddd;
     display: flex;
-    align-items: flex-end;
-    gap: 5px;
-    overflow-x: auto; /* 모바일 가로 스크롤 */
-    white-space: nowrap;
-    padding-bottom: 5px;
-    -ms-overflow-style: none; /* IE 스크롤바 숨김 */
-    scrollbar-width: none; /* 파이어폭스 스크롤바 숨김 */
+    align-items: center; /* 하단 정렬에서 중앙 정렬로 변경하여 줄바꿈 시 정렬 최적화 */
+    flex-wrap: wrap; /* 줄바꿈 허용 */
+    gap: 4px;
+    padding-bottom: 8px;
 }
-.character-management::-webkit-scrollbar { display: none; }
 
 .char-tab {
-    padding: 0.6em 1.2em;
+    padding: 3px 8px;
     background: #f0f0f0;
     border: 1px solid #ddd;
-    border-bottom: none;
-    border-radius: 8px 8px 0 0;
+    border-radius: 6px; /* 탭 형태에서 버튼 형태로 변경하여 줄바꿈 시 어색함 감소 */
     cursor: pointer;
     font-weight: bold;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 4px;
     transition: all 0.2s;
     flex-shrink: 0;
+    font-size: 0.75em;
+    margin-bottom: 2px;
 }
 
 .char-tab.active {
     background: #f5a623;
     color: white;
     border-color: #f5a623;
-    transform: translateY(-2px);
+}
+
+.add-char-btn {
+    padding: 3px 8px !important;
+    font-size: 0.75em !important;
+    height: auto !important;
+    min-height: unset !important;
+    margin-bottom: 2px;
+    background-color: #8ebebc !important;
+    white-space: nowrap;
+    border-radius: 6px !important;
+}
+
+.add-char-btn:disabled {
+    background-color: #ccc !important;
+    cursor: not-allowed;
+    opacity: 0.6;
+    background-image: none !important;
 }
 
 .delete-char-btn {
-    width: 20px;
-    height: 20px;
-    min-width: 20px; /* 찌그러짐 방지 */
-    min-height: 20px;
+    width: 14px;
+    height: 14px;
+    min-width: 14px;
+    min-height: 14px;
     border-radius: 50%;
     border: none;
     background: rgba(0,0,0,0.1);
     color: #888;
-    font-size: 14px;
+    font-size: 10px;
     display: flex;
     align-items: center;
     justify-content: center;

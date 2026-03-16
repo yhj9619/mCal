@@ -23,6 +23,8 @@ let mCalData = {
     activeIndex: 0
 };
 
+const MAX_CHARACTERS = 15;
+
 function run_page_calculations() {
     loadData();
     renderBossList();
@@ -49,6 +51,11 @@ function saveData() {
 
 // 캐릭터 추가
 function addNewCharacter(shouldSave = true) {
+    if (mCalData.characters.length >= MAX_CHARACTERS) {
+        alert(`최대 ${MAX_CHARACTERS}개의 캐릭터까지만 추가할 수 있습니다.`);
+        return;
+    }
+
     const newChar = {
         nickname: "신규 캐릭터 " + (mCalData.characters.length + 1),
         selectedBosses: [],
@@ -122,6 +129,16 @@ function renderTabs() {
         `);
         tabContainer.find('.add-char-btn').before(tab);
     });
+
+    // 캐릭터 추가 버튼 상태 업데이트
+    const addBtn = tabContainer.find('.add-char-btn');
+    if (mCalData.characters.length >= MAX_CHARACTERS) {
+        addBtn.prop('disabled', true);
+        addBtn.text('최대 캐릭터 도달');
+    } else {
+        addBtn.prop('disabled', false);
+        addBtn.text('+ 캐릭터 추가');
+    }
 
     $('#char-nickname').val(mCalData.characters[mCalData.activeIndex].nickname);
 }
