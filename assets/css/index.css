@@ -52,11 +52,11 @@
 
 
 #header {
-  padding-top: 120px;
+  /* padding-top: 120px; */
 }
 
 #main {
-  padding-top: 120px;
+  padding-top: 0px;
 }
 
 /* 햄버거 버튼 (모바일 전용) */
@@ -85,7 +85,7 @@
   }
 
   #header {
-    padding-top: 60px; /* 모바일에서 메뉴 높이 더 클 수 있음 */
+    /* padding-top: 60px; /* 모바일에서 메뉴 높이 더 클 수 있음 */
   }
 
    #main {
@@ -348,4 +348,19 @@ td input{
     .mTable td:last-child {
         border-bottom: 0;
     }
+}
+
+/* 최상단 로고와 입력란 사이 간격 축소 */
+#logo {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+#logo p {
+    margin-bottom: 0.5em !important;
+}
+
+#logo + .sticky-top {
+    padding-top: 0 !important;
+}
 }

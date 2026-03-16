@@ -1,0 +1,29 @@
+---
+layout: default
+title: 가이드 - 메산기
+description: 메이플스토리 계산기 사용 및 게임 관련 유용한 가이드 모음
+---
+
+<section id="guides-listing" class="two">
+    <div class="container">
+        <header>
+            <h2>가이드</h2>
+            <p>메이플스토리 계산기 사용법과 게임 플레이에 유용한 팁 및 가이드를 확인해보세요.</p>
+        </header>
+
+        {% assign guides = site.posts | sort: "date" | reverse %}
+        {% for post in guides %}
+        <article class="post-item">
+            <h3><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h3>
+            <p class="post-meta">{{ post.date | date: "%Y년 %m월 %d일" }}</p>
+            <p>{{ post.excerpt | strip_html | truncatewords: 50 }} <a href="{{ site.baseurl }}{{ post.url }}">더 읽기</a></p>
+            <hr>
+        </article>
+        {% endfor %}
+
+        {% if guides.size == 0 %}
+            <p>아직 작성된 가이드가 없습니다.</p>
+        {% endif %}
+
+    </div>
+</section>
