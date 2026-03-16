@@ -33,6 +33,11 @@ const option = {
   };
 
 $(document).ready(function() {
+    $('.menu-toggle').click(function(e) {
+        e.preventDefault();
+        $('#topNav .menu').toggleClass('active');
+    });
+
     firstValSetting();
     dataLoad();
     fn_collection("");
@@ -111,7 +116,10 @@ function firstValSetting(){
 
     $("#itemMesoVal").val('0');
 
-    $('input[name="juHeun50Event"]')[0].checked = true;
+    var target = $('input[name="juHeun50Event"]')[0];
+    if (target) {
+        target.checked = true;
+    }
     $("#juHeunPrice").val('5,000');
     $("#azmPotionPrice").val('4,000,000');
 
