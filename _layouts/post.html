@@ -1,0 +1,46 @@
+---
+layout: default
+---
+
+<section class="post-content four">
+    <div class="container">
+        <header>
+            <h2 style="margin-bottom: 0.5em;">{{ page.title }}</h2>
+            <p style="color: #888; font-size: 0.9em; margin-bottom: 2em;">
+                <span class="icon solid fa-calendar"></span> {{ page.date | date: "%Y년 %m월 %d일" }} 
+                {% if page.categories %}
+                | <span class="icon solid fa-folder"></span> {{ page.categories | join: ", " }}
+                {% endif %}
+            </p>
+        </header>
+
+        <article class="content" style="line-height: 1.8; font-size: 1.1em; color: #444;">
+            {{ content }}
+        </article>
+
+        <hr style="margin: 3em 0;">
+        
+        <footer style="text-align: center;">
+            <p><strong>💡 도움이 되셨나요?</strong> 다른 유용한 계산기 도구들도 확인해 보세요!</p>
+            <div class="post-footer-links">
+                <a href="{{ site.baseurl }}/" class="button">메인으로 가기</a>
+                <a href="{{ site.baseurl }}/pages/mesoMarket.html" class="button primary">메소마켓 계산기</a>
+            </div>
+        </footer>
+    </div>
+</section>
+
+<style>
+    .post-content article h2 { margin-top: 2em; margin-bottom: 1em; color: #333; border-bottom: 2px solid #eee; padding-bottom: 0.5em; }
+    .post-content article h3 { margin-top: 1.5em; margin-bottom: 0.8em; color: #555; }
+    .post-content article p { margin-bottom: 1.5em; text-align: justify; }
+    .post-content article ul, .post-content article ol { margin-bottom: 1.5em; padding-left: 1.5em; }
+    .post-content article li { margin-bottom: 0.5em; }
+    .post-footer-links .button { margin: 0.5em; }
+    
+    /* 모바일 대응 */
+    @media screen and (max-width: 736px) {
+        .post-content { padding: 2em 1em; }
+        .post-content article { font-size: 1em; }
+    }
+</style>
