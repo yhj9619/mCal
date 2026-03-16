@@ -179,26 +179,6 @@ td input{
     justify-content: center;
 }
 
-.tab { 
-    display: flex; 
-    gap: 10px; 
-    margin-bottom: 10px; 
-}
-
-.tab button { 
-    flex: 1; 
-    padding: 10px; 
-    cursor: pointer; 
-    border: none; 
-    border-radius: 5px; 
-    background: #f0f0f0; 
-}
-
-.tab button.active { 
-    background: rgb(245, 162, 7); 
-    color: white; 
-}
-
 /* https://seraphinaciel.github.io/%ED%91%9C/ */
 @media screen and (max-width: 736px) {
     .mTable caption {
