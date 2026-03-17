@@ -1,4 +1,4 @@
-// 주간보스 시급계산기 - 다중 캐릭터 지원 버전
+// 주간보스 시급계산기 - 다중 캐릭터 지원 버전 (오류 수정 및 최적화)
 let bossData = [
     { name: "스우", difficulties: { "노멀": 17600000, "하드": 54200000, "익스트림": 604000000 }, maxPartySize: 2 },
     { name: "데미안", difficulties: { "노멀": 18400000, "하드": 51500000 } },
@@ -23,49 +23,37 @@ let mCalData = {
     activeIndex: 0
 };
 
-const MAX_CHARACTERS = 15;
-
 function run_page_calculations() {
     loadData();
-    renderBossList();
     renderTabs();
+    renderBossList();
     updateUI();
 }
 
-// 데이터 로드
 function loadData() {
     const saved = localStorage.getItem('mCal_weeklyBoss_v2');
     if (saved) {
         mCalData = JSON.parse(saved);
     } else {
-        // 데이터가 없으면 초기 캐릭터 생성
         addNewCharacter(false);
     }
 }
 
-// 데이터 저장
 function saveData() {
     localStorage.setItem('mCal_weeklyBoss_v2', JSON.stringify(mCalData));
     updateUI();
 }
 
-// 캐릭터 추가
 function addNewCharacter(shouldSave = true) {
-    if (mCalData.characters.length >= MAX_CHARACTERS) {
-        alert(`최대 ${MAX_CHARACTERS}개의 캐릭터까지만 추가할 수 있습니다.`);
-        return;
-    }
-
     const newChar = {
         nickname: "신규 캐릭터 " + (mCalData.characters.length + 1),
         selectedBosses: [],
-        bossConfigs: {} // { bossIndex: { difficulty, partySize, actualTime } }
+        bossConfigs: {}
     };
     
-    // 기본 설정값 채우기
     bossData.forEach((boss, idx) => {
         newChar.bossConfigs[idx] = {
-            difficulty: Object.keys(boss.difficulties).reverse()[0], // 높은 난이도 기본
+            difficulty: Object.keys(boss.difficulties).reverse()[0],
             partySize: 1,
             actualTime: 30
         };
@@ -76,12 +64,11 @@ function addNewCharacter(shouldSave = true) {
     
     if (shouldSave) {
         saveData();
-        renderBossList();
         renderTabs();
+        renderBossList();
     }
 }
 
-// 캐릭터 삭제
 function deleteCharacter(index, event) {
     if (event) event.stopPropagation();
     if (mCalData.characters.length <= 1) {
@@ -94,27 +81,24 @@ function deleteCharacter(index, event) {
             mCalData.activeIndex = mCalData.characters.length - 1;
         }
         saveData();
-        renderBossList();
         renderTabs();
+        renderBossList();
     }
 }
 
-// 캐릭터 전환
 function switchCharacter(index) {
     mCalData.activeIndex = index;
     saveData();
-    renderBossList();
     renderTabs();
+    renderBossList();
 }
 
-// 닉네임 수정
 function updateNickname(val) {
     mCalData.characters[mCalData.activeIndex].nickname = val;
     saveData();
     renderTabs();
 }
 
-// 탭 렌더링
 function renderTabs() {
     const tabContainer = $('#character-tabs');
     tabContainer.find('.char-tab').remove();
@@ -130,20 +114,9 @@ function renderTabs() {
         tabContainer.find('.add-char-btn').before(tab);
     });
 
-    // 캐릭터 추가 버튼 상태 업데이트
-    const addBtn = tabContainer.find('.add-char-btn');
-    if (mCalData.characters.length >= MAX_CHARACTERS) {
-        addBtn.prop('disabled', true);
-        addBtn.text('최대 캐릭터 도달');
-    } else {
-        addBtn.prop('disabled', false);
-        addBtn.text('+ 캐릭터 추가');
-    }
-
     $('#char-nickname').val(mCalData.characters[mCalData.activeIndex].nickname);
 }
 
-// 보스 목록 렌더링
 function renderBossList() {
     const container = $('#boss-list-container');
     container.empty();
@@ -154,7 +127,7 @@ function renderBossList() {
         const config = currentChar.bossConfigs[index];
         const isSelected = currentChar.selectedBosses.includes(index);
         
-        let difficultyOptions = Object.keys(boss.difficulties).reverse().map(d => 
+        let difficultyOptions = Object.keys(boss.difficulties).map(d => 
             `<option value="${d}" ${config.difficulty === d ? 'selected' : ''}>${d}</option>`
         ).join('');
         
@@ -184,7 +157,7 @@ function renderBossList() {
         container.append(bossRow);
     });
 
-    // 행 클릭 이벤트
+    // 이벤트 위임 방식으로 변경 (더 안정적)
     container.off('click', '.boss-row').on('click', '.boss-row', function(e) {
         if ($(e.target).is('select, input, option')) return;
         
@@ -193,19 +166,19 @@ function renderBossList() {
         
         if (selectedIdx > -1) {
             currentChar.selectedBosses.splice(selectedIdx, 1);
+            $(this).removeClass('selected');
         } else {
             if (currentChar.selectedBosses.length >= 12) {
                 alert('캐릭터당 최대 12개까지 선택 가능합니다.');
                 return;
             }
             currentChar.selectedBosses.push(idx);
+            $(this).addClass('selected');
         }
-        saveData();
-        renderBossList();
+        saveData(); // saveData 내부에서 updateUI 호출함
     });
 }
 
-// 보스 설정 업데이트
 function updateBossConfig(bossIdx, key, val) {
     const currentChar = mCalData.characters[mCalData.activeIndex];
     if (key === 'partySize' || key === 'actualTime') {
@@ -215,15 +188,17 @@ function updateBossConfig(bossIdx, key, val) {
     saveData();
 }
 
-// UI 업데이트 및 계산
 function updateUI() {
+    // 전역 변수가 정의되지 않았을 경우를 대비한 방어 로직
+    const currentMeso = typeof vPresentMeso !== 'undefined' ? vPresentMeso : 0;
+    const oneHunMilValue = typeof oneHunMil !== 'undefined' ? oneHunMil : 100000000;
+
     const MINIMUM_WAGE_PER_HOUR = 10320;
     const MINIMUM_WAGE_PER_MINUTE = MINIMUM_WAGE_PER_HOUR / 60;
     
     let accountTotalMeso = 0;
     let accountTotalMinutes = 0;
 
-    // 모든 캐릭터 순회하며 계산
     mCalData.characters.forEach((char, charIdx) => {
         let charMeso = 0;
         let charMinutes = 0;
@@ -232,7 +207,7 @@ function updateUI() {
             const config = char.bossConfigs[bIdx];
             const price = boss.difficulties[config.difficulty];
             const perPersonMeso = price / config.partySize;
-            const perPersonWon = perPersonMeso / oneHunMil * vPresentMeso;
+            const perPersonWon = (perPersonMeso / oneHunMilValue) * currentMeso;
 
             // 현재 활성화된 캐릭터의 행 UI만 업데이트
             if (charIdx === mCalData.activeIndex) {
@@ -248,33 +223,29 @@ function updateUI() {
                 }
             }
 
-            // 선택된 보스라면 합계에 추가
             if (char.selectedBosses.includes(bIdx)) {
                 charMeso += perPersonMeso;
                 charMinutes += config.actualTime;
             }
         });
 
-        // 현재 캐릭터 요약 업데이트
         if (charIdx === mCalData.activeIndex) {
             $('#selected-boss-count').text(`${char.selectedBosses.length} / 12`);
             $('#weekly-profit').text(`${Math.floor(charMeso).toLocaleString()} 메소`);
             $('#total-clear-time-hours').text(`${charMinutes}분 (${(charMinutes / 60).toFixed(1)}시간)`);
             
-            let charHourly = (charMinutes > 0) ? (charMeso / oneHunMil * vPresentMeso) / (charMinutes / 60) : 0;
+            let charHourly = (charMinutes > 0) ? (charMeso / oneHunMilValue * currentMeso) / (charMinutes / 60) : 0;
             $('#total-weekly-hourly-wage').text(`${Math.floor(charHourly).toLocaleString()} 원`);
         }
 
-        // 계정 합산에 추가
         accountTotalMeso += charMeso;
         accountTotalMinutes += charMinutes;
     });
 
-    // 계정 전체 요약 업데이트
     $('#total-char-count').text(`${mCalData.characters.length}`);
     $('#account-total-profit').text(`${Math.floor(accountTotalMeso).toLocaleString()} 메소`);
     $('#account-total-time').text(`${accountTotalMinutes}분 (${(accountTotalMinutes / 60).toFixed(1)}시간)`);
     
-    let accountHourly = (accountTotalMinutes > 0) ? (accountTotalMeso / oneHunMil * vPresentMeso) / (accountTotalMinutes / 60) : 0;
+    let accountHourly = (accountTotalMinutes > 0) ? (accountTotalMeso / oneHunMilValue * currentMeso) / (accountTotalMinutes / 60) : 0;
     $('#account-hourly-wage').text(`${Math.floor(accountHourly).toLocaleString()} 원`);
 }
