@@ -91,6 +91,7 @@ function switchCharacter(index) {
     saveData();
     renderTabs();
     renderBossList();
+    updateUI(); // 행 내부 수치를 즉시 다시 계산하여 채움
 }
 
 function updateNickname(val) {
