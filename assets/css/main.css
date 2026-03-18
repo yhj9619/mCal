@@ -1922,53 +1922,143 @@ input, select, textarea {
 		border: 0;
 	}
 
-/* Table */
+/* Table - Modernized Global Style */
 	table {
 		width: 100%;
-		text-align: left;
-		border-collapse: separate; /* border-radius 적용을 위해 collapse 대신 separate */
-		border-spacing: 0; /* separate 적용 시 셀 간격 제거 */
-		border-radius: 0.5em; /* 테이블 전체 모서리 둥글게 */
-		overflow: hidden; /* border-radius가 적용되도록 오버플로우 숨김 */
-		box-shadow: 0 0.2em 0.5em rgba(0, 0, 0, 0.1); /* 그림자 추가로 입체감 */
+		border-collapse: separate;
+		border-spacing: 0;
+		border-radius: 12px;
+		overflow: hidden;
+		box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+		border: 1px solid #eee;
 		margin-bottom: 2em;
+		background: #fff;
 	}
 
 	table th {
-		text-align: left;
-		padding: 0.8em 1em; /* 패딩 약간 축소 */
-		color: #fff;
-		background: #333;
-		font-weight: 600;
-		font-size: 0.85em; /* 폰트 크기 축소 */
-		border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-		word-break: keep-all; /* 단어 단위 줄바꿈 */
-		overflow-wrap: break-word;
+		background: #f8f9fa; /* 밝고 깔끔한 배경색 */
+		color: #333; /* 어두운 텍스트로 가독성 확보 */
+		padding: 1.2em 1em;
+		font-weight: bold;
+		font-size: 0.85em;
+		text-align: center;
+		border-bottom: 2px solid #f5a623; /* 메산기 포인트 컬러 포인트 */
 	}
 
 	table td {
-		padding: 0.75em 1.25em; /* 패딩 증가 */
-		color: #444; /* 텍스트 색상 조정 */
-		background: #fff; /* 기본 셀 배경 */
-		border-bottom: 1px solid #eee; /* 셀 하단 테두리 */
+		padding: 1em;
+		border-bottom: 1px solid #f5f5f5;
+		color: #444;
+		font-size: 0.95em;
+		vertical-align: middle;
 	}
 
-	table tbody tr:nth-child(even) {
-		background: #f9f9f9; /* 짝수 행 배경색 */
+	/* 표 내부 입력창 레이아웃 수정 */
+	table td input[type="text"],
+	table td input[type="number"] {
+		display: inline-block;
+		width: auto;
+		min-width: 80px;
+		max-width: 150px;
+		margin-right: 5px;
+		vertical-align: middle;
+	}
+
+	table tbody tr:last-child td {
+		border-bottom: none;
 	}
 
 	table tbody tr:hover {
-		background: #f0f8ff; /* 호버 시 배경색 변경 (하늘색 계열) */
-		transition: background-color 0.3s ease;
-	}
-	
-	table thead {
-		/* background 스타일은 th에서 개별적으로 처리 */
-		color: #fff;
+		background-color: #fffaf0;
+		transition: background 0.2s;
 	}
 
-	table tfoot {
-		background: #eee;
+	/* Inputs & Selects - Modern Style */
+	input[type="text"],
+	input[type="number"],
+	input[type="password"],
+	select,
+	textarea {
+		width: 100%;
+		padding: 0.6em 1em !important;
+		border-radius: 8px !important;
+		border: 1px solid #ddd !important;
+		background-color: #fff !important;
+		color: #333 !important;
+		font-size: 0.95em !important;
+		transition: all 0.2s ease;
+		box-shadow: none !important;
+		appearance: none !important;
+	}
+
+	select {
+		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'%3E%3C/path%3E%3C/svg%3E") !important;
+		background-repeat: no-repeat !important;
+		background-position: right 12px center !important;
+		padding-right: 30px !important;
+	}
+
+	input:focus, select:focus {
+		border-color: #f5a623 !important;
+		box-shadow: 0 0 0 3px rgba(245, 166, 35, 0.1) !important;
+		outline: none !important;
+	}
+
+	/* Responsive Table to Cards */
+	@media screen and (max-width: 960px) {
+		table, thead, tbody, th, td, tr {
+			display: block;
+		}
+
+		thead tr {
+			position: absolute;
+			top: -9999px;
+			left: -9999px;
+		}
+
+		table {
+			border: none;
+			box-shadow: none;
+			background: transparent;
+		}
+
+		tr {
+			background: #fff;
+			margin-bottom: 1em;
+			border: 1px solid #ddd;
+			border-radius: 12px;
+			box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+			padding: 0.5em;
+		}
+
+		td {
+			border: none;
+			border-bottom: 1px solid #f9f9f9;
+			position: relative;
+			padding-left: 45% !important;
+			text-align: right !important;
+			min-height: 3em;
+			display: flex;
+			align-items: center;
+			justify-content: flex-end;
+		}
+
+		td:last-child {
+			border-bottom: none;
+		}
+
+		td:before {
+			content: attr(data-label);
+			position: absolute;
+			left: 1em;
+			width: 40%;
+			padding-right: 10px;
+			white-space: nowrap;
+			text-align: left;
+			font-weight: bold;
+			color: #888;
+			font-size: 0.85em;
+		}
 	}
 
 /* Button */
@@ -2758,7 +2848,123 @@ input, select, textarea {
 	}
 	.accordion-header .fa-chevron-up {
 		transform: rotate(180deg);
-	}/* Simple Table for Descriptions */
+	}
+
+/* Dark Mode Styles */
+body.dark-mode {
+    background-color: #121212;
+    color: #e0e0e0;
+}
+
+body.dark-mode #main > section {
+    background-color: #1e1e1e;
+    background-image: none;
+    color: #e0e0e0;
+}
+
+body.dark-mode #main > section.one {
+    background-color: #1a1a1a;
+    background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url("../../images/banner.jpg");
+}
+
+body.dark-mode h1, body.dark-mode h2, body.dark-mode h3, 
+body.dark-mode h4, body.dark-mode h5, body.dark-mode h6,
+body.dark-mode strong {
+    color: #fff;
+}
+
+/* 다크모드 테이블 */
+body.dark-mode table {
+    background-color: #252525;
+    border-color: #333;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode table th {
+    background-color: #333;
+    color: #fff;
+    border-bottom-color: #f5a623;
+}
+
+body.dark-mode table td {
+    background-color: #252525;
+    color: #ccc;
+    border-bottom-color: #333;
+}
+
+body.dark-mode table tbody tr:hover {
+    background-color: #2d2d2d;
+}
+
+/* 다크모드 입력창 */
+body.dark-mode input[type="text"],
+body.dark-mode input[type="number"],
+body.dark-mode select,
+body.dark-mode textarea {
+    background-color: #333 !important;
+    border-color: #444 !important;
+    color: #fff !important;
+}
+
+body.dark-mode .mainDiv label {
+    color: #aaa;
+}
+
+/* 다크모드 아코디언 및 요약 카드 */
+body.dark-mode .summary-card,
+body.dark-mode #boss-summary {
+    background-color: #252525 !important;
+    border-color: #333 !important;
+}
+
+body.dark-mode .summary-card.account {
+    background-color: #1a1a1a !important;
+}
+
+body.dark-mode .boss-row {
+    background-color: #252525;
+    border-bottom-color: #333;
+}
+
+body.dark-mode .boss-row.selected {
+    background-color: #2d2a1e;
+}
+
+body.dark-mode .boss-row:hover {
+    background-color: #2d2d2d;
+}
+
+/* 다크모드 푸터 */
+body.dark-mode #footer {
+    background-color: #1a1a1a;
+    color: #888;
+}
+
+body.dark-mode a {
+    color: #aaa;
+}
+
+body.dark-mode a:hover {
+    color: #f5a623;
+}
+
+body.dark-mode .pointSpan {
+    color: #f39c12; /* 다크모드에서 더 잘 보이는 밝은 오렌지 */
+}
+
+/* 모바일 카드 레이아웃 다크모드 */
+@media screen and (max-width: 960px) {
+    body.dark-mode tr {
+        background: #252525;
+        border-color: #333;
+    }
+    body.dark-mode td {
+        border-bottom-color: #2d2d2d;
+    }
+    body.dark-mode td:before {
+        color: #777;
+    }
+}/* Simple Table for Descriptions */
 	table.simpleTable {
 		width: 100%;
 		border-collapse: collapse;
@@ -2818,3 +3024,119 @@ input, select, textarea {
 	.accordion-header .fa-chevron-up {
 		transform: rotate(180deg);
 	}
+
+/* Dark Mode Styles */
+body.dark-mode {
+    background-color: #121212;
+    color: #e0e0e0;
+}
+
+body.dark-mode #main > section {
+    background-color: #1e1e1e;
+    background-image: none;
+    color: #e0e0e0;
+}
+
+body.dark-mode #main > section.one {
+    background-color: #1a1a1a;
+    background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url("../../images/banner.jpg");
+}
+
+body.dark-mode h1, body.dark-mode h2, body.dark-mode h3, 
+body.dark-mode h4, body.dark-mode h5, body.dark-mode h6,
+body.dark-mode strong {
+    color: #fff;
+}
+
+/* 다크모드 테이블 */
+body.dark-mode table {
+    background-color: #252525;
+    border-color: #333;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode table th {
+    background-color: #333;
+    color: #fff;
+    border-bottom-color: #f5a623;
+}
+
+body.dark-mode table td {
+    background-color: #252525;
+    color: #ccc;
+    border-bottom-color: #333;
+}
+
+body.dark-mode table tbody tr:hover {
+    background-color: #2d2d2d;
+}
+
+/* 다크모드 입력창 */
+body.dark-mode input[type="text"],
+body.dark-mode input[type="number"],
+body.dark-mode select,
+body.dark-mode textarea {
+    background-color: #333 !important;
+    border-color: #444 !important;
+    color: #fff !important;
+}
+
+body.dark-mode .mainDiv label {
+    color: #aaa;
+}
+
+/* 다크모드 아코디언 및 요약 카드 */
+body.dark-mode .summary-card,
+body.dark-mode #boss-summary {
+    background-color: #252525 !important;
+    border-color: #333 !important;
+}
+
+body.dark-mode .summary-card.account {
+    background-color: #1a1a1a !important;
+}
+
+body.dark-mode .boss-row {
+    background-color: #252525;
+    border-bottom-color: #333;
+}
+
+body.dark-mode .boss-row.selected {
+    background-color: #2d2a1e;
+}
+
+body.dark-mode .boss-row:hover {
+    background-color: #2d2d2d;
+}
+
+/* 다크모드 푸터 */
+body.dark-mode #footer {
+    background-color: #1a1a1a;
+    color: #888;
+}
+
+body.dark-mode a {
+    color: #aaa;
+}
+
+body.dark-mode a:hover {
+    color: #f5a623;
+}
+
+body.dark-mode .pointSpan {
+    color: #f39c12; /* 다크모드에서 더 잘 보이는 밝은 오렌지 */
+}
+
+/* 모바일 카드 레이아웃 다크모드 */
+@media screen and (max-width: 960px) {
+    body.dark-mode tr {
+        background: #252525;
+        border-color: #333;
+    }
+    body.dark-mode td {
+        border-bottom-color: #2d2d2d;
+    }
+    body.dark-mode td:before {
+        color: #777;
+    }
+}

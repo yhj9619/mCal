@@ -162,7 +162,7 @@ td input{
 }
 
 .pointSpan{
-    color:rgb(17, 0, 255);
+    color: #e67e22; /* 차분한 딥 오렌지 강조색 */
     font-weight: bold;
 }
 

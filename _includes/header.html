@@ -82,7 +82,17 @@
     </div>
 
     <div class="bottom">
-            <!-- Social Icons -->
+
+        <!-- 다크모드 토글 -->
+        <div class="theme-toggle-container" style="text-align: center; margin-bottom: 1.5em; display: flex; align-items: center; justify-content: center; gap: 10px;">
+            <span id="sun-icon" class="icon solid fa-sun" style="font-size: 1.2em; transition: 0.3s;"></span>
+            <div class="toggle-switch" onclick="toggleDarkMode()" style="width: 40px; height: 20px; background: #444; border-radius: 20px; position: relative; cursor: pointer;">
+                <div id="toggle-circle" style="width: 16px; height: 16px; background: #fff; border-radius: 50%; position: absolute; top: 2px; left: 2px; transition: 0.3s;"></div>
+            </div>
+            <span id="moon-icon" class="icon solid fa-moon" style="font-size: 1.2em; transition: 0.3s;"></span>
+        </div>
+
+        <!-- Social Icons -->
             <ul class="icons">
                 <!--
                 <li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>

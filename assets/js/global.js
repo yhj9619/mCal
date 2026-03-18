@@ -63,7 +63,58 @@ $(document).ready(function() {
             }
         });
     });
+
+    // 다크모드 초기화
+    initDarkMode();
 });
+
+// 다크모드 토글 함수
+function toggleDarkMode() {
+    const body = document.body;
+    const isDark = body.classList.toggle('dark-mode');
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    updateThemeUI(isDark);
+}
+
+// 다크모드 초기 설정
+function initDarkMode() {
+    const savedTheme = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    const shouldShowDark = savedTheme === 'dark' || (!savedTheme && prefersDark);
+    
+    if (shouldShowDark) {
+        document.body.classList.add('dark-mode');
+        updateThemeUI(true);
+    } else {
+        updateThemeUI(false);
+    }
+}
+
+// 테마 UI 업데이트 (아이콘 및 토글 위치)
+function updateThemeUI(isDark) {
+    const circle = document.getElementById('toggle-circle');
+    const sunIcon = document.getElementById('sun-icon');
+    const moonIcon = document.getElementById('moon-icon');
+    
+    if (circle && sunIcon && moonIcon) {
+        if (isDark) {
+            circle.style.left = '22px';
+            // 다크모드: 달 강조
+            sunIcon.style.color = '#555';
+            sunIcon.style.opacity = '0.5';
+            moonIcon.style.color = '#f1c40f'; // 밝은 노란색
+            moonIcon.style.opacity = '1';
+        } else {
+            circle.style.left = '2px';
+            // 라이트모드: 해 강조
+            sunIcon.style.color = '#f5a623'; // 메산기 주황색
+            sunIcon.style.opacity = '1';
+            moonIcon.style.color = '#555';
+            moonIcon.style.opacity = '0.5';
+        }
+    }
+}
 
 // 모든 계산을 실행하는 메인 함수
 function fn_collection(){
