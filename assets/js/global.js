@@ -66,7 +66,25 @@ $(document).ready(function() {
 
     // 다크모드 초기화
     initDarkMode();
+
+    // 사이드바 상태 초기화
+    initSidebar();
 });
+
+// 사이드바 토글 함수
+function toggleSidebar() {
+    const body = document.body;
+    const isCollapsed = body.classList.toggle('sidebar-collapsed');
+    localStorage.setItem('sidebarState', isCollapsed ? 'collapsed' : 'expanded');
+}
+
+// 사이드바 초기 설정
+function initSidebar() {
+    const savedState = localStorage.getItem('sidebarState');
+    if (savedState === 'collapsed') {
+        document.body.classList.add('sidebar-collapsed');
+    }
+}
 
 // 다크모드 토글 함수
 function toggleDarkMode() {
