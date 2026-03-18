@@ -1,21 +1,21 @@
 // 주간보스 시급계산기 - 다중 캐릭터 지원 버전 (오류 수정 및 최적화)
 let bossData = [
-    { name: "스우", difficulties: { "노멀": 17600000, "하드": 54200000, "익스트림": 604000000 }, maxPartySize: 2 },
-    { name: "데미안", difficulties: { "노멀": 18400000, "하드": 51500000 } },
-    { name: "가디언 엔젤 슬라임", difficulties: { "노멀": 26800000, "카오스": 79100000 } },
-    { name: "루시드", difficulties: { "이지": 31400000, "노멀": 37500000, "하드": 66200000 } },
-    { name: "윌", difficulties: { "이지": 34000000, "노멀": 43300000, "하드": 81200000 } },
-    { name: "더스크", difficulties: { "노멀": 46300000, "카오스": 73500000 } },
-    { name: "듄켈", difficulties: { "노멀": 50000000, "하드": 99400000 } },
-    { name: "진 힐라", difficulties: { "노멀": 74900000, "하드": 112000000 } },
-    { name: "선택받은 세렌", difficulties: { "노멀": 266000000, "하드": 396000000, "익스트림": 3150000000 } },
-    { name: "감시자 칼로스", difficulties: { "이지": 311000000, "노멀": 561000000, "카오스": 1340000000, "익스트림": 4320000000 } },
-    { name: "최초의 대적자", difficulties: { "이지": 324000000, "노멀": 589000000, "하드": 1510000000, "익스트림": 4960000000 }, maxPartySize: 3  },
-    { name: "카링", difficulties: { "이지": 419000000, "노멀": 714000000, "하드": 1830000000, "익스트림": 5670000000 } },
-    { name: "찬란한 흉성", difficulties: { "노멀": 658000000, "하드": 2819000000 }, maxPartySize: 3 },
-    { name: "림보", difficulties: { "노멀": 1080000000, "하드": 2510000000 }, maxPartySize: 3 },
-    { name: "발드릭스", difficulties: { "노멀": 1440000000, "하드": 3240000000 }, maxPartySize: 3 },
-    { name: "유피테르", difficulties: { "노멀": 1700000000, "하드": 5100000000 }, maxPartySize: 3 }
+    { name: "스우", difficulties: { "노멀": 17600000, "하드": 54200000, "익스트림": 604000000 }, maxPartySize: 2, image: "/images/boss/스우.png" },
+    { name: "데미안", difficulties: { "노멀": 18400000, "하드": 51500000 }, image: "/images/boss/데미안.png" },
+    { name: "가디언 엔젤 슬라임", difficulties: { "노멀": 26800000, "카오스": 79100000 }, image: "/images/boss/가디언엔젤슬라임.png" },
+    { name: "루시드", difficulties: { "이지": 31400000, "노멀": 37500000, "하드": 66200000 }, image: "/images/boss/루시드.png" },
+    { name: "윌", difficulties: { "이지": 34000000, "노멀": 43300000, "하드": 81200000 }, image: "/images/boss/윌.png" },
+    { name: "더스크", difficulties: { "노멀": 46300000, "카오스": 73500000 }, image: "/images/boss/더스크.png" },
+    { name: "듄켈", difficulties: { "노멀": 50000000, "하드": 99400000 }, image: "/images/boss/듄켈.png" },
+    { name: "진 힐라", difficulties: { "노멀": 74900000, "하드": 112000000 }, image: "/images/boss/진힐라.png" },
+    { name: "선택받은 세렌", difficulties: { "노멀": 266000000, "하드": 396000000, "익스트림": 3150000000 }, image: "/images/boss/세렌.png" },
+    { name: "감시자 칼로스", difficulties: { "이지": 311000000, "노멀": 561000000, "카오스": 1340000000, "익스트림": 4320000000 }, image: "/images/boss/칼로스.png" },
+    { name: "최초의 대적자", difficulties: { "이지": 324000000, "노멀": 589000000, "하드": 1510000000, "익스트림": 4960000000 }, maxPartySize: 3, image: "/images/boss/최초의대적자.png" },
+    { name: "카링", difficulties: { "이지": 419000000, "노멀": 714000000, "하드": 1830000000, "익스트림": 5670000000 }, image: "/images/boss/카링.png" },
+    { name: "찬란한 흉성", difficulties: { "노멀": 658000000, "하드": 2819000000 }, maxPartySize: 3, image: "/images/boss/찬란한흉성.png" },
+    { name: "림보", difficulties: { "노멀": 1080000000, "하드": 2510000000 }, maxPartySize: 3, image: "/images/boss/림보.png" },
+    { name: "발드릭스", difficulties: { "노멀": 1440000000, "하드": 3240000000 }, maxPartySize: 3, image: "/images/boss/발드릭스.png" },
+    { name: "유피테르", difficulties: { "노멀": 1700000000, "하드": 5100000000 }, maxPartySize: 3, image: "/images/boss/유피테르.png" }
 ];
 
 let mCalData = {
@@ -140,7 +140,10 @@ function renderBossList() {
 
         let bossRow = `
             <div class="boss-row ${isSelected ? 'selected' : ''}" data-boss-index="${index}">
-                <span class="boss-name">${boss.name}</span>
+                <span class="boss-name">
+                    <img src="${boss.image}" class="boss-icon" alt="${boss.name}" onerror="this.style.display='none'">
+                    ${boss.name}
+                </span>
                 <span class="boss-difficulty">
                     <select onchange="updateBossConfig(${index}, 'difficulty', this.value)">${difficultyOptions}</select>
                 </span>

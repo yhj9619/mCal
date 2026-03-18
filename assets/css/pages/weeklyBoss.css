@@ -53,7 +53,28 @@
 .boss-row > span { text-align: center; }
 
 /* 컬럼별 너비 (데스크탑) */
-.boss-name { width: 20%; padding-left: 1em; font-weight: 600; text-align: left !important; }
+.boss-name { 
+    width: 20%; 
+    padding-left: 1em; 
+    font-weight: 600; 
+    text-align: left !important; 
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.boss-row.header .boss-name {
+    display: block;
+}
+
+.boss-icon {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    border-radius: 4px;
+    background: #f8f8f8;
+}
+
 .boss-difficulty { width: 15%; }
 .party-size-per-boss { width: 10%; }
 .crystal-price { width: 15%; text-align: right !important; padding-right: 1em; font-weight: 600; color: #2e7d32; }
