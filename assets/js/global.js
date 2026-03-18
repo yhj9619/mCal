@@ -97,16 +97,29 @@ function toggleDarkMode() {
 // 다크모드 초기 설정
 function initDarkMode() {
     const savedTheme = localStorage.getItem('theme');
-    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
     
-    const shouldShowDark = savedTheme === 'dark' || (!savedTheme && prefersDark);
-    
-    if (shouldShowDark) {
-        document.body.classList.add('dark-mode');
-        updateThemeUI(true);
-    } else {
-        updateThemeUI(false);
-    }
+    // 초기 설정 시 시스템 설정 우선 확인 (사용자 수동 설정이 없을 때)
+    const applyTheme = (isDark) => {
+        if (isDark) {
+            document.body.classList.add('dark-mode');
+            updateThemeUI(true);
+        } else {
+            document.body.classList.remove('dark-mode');
+            updateThemeUI(false);
+        }
+    };
+
+    const shouldShowDark = savedTheme === 'dark' || (!savedTheme && darkModeMediaQuery.matches);
+    applyTheme(shouldShowDark);
+
+    // 시스템 테마 변경 감지 리스너 추가
+    darkModeMediaQuery.addEventListener('change', (e) => {
+        // 사용자가 수동으로 테마를 고정하지 않은 경우에만 시스템 설정을 따름
+        if (!localStorage.getItem('theme')) {
+            applyTheme(e.matches);
+        }
+    });
 }
 
 // 테마 UI 업데이트 (아이콘 및 토글 위치)
