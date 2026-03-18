@@ -1,0 +1,33 @@
+/* MVP작 비용 계산기 전용 스타일 */
+
+.tooltip-text2 {
+    visibility: hidden;
+    width: 400px; /* 가로 너비를 넓힘 */
+    background-color: rgba(255, 255, 255, 0.9);
+    color: #333;
+    text-align: center;
+    border-radius: 5px;
+    padding: 8px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -200px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    font-size: 12px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    line-height: 2;
+}
+
+.tooltip-container:hover .tooltip-text2 {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* 다크모드 대응 */
+body.dark-mode .tooltip-text2 {
+    background-color: rgba(45, 45, 45, 0.95);
+    color: #eee;
+    border: 1px solid #444;
+}
