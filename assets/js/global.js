@@ -196,8 +196,8 @@ function firstValSetting(){
     var getLocal = function(key) { return localStorage.getItem(key); };
     var isEmptyOrUndefined = function(val) { return val === null || val === "" || val === "undefined"; };
 
-    if ($("#presentMeso").length > 0 && isEmptyOrUndefined(getLocal('presentMeso'))) $("#presentMeso").val('850');
-    if ($("#presentMepo").length > 0 && isEmptyOrUndefined(getLocal('presentMepo'))) $("#presentMepo").val('1,280');
+    if ($("#presentMeso").length > 0 && isEmptyOrUndefined(getLocal('presentMeso'))) $("#presentMeso").val('1,100');
+    if ($("#presentMepo").length > 0 && isEmptyOrUndefined(getLocal('presentMepo'))) $("#presentMepo").val('1,650');
     if ($("#percentMVP").length > 0 && isEmptyOrUndefined(getLocal('percentMVP'))) $("#percentMVP").val('7,500');
     if ($("#discountRate").length > 0 && isEmptyOrUndefined(getLocal('discountRate'))) $("#discountRate").val('0');
     if ($('input[name="auctionCharge"]').length > 0 && isEmptyOrUndefined(getLocal('auctionCharge'))) $('input[name="auctionCharge"]')[0].checked = true;

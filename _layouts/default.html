@@ -51,6 +51,33 @@
 		<meta property="og:image" content="{{ site.baseurl }}/images/mapleIcon.png" />
 		<meta property="og:site_name" content="{{ site.title }}" />
 		<meta property="og:url" content="{{ page.url | absolute_url }}">
+
+		<!-- JSON-LD Structured Data -->
+		<script type="application/ld+json">
+		{
+		  "@context": "https://schema.org",
+		  "@type": "WebSite",
+		  "name": "{{ site.title }}",
+		  "url": "{{ site.url }}",
+		  "potentialAction": {
+			"@type": "SearchAction",
+			"target": "{{ site.url }}/?search={search_term_string}",
+			"query-input": "required name=search_term_string"
+		  }
+		}
+		</script>
+		<script type="application/ld+json">
+		{
+		  "@context": "https://schema.org",
+		  "@type": "Organization",
+		  "name": "{{ site.title }}",
+		  "url": "{{ site.url }}",
+		  "logo": "{{ site.url }}/images/mapleIcon.png",
+		  "sameAs": [
+			"https://open.kakao.com/me/mesangi"
+		  ]
+		}
+		</script>
 	</head>
 	<body class="is-preload">
 

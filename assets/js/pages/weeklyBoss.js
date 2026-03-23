@@ -139,7 +139,7 @@ function renderBossList() {
         }
 
         let bossRow = `
-            <div class="boss-row ${isSelected ? 'selected' : ''}" data-boss-index="${index}">
+            <div class="boss-row ${isSelected ? 'selected' : ''}" data-boss-index="${index}" style="--boss-bg: url('${boss.image}')">
                 <span class="boss-name">
                     <img src="${boss.image}" class="boss-icon" alt="${boss.name}" onerror="this.style.display='none'">
                     ${boss.name}
