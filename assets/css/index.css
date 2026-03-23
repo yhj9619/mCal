@@ -247,11 +247,11 @@ body.dark-mode .tooltip-text2 {
     overflow-x: auto;
 }
 
-@media screen and (max-width: 961px) {
+/* @media screen and (max-width: 961px) {
     .flip-scroll {
         display: block;
     }
-}
+} */
 
 .mTable td, .mTable tbody th {
     white-space: nowrap;
