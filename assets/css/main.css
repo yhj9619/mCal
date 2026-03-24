@@ -2948,6 +2948,32 @@ body.dark-mode table tbody tr:hover {
     background-color: #2d2d2d;
 }
 
+/* 다크모드 simpleTable */
+body.dark-mode table.simpleTable {
+    background-color: #1e1e1e;
+    border-color: #333;
+}
+
+body.dark-mode table.simpleTable th {
+    background-color: #2d2d2d;
+    color: #eee;
+    border-bottom-color: #444;
+}
+
+body.dark-mode table.simpleTable td {
+    background-color: #1e1e1e;
+    color: #ccc;
+    border-bottom-color: #2d2d2d;
+}
+
+body.dark-mode table.simpleTable tbody tr:nth-child(odd) {
+    background-color: #252525;
+}
+
+body.dark-mode table.simpleTable tbody tr:hover {
+    background-color: #2d2d2d;
+}
+
 /* 다크모드 입력창 */
 body.dark-mode input[type="text"],
 body.dark-mode input[type="number"],
