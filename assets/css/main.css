@@ -2842,10 +2842,11 @@ input, select, textarea {
 
 		table.simpleTable tr {
 			display: flex !important; /* 가로 배열을 위해 flex 사용 */
-			flex-wrap: wrap;
+			flex-wrap: wrap !important;
 			border-bottom: 1px solid #e0e0e0 !important;
 			margin-bottom: 0 !important;
 			border-radius: 0 !important;
+			background: #fff !important; /* 배경색 통일 */
 		}
 
 		table.simpleTable td {

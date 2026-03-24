@@ -152,6 +152,15 @@ function fn_collection(){
     console.log("fn_collection 호출됨");
     setNumber(); // 공통 숫자 설정
 
+    // 메인 소개 화면(index.html)의 값 업데이트
+    if ($("#intro_meso").length > 0) {
+        $("#intro_meso").text(customFormatNumber(vPresentMeso));
+        $("#intro_market").text(customFormatNumber(vPresentMepo));
+        $("#intro_gift").text(customFormatNumber(vPercentMVP));
+        $("#intro_discount").text(vDiscountRate);
+        $("#intro_auction").text(vAuctionCharge);
+    }
+
     // 현재 페이지에 해당하는 계산 함수가 존재하면 실행
     if (typeof run_page_calculations === "function") {
         console.log("run_page_calculations 호출 시도");
