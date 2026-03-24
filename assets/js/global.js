@@ -10,7 +10,7 @@ var vJuhwaVal, vJuhwaCnt;
 var vPcFee, vPcHH, vPcMM, vPiecePrice;
 var vPastMeso;
 var vItemMesoVal;
-var vJuHeunPrice, vAzmPotionPrice;
+var vJuHeunPrice;
 var vSaleMeso, vDajoPrice, vMemberCnt; // Bunbae calculator
 var vBuyMesoPrice, vBuyMesoAmt, vBuyMesoWon; // SaleProfit calculator
 
@@ -211,7 +211,6 @@ function firstValSetting(){
     if ($("#pastMeso").length > 0 && isEmptyOrUndefined(getLocal('pastMeso'))) $("#pastMeso").val('1,800');
     if ($("#itemMesoVal").length > 0 && isEmptyOrUndefined(getLocal('itemMesoVal'))) $("#itemMesoVal").val('0');
     if ($("#juHeunPrice").length > 0 && isEmptyOrUndefined(getLocal('juHeunPrice'))) $("#juHeunPrice").val('3,000');
-    if ($("#azmPotionPrice").length > 0 && isEmptyOrUndefined(getLocal('azmPotionPrice'))) $("#azmPotionPrice").val('6,666,666');
     if ($('input[name="juHeun50Event"]').length > 0 && isEmptyOrUndefined(getLocal('juHeun50Event'))) $('input[name="juHeun50Event"]')[0].checked = true;
     if ($("#saleMeso").length > 0 && isEmptyOrUndefined(getLocal('saleMeso'))) $("#saleMeso").val('0');
     if ($("#dajoPrice").length > 0 && isEmptyOrUndefined(getLocal('dajoPrice'))) $("#dajoPrice").val('0');
@@ -272,9 +271,6 @@ function dataLoad(){
 
     vJuHeunPrice = getLocal('juHeunPrice');
     if (vJuHeunPrice && $('#juHeunPrice').length > 0) $('#juHeunPrice').val(vJuHeunPrice);
-
-    vAzmPotionPrice = getLocal('azmPotionPrice');
-    if (vAzmPotionPrice && $('#azmPotionPrice').length > 0) $('#azmPotionPrice').val(vAzmPotionPrice);
 
     var juHeun50Event = getLocal('juHeun50Event');
     if (juHeun50Event && $('input[name="juHeun50Event"]').length > 0) {
@@ -339,8 +335,6 @@ function saveData() {
     localStorage.setItem('itemMesoVal', valItemMesoVal === "" ? "" : valItemMesoVal);
     var valJuHeunPrice = $("#juHeunPrice").val();
     localStorage.setItem('juHeunPrice', valJuHeunPrice === "" ? "" : valJuHeunPrice);
-    var valAzmPotionPrice = $("#azmPotionPrice").val();
-    localStorage.setItem('azmPotionPrice', valAzmPotionPrice === "" ? "" : valAzmPotionPrice);
     
     var checkedJuHeun50Event = $('input[name="juHeun50Event"]:checked');
     if (checkedJuHeun50Event.length > 0) {
@@ -383,7 +377,6 @@ function clearData() {
     localStorage.removeItem('pastMeso');
     localStorage.removeItem('itemMesoVal');
     localStorage.removeItem('juHeunPrice');
-    localStorage.removeItem('azmPotionPrice');
     localStorage.removeItem('juHeun50Event');
     localStorage.removeItem('saleMeso');
     localStorage.removeItem('dajoPrice');
