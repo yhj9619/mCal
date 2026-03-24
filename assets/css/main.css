@@ -2828,38 +2828,65 @@ input, select, textarea {
 		line-height: 1.4em;
 	}
 
+	/* 모바일 화면에서 simpleTable 스타일 최적화 (좌측 헤더 - 우측 내용 방식) */
 	@media screen and (max-width: 960px) {
-		table.simpleTable, 
-		table.simpleTable thead, 
+		table.simpleTable thead {
+			display: none !important; /* 모바일에서는 상단 헤더 숨김 */
+		}
+		
 		table.simpleTable tbody, 
 		table.simpleTable tr {
 			display: block !important;
-		}
-		
-		table.simpleTable thead tr {
-			position: static !important;
-			top: auto !important;
-			left: auto !important;
+			width: 100% !important;
 		}
 
-		table.simpleTable th, 
+		table.simpleTable tr {
+			display: flex !important; /* 가로 배열을 위해 flex 사용 */
+			flex-wrap: wrap;
+			border-bottom: 1px solid #e0e0e0 !important;
+			margin-bottom: 0 !important;
+			border-radius: 0 !important;
+		}
+
 		table.simpleTable td {
-			display: block !important;
-			width: 100% !important;
-			padding: 0.8em 1.25em !important;
+			padding: 0.8em 1em !important;
 			text-align: left !important;
 			min-height: auto !important;
-			border-bottom: 1px solid #f0f0f0 !important;
 			box-sizing: border-box !important;
+			border: none !important;
+			display: flex !important;
+			align-items: center;
+		}
+
+		/* 첫 번째 열 (항목/키) */
+		table.simpleTable td:nth-child(1) {
+			width: 35% !important;
+			background-color: #f8f8f8 !important;
+			font-weight: bold !important;
+			color: #333 !important;
+			border-right: 1px solid #eee !important;
+			font-size: 0.85em;
+		}
+
+		/* 두 번째 열 (내용/값) */
+		table.simpleTable td:nth-child(2) {
+			width: 65% !important;
+			background-color: #fff !important;
+			font-size: 0.9em;
+		}
+
+		/* 세 번째 열 이상 (예시 등 추가 정보) */
+		table.simpleTable td:nth-child(n+3) {
+			width: 100% !important;
+			background-color: #fffcf0 !important;
+			border-top: 1px dashed #eee !important;
+			font-size: 0.85em;
+			color: #777;
+			padding-left: 35% !important; /* 첫 번째 열과 정렬 맞춤 */
 		}
 
 		table.simpleTable td::before {
 			display: none !important;
-		}
-
-		table.simpleTable th {
-			background-color: #f0f0f0 !important;
-			color: #555 !important;
 		}
 	}
 
@@ -2906,6 +2933,45 @@ input, select, textarea {
 body.dark-mode {
     background-color: #121212;
     color: #e0e0e0;
+}
+
+/* 어두운 배경(메인화면 등)에서의 표 스타일 보정 */
+#main > section.dark table.simpleTable {
+	background-color: rgba(0, 0, 0, 0.2);
+	border-color: #444;
+}
+
+#main > section.dark table.simpleTable th {
+	background-color: #f5a623 !important; /* 포인트 컬러로 강조 */
+	color: #fff !important;
+	border-bottom-color: #d48a1d;
+}
+
+#main > section.dark table.simpleTable td {
+	color: #eee;
+	border-bottom-color: #333;
+	background-color: transparent;
+}
+
+#main > section.dark table.simpleTable tbody tr:nth-child(odd) {
+	background-color: rgba(255, 255, 255, 0.03);
+}
+
+/* 어두운 배경의 모바일 simpleTable 대응 */
+@media screen and (max-width: 960px) {
+	#main > section.dark table.simpleTable td:nth-child(1) {
+		background-color: #333 !important;
+		color: #f5a623 !important;
+		border-right-color: #444 !important;
+	}
+	#main > section.dark table.simpleTable td:nth-child(2) {
+		background-color: #222 !important;
+		color: #eee !important;
+	}
+	#main > section.dark table.simpleTable td:nth-child(n+3) {
+		background-color: #2a2a20 !important;
+		border-top-color: #444 !important;
+	}
 }
 
 body.dark-mode #main > section {
@@ -3042,4 +3108,19 @@ body.dark-mode .pointSpan {
     body.dark-mode td:before {
         color: #777;
     }
+
+	/* 다크모드 simpleTable 모바일 레이아웃 보정 */
+	body.dark-mode table.simpleTable td:nth-child(1) {
+		background-color: #2d2d2d !important;
+		color: #eee !important;
+		border-right-color: #444 !important;
+	}
+	body.dark-mode table.simpleTable td:nth-child(2) {
+		background-color: #1e1e1e !important;
+		color: #ccc !important;
+	}
+	body.dark-mode table.simpleTable td:nth-child(n+3) {
+		background-color: #25251a !important;
+		border-top-color: #444 !important;
+	}
 }
