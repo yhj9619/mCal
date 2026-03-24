@@ -11,6 +11,23 @@ layout: null
     <pubDate>{{ site.time | date_to_rfc822 }}</pubDate>
     <lastBuildDate>{{ site.time | date_to_rfc822 }}</lastBuildDate>
     <generator>Jekyll v{{ jekyll.version }}</generator>
+
+    <!-- 핵심 계산기 도구들 추가 -->
+    {% for page in site.pages %}
+      {% if page.path contains 'pages/' and page.title and page.layout == 'default' %}
+        {% unless page.path contains 'about' or page.path contains 'contact' or page.path contains 'policy' or page.path contains 'terms' %}
+          <item>
+            <title>[도구] {{ page.title | xml_escape }}</title>
+            <description>{{ page.description | xml_escape }}</description>
+            <pubDate>{{ site.time | date_to_rfc822 }}</pubDate>
+            <link>{{ page.url | prepend: site.baseurl | prepend: site.url }}</link>
+            <guid isPermaLink="true">{{ page.url | prepend: site.baseurl | prepend: site.url }}</guid>
+          </item>
+        {% endunless %}
+      {% endif %}
+    {% endfor %}
+
+    <!-- 블로그 포스트들 -->
     {% for post in site.posts limit:10 %}
       <item>
         <title>{{ post.title | xml_escape }}</title>
