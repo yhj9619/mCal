@@ -3041,7 +3041,7 @@ body.dark-mode .pointSpan {
 	.accordion-header .fa-chevron-up {
 		transform: rotate(180deg);
 	}
-
+	
 /* Dark Mode Styles */
 body.dark-mode {
     background-color: #121212;
