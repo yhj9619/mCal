@@ -2370,7 +2370,7 @@ input, select, textarea {
 		position: fixed;
 		top: 0;
 		width: 2.25em;
-		z-index: 10001;
+		z-index: 2000000000; /* 애드센스 등 모든 레이어 최상단 고정 */
 		cursor: pointer;
 	}
 
@@ -2400,7 +2400,8 @@ input, select, textarea {
 				width: 2.25em;
 				height: 2.25em;
 				line-height: 2.25em;
-				transition: background 0.3s;
+				transition: background 0.3s, color 0.3s;
+				font-size: 14px; /* 아이콘 크기 고정 */
 			}
 
 	#sidebarToggle:hover .toggle:before {
@@ -2713,7 +2714,7 @@ input, select, textarea {
 				position: fixed;
 				top: 0;
 				width: 2.25em;
-				z-index: 10001;
+				z-index: 2147483647; /* 시스템 최상단 고정 */
 			}
 
 				#headerToggle .toggle {
@@ -2742,6 +2743,7 @@ input, select, textarea {
 						width: 2.25em;
 						height: 2.25em;
 						line-height: 2.25em;
+						font-size: 14px;
 					}
 
 			body.header-visible #main {
