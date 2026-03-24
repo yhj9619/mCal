@@ -10,7 +10,7 @@ var vJuhwaVal, vJuhwaCnt;
 var vPcFee, vPcHH, vPcMM, vPiecePrice;
 var vPastMeso;
 var vItemMesoVal;
-var vJuHeunPrice, vAzmPotionPrice;
+var vJuHeunPrice;
 var vSaleMeso, vDajoPrice, vMemberCnt; // Bunbae calculator
 var vBuyMesoPrice, vBuyMesoAmt, vBuyMesoWon; // SaleProfit calculator
 
@@ -81,7 +81,10 @@ function toggleSidebar() {
 // 사이드바 초기 설정
 function initSidebar() {
     const savedState = localStorage.getItem('sidebarState');
-    if (savedState === 'collapsed') {
+    if (savedState === 'expanded') {
+        document.body.classList.remove('sidebar-collapsed');
+    } else {
+        // 기본값: collapsed
         document.body.classList.add('sidebar-collapsed');
     }
 }
@@ -152,6 +155,15 @@ function fn_collection(){
     console.log("fn_collection 호출됨");
     setNumber(); // 공통 숫자 설정
 
+    // 메인 소개 화면(index.html)의 값 업데이트
+    if ($("#intro_meso").length > 0) {
+        $("#intro_meso").text(customFormatNumber(vPresentMeso));
+        $("#intro_market").text(customFormatNumber(vPresentMepo));
+        $("#intro_gift").text(customFormatNumber(vPercentMVP));
+        $("#intro_discount").text(vDiscountRate);
+        $("#intro_auction").text(vAuctionCharge);
+    }
+
     // 현재 페이지에 해당하는 계산 함수가 존재하면 실행
     if (typeof run_page_calculations === "function") {
         console.log("run_page_calculations 호출 시도");
@@ -196,8 +208,8 @@ function firstValSetting(){
     var getLocal = function(key) { return localStorage.getItem(key); };
     var isEmptyOrUndefined = function(val) { return val === null || val === "" || val === "undefined"; };
 
-    if ($("#presentMeso").length > 0 && isEmptyOrUndefined(getLocal('presentMeso'))) $("#presentMeso").val('850');
-    if ($("#presentMepo").length > 0 && isEmptyOrUndefined(getLocal('presentMepo'))) $("#presentMepo").val('1,280');
+    if ($("#presentMeso").length > 0 && isEmptyOrUndefined(getLocal('presentMeso'))) $("#presentMeso").val('1,100');
+    if ($("#presentMepo").length > 0 && isEmptyOrUndefined(getLocal('presentMepo'))) $("#presentMepo").val('1,650');
     if ($("#percentMVP").length > 0 && isEmptyOrUndefined(getLocal('percentMVP'))) $("#percentMVP").val('7,500');
     if ($("#discountRate").length > 0 && isEmptyOrUndefined(getLocal('discountRate'))) $("#discountRate").val('0');
     if ($('input[name="auctionCharge"]').length > 0 && isEmptyOrUndefined(getLocal('auctionCharge'))) $('input[name="auctionCharge"]')[0].checked = true;
@@ -211,7 +223,6 @@ function firstValSetting(){
     if ($("#pastMeso").length > 0 && isEmptyOrUndefined(getLocal('pastMeso'))) $("#pastMeso").val('1,800');
     if ($("#itemMesoVal").length > 0 && isEmptyOrUndefined(getLocal('itemMesoVal'))) $("#itemMesoVal").val('0');
     if ($("#juHeunPrice").length > 0 && isEmptyOrUndefined(getLocal('juHeunPrice'))) $("#juHeunPrice").val('3,000');
-    if ($("#azmPotionPrice").length > 0 && isEmptyOrUndefined(getLocal('azmPotionPrice'))) $("#azmPotionPrice").val('6,666,666');
     if ($('input[name="juHeun50Event"]').length > 0 && isEmptyOrUndefined(getLocal('juHeun50Event'))) $('input[name="juHeun50Event"]')[0].checked = true;
     if ($("#saleMeso").length > 0 && isEmptyOrUndefined(getLocal('saleMeso'))) $("#saleMeso").val('0');
     if ($("#dajoPrice").length > 0 && isEmptyOrUndefined(getLocal('dajoPrice'))) $("#dajoPrice").val('0');
@@ -272,9 +283,6 @@ function dataLoad(){
 
     vJuHeunPrice = getLocal('juHeunPrice');
     if (vJuHeunPrice && $('#juHeunPrice').length > 0) $('#juHeunPrice').val(vJuHeunPrice);
-
-    vAzmPotionPrice = getLocal('azmPotionPrice');
-    if (vAzmPotionPrice && $('#azmPotionPrice').length > 0) $('#azmPotionPrice').val(vAzmPotionPrice);
 
     var juHeun50Event = getLocal('juHeun50Event');
     if (juHeun50Event && $('input[name="juHeun50Event"]').length > 0) {
@@ -339,8 +347,6 @@ function saveData() {
     localStorage.setItem('itemMesoVal', valItemMesoVal === "" ? "" : valItemMesoVal);
     var valJuHeunPrice = $("#juHeunPrice").val();
     localStorage.setItem('juHeunPrice', valJuHeunPrice === "" ? "" : valJuHeunPrice);
-    var valAzmPotionPrice = $("#azmPotionPrice").val();
-    localStorage.setItem('azmPotionPrice', valAzmPotionPrice === "" ? "" : valAzmPotionPrice);
     
     var checkedJuHeun50Event = $('input[name="juHeun50Event"]:checked');
     if (checkedJuHeun50Event.length > 0) {
@@ -383,7 +389,6 @@ function clearData() {
     localStorage.removeItem('pastMeso');
     localStorage.removeItem('itemMesoVal');
     localStorage.removeItem('juHeunPrice');
-    localStorage.removeItem('azmPotionPrice');
     localStorage.removeItem('juHeun50Event');
     localStorage.removeItem('saleMeso');
     localStorage.removeItem('dajoPrice');

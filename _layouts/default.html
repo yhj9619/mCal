@@ -51,12 +51,39 @@
 		<meta property="og:image" content="{{ site.baseurl }}/images/mapleIcon.png" />
 		<meta property="og:site_name" content="{{ site.title }}" />
 		<meta property="og:url" content="{{ page.url | absolute_url }}">
+
+		<!-- JSON-LD Structured Data -->
+		<script type="application/ld+json">
+		{
+		  "@context": "https://schema.org",
+		  "@type": "WebSite",
+		  "name": "{{ site.title }}",
+		  "url": "{{ site.url }}",
+		  "potentialAction": {
+			"@type": "SearchAction",
+			"target": "{{ site.url }}/?search={search_term_string}",
+			"query-input": "required name=search_term_string"
+		  }
+		}
+		</script>
+		<script type="application/ld+json">
+		{
+		  "@context": "https://schema.org",
+		  "@type": "Organization",
+		  "name": "{{ site.title }}",
+		  "url": "{{ site.url }}",
+		  "logo": "{{ site.url }}/images/mapleIcon.png",
+		  "sameAs": [
+			"https://open.kakao.com/me/mesangi"
+		  ]
+		}
+		</script>
 	</head>
-	<body class="is-preload">
+	<body class="is-preload sidebar-collapsed">
 
 		<!-- 사이드바 토글 버튼 -->
 		<div id="sidebarToggle" onclick="toggleSidebar()">
-			<span class="icon solid fa-bars"></span>
+			<img src="{{ site.baseurl }}/images/hamburger.png" alt="Menu" style="width: 20px; height: 20px;">
 		</div>
 
 		<!-- Header -->

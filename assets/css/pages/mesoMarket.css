@@ -1,11 +1,14 @@
 /* 메소마켓 효율 계산기 전용 스타일 */
 
-/* 필요한 경우 여기에 메소마켓 전용 스타일을 추가합니다. 
-   현재는 공통 스타일을 주로 사용하고 있으므로 비워두거나 
-   특수한 레이아웃 보정이 필요할 때 작성합니다. */
-
 .meso-market-info {
     margin-top: 1.5em;
+}
+
+#mesoMarket .mTable td[data-label="추천 방식"],
+#mesoMarket .mTable td:last-child {
+    white-space: normal !important;
+    word-break: keep-all;
+    line-height: 1.5;
 }
 
 /* 메소마켓 페이지의 특수 강조 효과 등 */

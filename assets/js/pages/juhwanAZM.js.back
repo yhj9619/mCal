@@ -21,6 +21,13 @@ function fn_juhwa(){
         var juhwaMeso = (juhwaVal / oneHunMil)
         $("#juhwa1").html(customFormatNumber(juhwaMeso * juhwaCnt));
         $("#juhwa2").html(customFormatNumber((juhwaMeso * realMepo - 300) * juhwaCnt));
+
+        var azmVal = Number(juhwaMeso * realMepo - 300) * 3
+        if(azmVal > 2500){
+            $("#juhwa3").html("<span>사세요.(1,000점당 </span>"+customFormatNumber(azmVal - 2500)+"<span>메포 이득)</span>");
+        }else{
+            $("#juhwa3").html("<span>사지마세요.(1,000점당 </span>"+customFormatNumber(2500 - azmVal)+"<span>메포 손해)<span>");
+        }
     }else{
         $("#juhwa1").text('');
         $("#juhwa2").text('');

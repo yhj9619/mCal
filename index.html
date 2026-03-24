@@ -1,47 +1,95 @@
 ---
 layout: default
-title: 메산기 - 메이플스토리 계산기
-description: 메이플스토리 온라인 RPG게임 메소 및 메포 계산기 소개
+title: 메산기 - 메이플스토리 통합 계산기
+description: 보상 분배부터 MVP 효율까지, 메이플스토리의 모든 가치를 현금으로 환산해 드립니다.
 ---
 
 <!-- Intro -->
 <section id="top" class="one dark cover">
-	<div class="container">
-		<header>
-			<h2 class="alt">
-				환영합니다,  <strong>메산기</strong>에서<br>
-			</h2>
-			<p>
-				좌측 사이드바(모바일 환경에서는 좌측 상단 햄버거 버튼 클릭)를 통해<br>
-				다양한 계산기 메뉴로 이동하실 수 있습니다.
-			</p>
-			<hr style="margin: 2em 0;">
-			<h3>메산기 사용을 위한 필수 입력 항목:</h3>
-			<p>
-				최신 데이터를 기반으로 정확한 계산 결과를 얻기 위해,<br>
-				좌측 상단의 공통 입력 항목에 현재 시세 정보를 입력해주세요.
-			</p>
-			<ul>
-				<li><strong>메소시세</strong> : 유저 간 거래되는 1억 메소당 현금 가격</li>
-				<li><strong>메소마켓</strong> : 인게임 메소마켓에서 1만 메이플포인트당 메소 가격</li>
-				<li><strong>선물식비율</strong> : MVP작 시 유저 간 메포 선물 비율 (예: 8000:1의 경우 8000 입력)</li>
-				<li><strong>충전할인율</strong> : 넥슨캐시 충전 시 적용받는 할인율 (예: 10% 할인의 경우 10 입력)</li>
-				<li><strong>경매장수수료</strong> : 경매장 이용 시 발생하는 수수료율 (3% 또는 5% 선택)</li>
-			</ul>
-			<p>
-				**모든 수치는 수동으로 입력해야 하며, 실시간으로 연동되지 않습니다.**<br>
-				가장 정확한 계산을 위해 최신 정보를 직접 입력해 주세요!
-			</p>
-			<hr style="margin: 2em 0;">
-			<p>
-				문의사항은 <a href="https://open.kakao.com/me/mesangi">오픈채팅</a>으로 연락주세요.<br>
-				오류 제보뿐만 아니라 소소한 사용후기도 큰 힘이 됩니다!
-			</p>
-		</header>
+    <div class="container">
+        <header>
+            <h2 class="alt">
+                효율적 메이플스토리, <strong>메산기</strong>에 오신 것을 환영합니다!
+            </h2>
+            <p>
+                메산기는 복잡한 메이플스토리의 재화 가치를 실시간 시세에 맞춰 정확하게 계산해 드립니다.
+            </p>
+            
+            <div style="background: rgba(255,255,255,0.05); padding: 2em; border-radius: 10px; margin: 2em 0; text-align: left;">
+                <h3 style="color: #f5a623; margin-bottom: 1em;"><i class="fas fa-exclamation-triangle"></i> 시작 전 필수 안내</h3>
+                <p style="margin-bottom: 1.5em; line-height: 1.6;">
+                    메산기는 모든 수치를 <strong>수동으로 입력</strong>해야 합니다. 정확한 계산 결과를 얻기 위해 <br>
+                    <strong>좌측 사이드바</strong>(모바일은 좌측 상단 <strong><img src="{{ site.baseurl }}/images/hamburger.png" style="width: 15px; height: 15px; vertical-align: middle;"> 아이콘</strong> 클릭)에서 현재 시세를 먼저 입력해 주세요!
+                </p>
 
-		<!-- <footer>
-			<a href="#mesoMarket" class="button scrolly">지금바로 사용하러가기</a>
-		</footer> -->
+                <div class="flip-scroll">
+                    <table class="simpleTable">
+                        <thead>
+                            <tr>
+                                <th>항목</th>
+                                <th>설명</th>
+                                <th>현재 입력값</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>메소 시세</strong></td>
+                                <td>유저 간 거래되는 1억 메소당 현금 가격</td>
+                                <td><span id="intro_meso" class="pointSpan"></span> 원</td>
+                            </tr>
+                            <tr>
+                                <td><strong>메소 마켓</strong></td>
+                                <td>인게임 1만 메이플포인트당 메소 가격</td>
+                                <td><span id="intro_market" class="pointSpan"></span> 메소</td>
+                            </tr>
+                            <tr>
+                                <td><strong>선물식 비율</strong></td>
+                                <td>MVP작 시 메포 선물 비율</td>
+                                <td><span id="intro_gift" class="pointSpan"></span> : 1</td>
+                            </tr>
+                            <tr>
+                                <td><strong>충전 할인율</strong></td>
+                                <td>넥슨캐시 충전 시 적용받는 할인율</td>
+                                <td><span id="intro_discount" class="pointSpan"></span> %</td>
+                            </tr>
+                            <tr>
+                                <td><strong>경매장 수수료</strong></td>
+                                <td>자신의 캐릭터에 적용되는 수수료</td>
+                                <td><span id="intro_auction" class="pointSpan"></span> %</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
 
-	</div>
+            <div class="row">
+                <div class="col-4 col-12-mobile">
+                    <div style="padding: 1em; border: 1px solid #444; border-radius: 8px;">
+                        <i class="fas fa-cog fa-2x" style="margin-bottom: 0.5em; color: #f5a623;"></i>
+                        <h4>1. 시세 설정</h4>
+                        <p>사이드바에서 현재<br>시세를 입력하세요.</p>
+                    </div>
+                </div>
+                <div class="col-4 col-12-mobile">
+                    <div style="padding: 1em; border: 1px solid #444; border-radius: 8px;">
+                        <i class="fas fa-calculator fa-2x" style="margin-bottom: 0.5em; color: #f5a623;"></i>
+                        <h4>2. 메뉴 선택</h4>
+                        <p>원하는 계산기 메뉴로<br>이동하세요.</p>
+                    </div>
+                </div>
+                <div class="col-4 col-12-mobile">
+                    <div style="padding: 1em; border: 1px solid #444; border-radius: 8px;">
+                        <i class="fas fa-chart-line fa-2x" style="margin-bottom: 0.5em; color: #f5a623;"></i>
+                        <h4>3. 결과 확인</h4>
+                        <p>자동으로 계산된<br>결과값을 확인하세요.</p>
+                    </div>
+                </div>
+            </div>
+
+            <hr style="margin: 3em 0 2em 0;">
+            <p>
+                오류 제보 및 제안은 <a href="https://open.kakao.com/me/mesangi" style="color: #f5a623; font-weight: bold; border-bottom: 1px solid #f5a623;">오픈채팅(문의하기)</a>으로 언제든 연락주세요.
+            </p>
+        </header>
+    </div>
 </section>
