@@ -102,14 +102,48 @@ body.dark-mode .bunbae-header .icon-group img {
     filter: invert(1);
 }
 
+/* 입력창 레이아웃 보정 */
+.inputDiv {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.inputClass {
+    width: calc(50% - 5px) !important;
+    margin: 5px 0 !important;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 라벨과 인풋 간격 최적화 (침범 방지) */
+.inputClass label {
+    position: relative !important;
+    display: block !important;
+    font-size: 0.85em !important;
+    margin-bottom: 5px !important;
+    padding-left: 5px !important;
+    color: #666;
+    font-weight: bold;
+}
+
+.inputClass input {
+    margin-top: 0 !important;
+    padding: 10px 12px !important; /* 높이를 줄여서 영역 차지 최소화 */
+    height: auto !important;
+    font-size: 0.9em !important;
+}
+
 /* 입력창 한글 단위 도우미 텍스트 */
 .input-helper-text {
-    font-size: 0.8em;
+    font-size: 0.75em;
     color: #f5a623;
-    margin-top: 4px;
-    height: 1.2em;
+    margin-top: 2px;
+    min-height: 1em;
     font-weight: bold;
-    text-align: left;
+    text-align: right;
+    padding-right: 5px;
 }
 
 body.dark-mode .input-helper-text {
@@ -142,7 +176,12 @@ body.dark-mode .input-helper-text {
     }
     
     .bunbae-header .accordion-content {
-        position: static; /* 모바일에서는 펼쳐질 때 아래로 밀리도록 */
+        position: static; 
         margin-top: 5px;
+    }
+
+    /* 모바일에서도 2열 유지 */
+    .inputClass {
+        width: calc(50% - 5px) !important;
     }
 }
