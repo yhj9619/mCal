@@ -19,3 +19,44 @@
     background: rgb(245, 162, 7); 
     color: white; 
 }
+
+/* 헤더 레이아웃 스타일 */
+.bunbae-header {
+    display: flex;
+    align-items: center;
+    position: relative;
+    margin-bottom: 2em;
+    width: 100%;
+}
+
+.bunbae-header h2 {
+    margin: 0 auto !important;
+    text-align: center;
+}
+
+.bunbae-header .icon-group {
+    position: absolute;
+    right: 0;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+/* 모바일 화면 (736px 이하) 대응 */
+@media screen and (max-width: 736px) {
+    .bunbae-header {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .bunbae-header h2 {
+        margin: 0 !important;
+        width: 100%;
+    }
+    
+    .bunbae-header .icon-group {
+        position: static; /* 절대 위치 해제 */
+        justify-content: center;
+        width: 100%;
+    }
+}
