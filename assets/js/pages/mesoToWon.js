@@ -2,27 +2,39 @@
 function run_page_calculations() {
     fn_mesoToWon();
 
-    // 이 페이지에만 해당하는 입력 필드에 대한 이벤트 리스너 추가
-    $("#itemMesoVal").on("keyup change", fn_mesoToWon);
+    // 입력 필드 변경 시 계산 및 한글 단위 도우미 업데이트
+    $("#itemMesoVal").on("keyup change", function() {
+        fn_mesoToWon();
+        updateKoreanUnitHelper(this, 'itemMesoValHelper');
+    });
+
+    // 초기 로드 시 도우미 텍스트 업데이트
+    updateKoreanUnitHelper(document.getElementById('itemMesoVal'), 'itemMesoValHelper');
 }
 
 // 아이템의 현금가치 계산 로직
 function fn_mesoToWon(){
-    console.log("fn_mesoToWon() 실행됨. #itemMesoVal 값:", $("#itemMesoVal").val()); 
-    // vItemMesoVal 로컬 스토리지 값 로드는 global.js의 dataLoad()에서 처리합니다.
-    // 이 파일에서는 DOM에서 직접 값을 가져와 사용합니다.
-    // var itemMesoVal = localStorage.getItem('itemMesoVal'); // 이 부분은 global.js에서 처리하므로 제거
-    // if (itemMesoVal) { // 이 부분도 global.js에서 처리하므로 제거
-    //     document.getElementById('itemMesoVal').value = itemMesoVal;
-    // }
-
-    var itemMesoVal = $("#itemMesoVal").val().replace(/,/g, '');
-    var psm = Number(vPresentMeso); // vPresentMeso는 global.js에서 설정됨
+    var itemMesoVal = $("#itemMesoVal").val() ? $("#itemMesoVal").val().replace(/,/g, '') : 0;
+    var psm = Number(vPresentMeso); 
     
     $("#mesoToWon1").html(customFormatNumber(psm * itemMesoVal / oneHunMil * auctionRate));
     $("#mesoToWon2").html(customFormatNumber(psm * itemMesoVal / oneHunMil));
     $("#mesoToWon3").html(customFormatNumber(psm * itemMesoVal / oneHunMil / auctionRate));
 }
 
-// 로컬 스토리지에 vItemMesoVal 저장 (global.js의 saveData에 통합)
-// global.js의 saveData 함수는 모든 input 값을 저장하므로 여기서는 별도의 saveData 필요 없음
+// 결과 텍스트 복사 기능
+function copyResultText() {
+    let itemMeso = $("#itemMesoVal").val() || "0";
+    let text = `[메산기 아이템 현금가치 결과]\n` +
+               `아이템 가격: ${itemMeso} 메소\n` +
+               `--------------------\n` +
+               `판매자 기준: ${$("#mesoToWon1").text()} 원\n` +
+               `구매자(보유) 기준: ${$("#mesoToWon2").text()} 원\n` +
+               `구매자(구매) 기준: ${$("#mesoToWon3").text()} 원\n` +
+               `--------------------\n` +
+               `시세 기준: 1억당 ${vPresentMeso}원 / 수수료 ${vAuctionCharge}%`;
+
+    navigator.clipboard.writeText(text).then(() => {
+        alert("텍스트로 복사되었습니다.");
+    });
+}

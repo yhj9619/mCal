@@ -1,180 +1,82 @@
 // 보상분배계산기 페이지의 계산을 담당하는 함수
 function run_page_calculations() {
-    // 탭 전환 로직 (DOMContentLoaded 대신 여기서 호출)
-    // 원래 $(document).ready 안에 있던 로직
     let tableBody = $("#memberTable");
-
-    // 이미 추가된 행이 있는지 확인 (중복 추가 방지)
-    if (tableBody.children().length === 0) {
+    if (tableBody.length > 0 && tableBody.children().length === 0) {
         for (let i = 1; i <= 6; i++) {
             tableBody.append(`
                 <tr>
                     <td scope="row" data-label="닉네임">
-                        <input type="text" name="memberName${i}" id="memberName${i}" 
-                          placeholder="닉네임"/>
+                        <input type="text" name="memberName${i}" id="memberName${i}" placeholder="닉네임"/>
                     </td>
                     <td data-label="분배지분">
                         <input type="text" class="memberStack" name="memberStack${i}" id="memberStack${i}" 
-                            oninput="onlyNumberWithComma(this);fn_customBunbae();" placeholder="분배지분"/>
+                            oninput="onlyNumberWithComma(this);fn_customBunbae();" placeholder="지분"/>
                     </td>
-                    <td data-label="인당 분배금(메소)">
-                        <span id="customBunbaeMeso${i}"></span>
-                    </td>
-                    <td data-label="인당 분배금(원)">
-                        <span id="customBunbaeWon${i}"></span>
-                    </td>
-                    <td data-label="인당 분배금(조각)">
-                        <span id="customBunbaeDajo${i}"></span>
-                    </td>
+                    <td data-label="분배금(메소)"><span id="customBunbaeMeso${i}"></span></td>
+                    <td data-label="분배금(원)"><span id="customBunbaeWon${i}"></span></td>
+                    <td data-label="분배금(조각)"><span id="customBunbaeDajo${i}"></span></td>
                 </tr>
             `);
         }
     }
     
-    // 초기화
     for (var i = 1; i <= 6; i++) {
-        $(`#customBunbaeMeso${i}`).text("0");
-        $(`#customBunbaeWon${i}`).text("0");
-        $(`#customBunbaeDajo${i}`).text("0");
+        if ($(`#customBunbaeMeso${i}`).text() === "") $(`#customBunbaeMeso${i}`).text("0");
     }
 
-    // 탭 전환 이벤트 리스너 (중복 방지)
     $(".tab button").off("click").on("click", function () {
         $(".tab button").removeClass("active");
         $(this).addClass("active");
-
         if ($(this).attr("id") === "equalBtn") {
             $("#equalDiv").show();
             $("#customDiv").hide();
-            fn_equalBunbae(); // 탭 전환 시 바로 계산
+            fn_equalBunbae();
         } else {
             $("#equalDiv").hide();
             $("#customDiv").show();
-            fn_customBunbae(); // 탭 전환 시 바로 계산
-        }
-    });
-
-    // 입력 필드에 대한 이벤트 리스너 (oninput이 HTML에 있으므로 여기서 직접 호출만)
-    $("#saleMeso, #dajoPrice, #memberCnt").on("keyup change", function() {
-        if ($("#equalBtn").hasClass("active")) {
-            fn_equalBunbae();
-        } else {
             fn_customBunbae();
         }
     });
 
-    // 초기 로드 시 도우미 텍스트 업데이트
+    $("#saleMeso, #dajoPrice, #memberCnt").on("keyup change", function() {
+        if ($("#equalBtn").hasClass("active")) fn_equalBunbae();
+        else fn_customBunbae();
+    });
+
     updateKoreanUnitHelper(document.getElementById('saleMeso'), 'saleMesoHelper');
     updateKoreanUnitHelper(document.getElementById('dajoPrice'), 'dajoPriceHelper');
 
-    // 초기 계산 실행
-    if ($("#equalBtn").hasClass("active")) {
-        fn_equalBunbae();
-    } else {
-        fn_customBunbae();
-    }
+    if ($("#equalBtn").hasClass("active")) fn_equalBunbae();
+    else fn_customBunbae();
 }
 
-// 한글 단위 도우미 업데이트 함수
-function updateKoreanUnitHelper(input, helperId) {
-    if (!input) return;
-    const value = input.value.replace(/,/g, "");
-    const helper = document.getElementById(helperId);
-    if (helper) {
-        if (!value || isNaN(value)) {
-            helper.innerText = "";
-            return;
-        }
-        helper.innerText = formatKoreanUnit(Number(value));
-    }
-}
-
-// 한글 단위 변환 함수 (억, 만 단위)
-function formatKoreanUnit(number) {
-    if (number === 0) return "0";
-    let result = "";
-    let eok = Math.floor(number / 100000000);
-    let man = Math.floor((number % 100000000) / 10000);
-    let rest = number % 10000;
-
-    if (eok > 0) result += eok + "억 ";
-    if (man > 0) result += man.toLocaleString() + "만 ";
-    if (rest > 0) result += rest.toLocaleString();
-    
-    return result.trim();
-}
-
-// 결과 포맷팅 함수 (줄바꿈 포함)
-function formatResultWithWrap(value) {
-    if (isNaN(value) || value === null || value === '' || !isFinite(value)) return '0';
-
-    let roundedValue = parseFloat(value).toFixed(0); // 분배금은 소수점 제외가 깔끔함
-    let formattedNumber = roundedValue.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-
-    let unitText = "";
-    if (Math.abs(parseInt(roundedValue)) >= 100000000) {
-        let eokValue = (parseInt(roundedValue) / 100000000).toFixed(2);
-        unitText = `<br><small style="color: #888;">(약 ${eokValue}억)</small>`;
-    }
-
-    return `${formattedNumber}${unitText}`;
-}
-
-// 균등 분배 계산 로직
 function fn_equalBunbae(){
     var saleMeso = Math.ceil(($("#saleMeso").val().replace(/[^0-9]/g,''))*auctionRate);
     var dajoPrice = $("#dajoPrice").val().replace(/[^0-9]/g,'');
-    var memberCnt = $("#memberCnt").val().replace(/,/g, '');
+    var memberCnt = $("#memberCnt").val().replace(/,/g, '') || 1;
     
-    if (isNaN(memberCnt) || memberCnt === "" || parseInt(memberCnt) === 0) {
-        $("#equalBunbaeMeso").html("0");
-        $("#equalBunbaeWon").html("0");
-        $("#equalBunbaeDajo").html("0");
-        return;
-    }
-
     $("#equalBunbaeMeso").html(formatResultWithWrap(saleMeso / memberCnt));
     $("#equalBunbaeWon").html(customFormatNumber(saleMeso / memberCnt / oneHunMil * vPresentMeso));
-    if(dajoPrice != "" && dajoPrice != null && dajoPrice != 0){
-        $("#equalBunbaeDajo").html(customFormatNumber(saleMeso / memberCnt / dajoPrice));
-    }else{
-        $("#equalBunbaeDajo").text("조각가격없음");
-    }
+    if(dajoPrice > 0) $("#equalBunbaeDajo").html(customFormatNumber(saleMeso / memberCnt / dajoPrice));
+    else $("#equalBunbaeDajo").text("조각가격없음");
 }
 
-// 차등 분배 계산 로직
 function fn_customBunbae(){
     var saleMeso = Math.ceil(($("#saleMeso").val().replace(/[^0-9]/g,''))*auctionRate);
     var dajoPrice = $("#dajoPrice").val().replace(/[^0-9]/g,'');
-
-    var memberStacks = {}; 
-    for (var i = 1; i <= 6; i++) {
-        var value = $("#memberStack" + i).val();
-        memberStacks[i] = value ? value.replace(/[^0-9]/g, '') : "0";
-    }
-
     var memberStackSum = 0;
     $(".memberStack").each(function () {
-        var val = Number($(this).val().replace(/,/g, "")) || 0;
-        memberStackSum += val;
+        memberStackSum += Number($(this).val().replace(/,/g, "")) || 0;
     });
 
     for (var i = 1; i <= 6; i++) {
-        var stackValue = Number(memberStacks[i]) || 0; 
-        
+        var stackValue = Number($(`#memberStack${i}`).val().replace(/,/g, "")) || 0; 
         if (memberStackSum > 0) {
             var mesoShare = saleMeso / memberStackSum * stackValue;
-            var wonShare = mesoShare / oneHunMil * vPresentMeso.replace(/,/g , '');
-            var dajoShare = mesoShare / dajoPrice;
-
             $(`#customBunbaeMeso${i}`).html(formatResultWithWrap(mesoShare));
-            $(`#customBunbaeWon${i}`).text(customFormatNumber(wonShare));
-            if(dajoPrice != "" && dajoPrice != null && dajoPrice != 0){
-                $(`#customBunbaeDajo${i}`).text(customFormatNumber(dajoShare));
-            }else{
-                $(`#customBunbaeDajo${i}`).text("조각가격없음");
-            }
-            
+            $(`#customBunbaeWon${i}`).text(customFormatNumber(mesoShare / oneHunMil * vPresentMeso.replace(/,/g , '')));
+            if(dajoPrice > 0) $(`#customBunbaeDajo${i}`).text(customFormatNumber(mesoShare / dajoPrice));
+            else $(`#customBunbaeDajo${i}`).text("조각가격없음");
         } else {
             $(`#customBunbaeMeso${i}`).text("0");
             $(`#customBunbaeWon${i}`).text("0");
@@ -183,207 +85,21 @@ function fn_customBunbae(){
     }
 }
 
-// 카카오 SDK 초기화 (페이지 로드 시 한 번만 실행)
-if (typeof Kakao !== 'undefined' && !Kakao.isInitialized()) {
-    Kakao.init('8ce74d1540029fb70e61e998bf098017'); 
-}
-
-// 카카오톡 전용 이미지 공유 기능 (피드 템플릿 방식)
-function shareToKakao() {
-    if (typeof Kakao === 'undefined') {
-        alert("카카오 SDK를 불러오지 못했습니다.");
-        return;
-    }
-
-    if (!Kakao.isInitialized()) {
-        alert("카카오 SDK가 초기화되지 않았습니다. JavaScript 키를 확인해 주세요.");
-        return;
-    }
-
-    // 캡처 시 숨길 요소들 숨기기
-    $(".capture-hide").hide();
-
-    const captureArea = document.querySelector("#captureArea");
-
-    html2canvas(captureArea, {
-        backgroundColor: "#ffffff",
-        scale: 2,
-        useCORS: true,
-        onclone: (clonedDoc) => {
-            const inputs = clonedDoc.querySelectorAll('input');
-            inputs.forEach(input => {
-                const value = input.value || input.placeholder;
-                const span = clonedDoc.createElement('span');
-                span.innerText = value;
-                span.style.display = "inline-block";
-                span.style.padding = "12px 16px";
-                span.style.border = "1px solid #ddd";
-                span.style.borderRadius = "8px";
-                span.style.width = "100%";
-                span.style.backgroundColor = "#fff";
-                span.style.color = "#333";
-                span.style.textAlign = "right";
-                span.style.fontWeight = "bold";
-                span.style.boxSizing = "border-box";
-                input.parentNode.replaceChild(span, input);
-            });
-            const hideElements = clonedDoc.querySelectorAll('.capture-hide');
-            hideElements.forEach(el => el.style.display = 'none');
-        }
-    }).then(canvas => {
-        $(".capture-hide").show();
-
-        canvas.toBlob(blob => {
-            const file = new File([blob], '메산기_분배결과.png', { type: 'image/png' });
-
-            Kakao.Share.uploadImage({
-                file: [file],
-            }).then(function(res) {
-                Kakao.Share.sendDefault({
-                    objectType: 'feed',
-                    content: {
-                        title: '메산기 분배 결과',
-                        description: '보상 분배 정산 내역입니다.',
-                        imageUrl: res.infos.original.url,
-                        link: {
-                            mobileWebUrl: window.location.origin + window.location.pathname,
-                            webUrl: window.location.origin + window.location.pathname,
-                        },
-                    },
-                    buttons: [
-                        {
-                            title: '계산기 보러가기',
-                            link: {
-                                mobileWebUrl: window.location.origin + window.location.pathname,
-                                webUrl: window.location.origin + window.location.pathname,
-                            },
-                        },
-                    ],
-                });
-            }).catch(function(err) {
-                console.error('카카오 업로드 실패 상세:', err);
-                const currentOrigin = window.location.origin;
-                alert("카카오 업로드 실패!\n\n" + 
-                      "에러 내용: " + (err.message || JSON.stringify(err)) + "\n" +
-                      "현재 접속 주소: " + currentOrigin + "\n\n" +
-                      "카카오 콘솔 [플랫폼 > Web]에 위 '현재 접속 주소'가 정확히 등록되어 있는지 확인해 주세요.");
-            });
-        }, 'image/png');
-    });
-}
-
-// 결과 이미지 공유/복사 기능
-function shareAsImage() {
-    // 캡처 시 숨길 요소들 숨기기
-    $(".capture-hide").hide();
-    
-    const captureArea = document.querySelector("#captureArea");
-    
-    html2canvas(captureArea, {
-        backgroundColor: "#ffffff",
-        scale: 2,
-        useCORS: true,
-        onclone: (clonedDoc) => {
-            const inputs = clonedDoc.querySelectorAll('input');
-            inputs.forEach(input => {
-                const value = input.value || input.placeholder;
-                const span = clonedDoc.createElement('span');
-                span.innerText = value;
-                span.style.display = "inline-block";
-                span.style.padding = "12px 16px";
-                span.style.border = "1px solid #ddd";
-                span.style.borderRadius = "8px";
-                span.style.width = "100%";
-                span.style.backgroundColor = "#fff";
-                span.style.color = "#333";
-                span.style.textAlign = "right";
-                span.style.fontWeight = "bold";
-                span.style.boxSizing = "border-box";
-                input.parentNode.replaceChild(span, input);
-            });
-            const hideElements = clonedDoc.querySelectorAll('.capture-hide');
-            hideElements.forEach(el => el.style.display = 'none');
-        }
-    }).then(canvas => {
-        $(".capture-hide").show();
-        
-        canvas.toBlob(blob => {
-            const file = new File([blob], '메산기_분배결과.png', { type: 'image/png' });
-
-            // 1. 클립보드 복사 시도 (PC 카톡/디스코드용 핵심 기능)
-            if (navigator.clipboard && window.ClipboardItem) {
-                const item = new ClipboardItem({ 'image/png': blob });
-                navigator.clipboard.write([item]).then(() => {
-                    console.log("이미지가 클립보드에 복사되었습니다.");
-                }).catch(err => {
-                    console.error("클립보드 복사 실패:", err);
-                });
-            }
-
-            // 2. Web Share API 시도 (모바일에서 파일로 전송)
-            if (navigator.canShare && navigator.canShare({ files: [file] })) {
-                navigator.share({
-                    files: [file],
-                    title: '메산기 분배 결과'
-                }).catch(err => {
-                    if(err.name !== 'AbortError') console.error('공유 실패:', err);
-                });
-            } else {
-                // 3. 둘 다 실패하거나 지원하지 않는 경우 다운로드
-                const link = document.createElement('a');
-                link.download = '메산기_분배결과_' + new Date().getTime() + '.png';
-                link.href = canvas.toDataURL('image/png');
-                link.click();
-                alert("이미지가 복사 및 다운로드되었습니다.\n카톡/디스코드 채팅창에 붙여넣기(Ctrl+V) 하세요!");
-            }
-        }, 'image/png');
-    });
-}
-
-// 결과 텍스트 복사 기능
 function copyResultText() {
     let saleMeso = $("#saleMeso").val() || "0";
-    let dajoPrice = $("#dajoPrice").val() || "0";
-    let text = "";
-
+    let text = `[메산기 분배 결과]\n판매금액: ${saleMeso} 메소\n`;
     if ($("#equalBtn").hasClass("active")) {
-        // 균등 분배 텍스트 생성
-        let memberCnt = $("#memberCnt").val() || "0";
-        let bunbaeMeso = $("#equalBunbaeMeso").text();
-        let bunbaeWon = $("#equalBunbaeWon").text();
-        let bunbaeDajo = $("#equalBunbaeDajo").text();
-
-        text = `[메산기 분배 결과]\n` +
-               `판매금액: ${saleMeso} 메소\n` +
-               `조각금액: ${dajoPrice} 메소\n` +
-               `파티원 수: ${memberCnt} 명\n` +
-               `인당 분배금(메소): ${bunbaeMeso} 메소\n` +
-               `인당 분배금(원): 약 ${bunbaeWon} 원\n` +
-               `인당 분배금(조각): ${bunbaeDajo} 개`;
+        text += `파티원 수: ${$("#memberCnt").val()} 명\n인당 분배금: ${$("#equalBunbaeMeso").text()} 메소`;
     } else {
-        // 차등 분배 텍스트 생성
-        text = `[메산기 분배 결과 - 차등]\n` +
-               `판매금액: ${saleMeso} 메소\n` +
-               `조각금액: ${dajoPrice} 메소\n` +
-               `--------------------\n`;
-        
         for (let i = 1; i <= 6; i++) {
-            let nick = $(`#memberName${i}`).val() || `파티원${i}`;
             let share = $(`#memberStack${i}`).val();
-            if (share && share !== "0") {
-                let mShare = $(`#customBunbaeMeso${i}`).text();
-                let wShare = $(`#customBunbaeWon${i}`).text();
-                let dShare = $(`#customBunbaeDajo${i}`).text();
-                text += `${nick} (${share}지분): ${mShare} 메소 / 약 ${wShare} 원 / ${dShare} 조각\n`;
+            if (share > 0) {
+                text += `${$(`#memberName${i}`).val() || '파티원'+i}: ${$(`#customBunbaeMeso${i}`).text()} 메소\n`;
             }
         }
     }
+    text += `--------------------\n`;
+    text += `시세 기준: 1억당 ${vPresentMeso}원 / 수수료 ${vAuctionCharge}%`;
 
-    // 클립보드 복사
-    navigator.clipboard.writeText(text).then(() => {
-        alert("분배 결과가 텍스트로 복사되었습니다.\n디스코드나 카톡에 붙여넣기(Ctrl+V) 하세요!");
-    }).catch(err => {
-        console.error('복사 실패:', err);
-        alert("복사 실패했습니다. 브라우저 설정을 확인해주세요.");
-    });
+    navigator.clipboard.writeText(text).then(() => alert("텍스트가 복사되었습니다."));
 }
