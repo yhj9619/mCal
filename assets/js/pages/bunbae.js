@@ -87,19 +87,30 @@ function fn_customBunbae(){
 
 function copyResultText() {
     let saleMeso = $("#saleMeso").val() || "0";
-    let text = `[메산기 분배 결과]\n판매금액: ${saleMeso} 메소\n`;
+    let dajoPrice = $("#dajoPrice").val() || "0";
+    let text = `[메산기 분배 결과]\n`;
+    text += `판매금액: ${saleMeso} 메소\n`;
+    text += `조각금액: ${dajoPrice} 메소\n`;
     if ($("#equalBtn").hasClass("active")) {
-        text += `파티원 수: ${$("#memberCnt").val()} 명\n인당 분배금: ${$("#equalBunbaeMeso").text()} 메소`;
+        text += `파티원 수: ${$("#memberCnt").val()} 명\n`;
+        text += `--------------인당 분배금--------------\n`;
+        text += `메소: ${$("#equalBunbaeMeso").text()} 메소\n`;
+        text += `현금: ${$("#equalBunbaeWon").text()} 원\n`;
+        text += `조각: ${$("#equalBunbaeDajo").text()} 개\n`;
     } else {
         for (let i = 1; i <= 6; i++) {
             let share = $(`#memberStack${i}`).val();
             if (share > 0) {
-                text += `${$(`#memberName${i}`).val() || '파티원'+i}: ${$(`#customBunbaeMeso${i}`).text()} 메소\n`;
+                text += `-------------${$(`#memberName${i}`).val() || '파티원'+i}:-------------\n`;
+                text += `메소: ${$(`#customBunbaeMeso${i}`).text()} 메소\n`;
+                text += `현금: ${$(`#customBunbaeWon${i}`).text()} 원\n`;
+                text += `조각: ${$(`#customBunbaeDajo${i}`).text()} 개\n`;
+                
             }
         }
     }
-    text += `--------------------\n`;
-    text += `시세 기준: 1억당 ${vPresentMeso}원 / 수수료 ${vAuctionCharge}%`;
+    text += `--------------시세 기준--------------\n`;
+    text += `1억당 ${vPresentMeso}원 / 수수료 ${vAuctionCharge}%`;
 
     navigator.clipboard.writeText(text).then(() => alert("텍스트가 복사되었습니다."));
 }

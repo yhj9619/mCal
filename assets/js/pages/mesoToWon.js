@@ -27,11 +27,11 @@ function copyResultText() {
     let itemMeso = $("#itemMesoVal").val() || "0";
     let text = `[메산기 아이템 현금가치 결과]\n` +
                `아이템 가격: ${itemMeso} 메소\n` +
-               `--------------------\n` +
+               `--------------------------------\n` +
                `판매자 기준: ${$("#mesoToWon1").text()} 원\n` +
                `구매자(보유) 기준: ${$("#mesoToWon2").text()} 원\n` +
                `구매자(구매) 기준: ${$("#mesoToWon3").text()} 원\n` +
-               `--------------------\n` +
+               `--------------------------------\n` +
                `시세 기준: 1억당 ${vPresentMeso}원 / 수수료 ${vAuctionCharge}%`;
 
     navigator.clipboard.writeText(text).then(() => {
