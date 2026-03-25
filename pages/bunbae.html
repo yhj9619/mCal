@@ -16,7 +16,6 @@ stylesheets:
             
             <!-- 공유/복사 아이콘 그룹 -->
             <div class="capture-hide icon-group">
-                <img src="{{ site.baseurl }}/images/kakaotalk.png" alt="카카오톡 공유" style="width: 28px; height: 28px; cursor: pointer;" onclick="shareToKakao()" title="카카오톡 메시지 공유">
                 <img src="{{ site.baseurl }}/images/share.png" alt="이미지 공유" style="width: 28px; height: 28px; cursor: pointer;" onclick="shareAsImage()" title="이미지 파일 공유/복사">
                 <img src="{{ site.baseurl }}/images/copy.png" alt="텍스트 복사" style="width: 28px; height: 28px; cursor: pointer;" onclick="copyResultText()" title="텍스트 복사">
             </div>
@@ -37,7 +36,7 @@ stylesheets:
             <button id="customBtn">차등 분배</button>
         </div>
 
-        <div id="captureArea" style="padding: 10px; background: #fff; border-radius: 8px;">
+        <div id="captureArea">
             <div class="inputDiv">
                 <div class="inputClass tooltip-container">
                     <label for="saleMeso" class="tooltip-label">판매금액</label>
