@@ -11,13 +11,13 @@ stylesheets:
 <section id="bunbae" class="four">
     <div class="container">
         <!-- 헤더 영역: 사이드바 영향을 주지 않도록 표준 구조 사용 -->
-        <header style="text-align: center; position: relative; margin-bottom: 1.5em;">
+        <header class="local-header">
             <h2 class="accordion-header" style="cursor: pointer; display: inline-block;">보상분배계산기 <span class="accordion-icon fa fa-chevron-down"></span></h2>
             
-            <!-- 아이콘들을 헤더 내부에 절대 좌표로 배치 -->
-            <div class="capture-hide" style="position: absolute; right: 0; top: 50%; transform: translateY(-50%); display: flex; gap: 10px;">
-                <img src="{{ site.baseurl }}/images/share.png" alt="이미지 공유" style="width: 24px; height: 24px; cursor: pointer; filter: var(--icon-filter);" onclick="shareAsImage()">
-                <img src="{{ site.baseurl }}/images/copy.png" alt="텍스트 복사" style="width: 24px; height: 24px; cursor: pointer; filter: var(--icon-filter);" onclick="copyResultText()">
+            <!-- 아이콘 그룹 -->
+            <div class="capture-hide local-icon-group">
+                <img src="{{ site.baseurl }}/images/share.png" alt="이미지 공유" onclick="shareAsImage()" title="이미지 파일 공유/복사">
+                <img src="{{ site.baseurl }}/images/copy.png" alt="텍스트 복사" onclick="copyResultText()" title="텍스트 복사">
             </div>
 
             <div class="accordion-content" style="display: none; text-align: left; margin-top: 10px; border: 1px solid #ddd; padding: 1em; border-radius: 8px;">
@@ -29,6 +29,11 @@ stylesheets:
             /* 이 페이지 전용 로컬 스타일 */
             :root { --icon-filter: none; }
             body.dark-mode { --icon-filter: invert(1); }
+            
+            .local-header { text-align: center; position: relative; margin-bottom: 1.5em; }
+            .local-icon-group { position: absolute; right: 0; top: 50%; transform: translateY(-50%); display: flex; gap: 10px; }
+            .local-icon-group img { width: 24px; height: 24px; cursor: pointer; filter: var(--icon-filter); }
+
             .local-input-container { display: flex; gap: 10px; margin-bottom: 10px; }
             .local-input-box { flex: 1; display: flex; flex-direction: column; }
             .local-input-box label { font-size: 0.85em; font-weight: bold; margin-bottom: 4px; color: #666; text-align: left; }
@@ -36,6 +41,13 @@ stylesheets:
             .local-input-box input { width: 100% !important; padding: 8px 12px !important; height: auto !important; text-align: right !important; }
             .local-unit-helper { font-size: 0.75em; color: #f5a623; text-align: right; min-height: 1.2em; margin-top: 2px; font-weight: bold; }
             .mTable td span { display: block; line-height: 1.3; }
+
+            /* 모바일 대응 (736px 이하) */
+            @media screen and (max-width: 736px) {
+                .local-header { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+                .local-icon-group { position: static; transform: none; order: 2; }
+                .accordion-header { order: 1; }
+            }
         </style>
 
         <div class="tab">
@@ -101,9 +113,10 @@ stylesheets:
                     </table>
                 </div>
             </div>
-        </div>
 
-        <div class="capture-watermark">메산기 | mesangi.com</div>
+            <!-- 이미지 캡처용 워터마크 (캡처 영역 내부로 이동) -->
+            <div class="capture-watermark">메산기 | mesangi.com</div>
+        </div>
     </div>
 </section>
 
