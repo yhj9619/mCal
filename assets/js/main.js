@@ -100,20 +100,6 @@
 $(function() { // Ensure DOM is ready for these manipulations
     console.log("main.js: Header (narrower + mobile) logic executing.");
 
-    // Toggle.
-        var $headerToggle = $(
-            '<div id="headerToggle">' +
-                '<a href="#header" class="toggle"></a>' +
-            '</div>'
-        );
-        if ($body.length) {
-            $headerToggle.appendTo($body);
-            console.log("main.js: #headerToggle appended to body.");
-        } else {
-            console.log("main.js: $body not found when trying to append #headerToggle.");
-        }
-
-
     // Header.
         if ($('#header').length) {
             $('#header')
