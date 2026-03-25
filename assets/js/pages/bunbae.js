@@ -63,6 +63,10 @@ function run_page_calculations() {
         }
     });
 
+    // 초기 로드 시 도우미 텍스트 업데이트
+    updateKoreanUnitHelper(document.getElementById('saleMeso'), 'saleMesoHelper');
+    updateKoreanUnitHelper(document.getElementById('dajoPrice'), 'dajoPriceHelper');
+
     // 초기 계산 실행
     if ($("#equalBtn").hasClass("active")) {
         fn_equalBunbae();
@@ -71,13 +75,57 @@ function run_page_calculations() {
     }
 }
 
+// 한글 단위 도우미 업데이트 함수
+function updateKoreanUnitHelper(input, helperId) {
+    if (!input) return;
+    const value = input.value.replace(/,/g, "");
+    const helper = document.getElementById(helperId);
+    if (helper) {
+        if (!value || isNaN(value)) {
+            helper.innerText = "";
+            return;
+        }
+        helper.innerText = formatKoreanUnit(Number(value));
+    }
+}
+
+// 한글 단위 변환 함수 (억, 만 단위)
+function formatKoreanUnit(number) {
+    if (number === 0) return "0";
+    let result = "";
+    let eok = Math.floor(number / 100000000);
+    let man = Math.floor((number % 100000000) / 10000);
+    let rest = number % 10000;
+
+    if (eok > 0) result += eok + "억 ";
+    if (man > 0) result += man.toLocaleString() + "만 ";
+    if (rest > 0) result += rest.toLocaleString();
+    
+    return result.trim();
+}
+
+// 결과 포맷팅 함수 (줄바꿈 포함)
+function formatResultWithWrap(value) {
+    if (isNaN(value) || value === null || value === '' || !isFinite(value)) return '0';
+
+    let roundedValue = parseFloat(value).toFixed(0); // 분배금은 소수점 제외가 깔끔함
+    let formattedNumber = roundedValue.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+
+    let unitText = "";
+    if (Math.abs(parseInt(roundedValue)) >= 100000000) {
+        let eokValue = (parseInt(roundedValue) / 100000000).toFixed(2);
+        unitText = `<br><small style="color: #888;">(약 ${eokValue}억)</small>`;
+    }
+
+    return `${formattedNumber}${unitText}`;
+}
+
 // 균등 분배 계산 로직
 function fn_equalBunbae(){
     var saleMeso = Math.ceil(($("#saleMeso").val().replace(/[^0-9]/g,''))*auctionRate);
     var dajoPrice = $("#dajoPrice").val().replace(/[^0-9]/g,'');
     var memberCnt = $("#memberCnt").val().replace(/,/g, '');
     
-    // memberCnt가 유효한 숫자가 아니거나 0이면 계산하지 않음
     if (isNaN(memberCnt) || memberCnt === "" || parseInt(memberCnt) === 0) {
         $("#equalBunbaeMeso").html("0");
         $("#equalBunbaeWon").html("0");
@@ -85,7 +133,7 @@ function fn_equalBunbae(){
         return;
     }
 
-    $("#equalBunbaeMeso").html(customFormatNumber(saleMeso / memberCnt));
+    $("#equalBunbaeMeso").html(formatResultWithWrap(saleMeso / memberCnt));
     $("#equalBunbaeWon").html(customFormatNumber(saleMeso / memberCnt / oneHunMil * vPresentMeso));
     if(dajoPrice != "" && dajoPrice != null && dajoPrice != 0){
         $("#equalBunbaeDajo").html(customFormatNumber(saleMeso / memberCnt / dajoPrice));
@@ -115,14 +163,14 @@ function fn_customBunbae(){
         var stackValue = Number(memberStacks[i]) || 0; 
         
         if (memberStackSum > 0) {
-            var mesoShare = customFormatNumber(saleMeso / memberStackSum * stackValue);
-            var wonShare = customFormatNumber(saleMeso / memberStackSum * stackValue / oneHunMil * vPresentMeso.replace(/,/g , ''));
-            var dajoShare = customFormatNumber((saleMeso / memberStackSum * stackValue) / dajoPrice);
+            var mesoShare = saleMeso / memberStackSum * stackValue;
+            var wonShare = mesoShare / oneHunMil * vPresentMeso.replace(/,/g , '');
+            var dajoShare = mesoShare / dajoPrice;
 
-            $(`#customBunbaeMeso${i}`).text(mesoShare);
-            $(`#customBunbaeWon${i}`).text(wonShare);
+            $(`#customBunbaeMeso${i}`).html(formatResultWithWrap(mesoShare));
+            $(`#customBunbaeWon${i}`).text(customFormatNumber(wonShare));
             if(dajoPrice != "" && dajoPrice != null && dajoPrice != 0){
-                $(`#customBunbaeDajo${i}`).text(dajoShare);
+                $(`#customBunbaeDajo${i}`).text(customFormatNumber(dajoShare));
             }else{
                 $(`#customBunbaeDajo${i}`).text("조각가격없음");
             }

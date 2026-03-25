@@ -41,7 +41,8 @@ stylesheets:
                 <div class="inputClass tooltip-container">
                     <label for="saleMeso" class="tooltip-label">판매금액</label>
                     <input type="text" class="txt-input" name="saleMeso" id="saleMeso" 
-                    oninput="onlyNumberWithComma(this);" placeholder="수수료 제외 전 금액"/>
+                    oninput="onlyNumberWithComma(this); updateKoreanUnitHelper(this, 'saleMesoHelper');" placeholder="수수료 제외 전 금액"/>
+                    <div id="saleMesoHelper" class="input-helper-text"></div>
                     <span class="tooltip-text2">
                         수수료를 제외하기 전 금액을 입력해주세요.<br>
                         좌측에 선택된 경매장 수수료가 자동 적용됩니다.
@@ -50,7 +51,8 @@ stylesheets:
                 <div class="inputClass ">
                     <label for="dajoPrice" class="tooltip-label">조각금액</label>
                     <input type="text" class="txt-input" name="dajoPrice" id="dajoPrice" 
-                    oninput="onlyNumberWithComma(this);" placeholder="솔 에르다 조각당 가격"/>
+                    oninput="onlyNumberWithComma(this); updateKoreanUnitHelper(this, 'dajoPriceHelper');" placeholder="솔 에르다 조각당 가격"/>
+                    <div id="dajoPriceHelper" class="input-helper-text"></div>
                     <span class="tooltip-text2">
                         솔 에르다 조각을 현금화했을 때의 1개당 가격 (선택 사항)
                     </span>

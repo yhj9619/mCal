@@ -102,6 +102,27 @@ body.dark-mode .bunbae-header .icon-group img {
     filter: invert(1);
 }
 
+/* 입력창 한글 단위 도우미 텍스트 */
+.input-helper-text {
+    font-size: 0.8em;
+    color: #f5a623;
+    margin-top: 4px;
+    height: 1.2em;
+    font-weight: bold;
+    text-align: left;
+}
+
+body.dark-mode .input-helper-text {
+    color: #f39c12;
+}
+
+/* 결과 테이블 셀 줄바꿈 허용 */
+.mTable td span {
+    display: block;
+    word-break: break-all;
+    line-height: 1.4;
+}
+
 /* 모바일 화면 (736px 이하) 대응 */
 @media screen and (max-width: 736px) {
     .bunbae-header {
