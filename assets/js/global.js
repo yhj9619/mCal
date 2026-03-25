@@ -322,7 +322,7 @@ function formatResultWithWrap(value) {
 }
 
 // 결과 이미지 공유/복사 (범용)
-function shareAsImage(areaId = "#captureArea", filename = "메산기_결과") {
+function shareAsImage(areaId = "#captureArea", filename = "메산기_결과", title = "메산기 계산 결과") {
     $(".capture-hide").hide();
     const captureArea = document.querySelector(areaId);
     if (!captureArea) return;
@@ -332,6 +332,15 @@ function shareAsImage(areaId = "#captureArea", filename = "메산기_결과") {
         scale: 2,
         useCORS: true,
         onclone: (clonedDoc) => {
+            const clonedArea = clonedDoc.querySelector(areaId);
+            if (clonedArea) {
+                // 상단 타이틀 추가
+                const titleDiv = clonedDoc.createElement('div');
+                titleDiv.innerText = title;
+                titleDiv.style.cssText = "text-align:center; font-size:20px; font-weight:bold; margin-bottom:20px; color:#333; padding-bottom:10px; border-bottom:2px solid #f5a623;";
+                clonedArea.insertBefore(titleDiv, clonedArea.firstChild);
+            }
+
             const inputs = clonedDoc.querySelectorAll('input');
             inputs.forEach(input => {
                 const value = input.value || input.placeholder;

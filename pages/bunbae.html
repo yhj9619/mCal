@@ -16,7 +16,7 @@ stylesheets:
             
             <!-- 아이콘 그룹 -->
             <div class="capture-hide local-icon-group">
-                <img src="{{ site.baseurl }}/images/share.png" alt="이미지 공유" onclick="shareAsImage()" title="이미지 파일 공유/복사">
+                <img src="{{ site.baseurl }}/images/share.png" alt="이미지 공유" onclick="shareAsImage('#captureArea', '메산기_분배결과', '보상분배계산기 결과')" title="이미지 파일 공유/복사">
                 <img src="{{ site.baseurl }}/images/copy.png" alt="텍스트 복사" onclick="copyResultText()" title="텍스트 복사">
             </div>
 
@@ -114,7 +114,7 @@ stylesheets:
                 </div>
             </div>
 
-            <!-- 이미지 캡처용 워터마크 (캡처 영역 내부로 이동) -->
+            <!-- 이미지 캡처용 워터마크 -->
             <div class="capture-watermark">메산기 | mesangi.com</div>
         </div>
     </div>
