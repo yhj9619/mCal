@@ -25,6 +25,10 @@ url: "https://mesangi.com" # the base hostname & protocol for your site, e.g. ht
 theme: # minima
 plugins:
   - jekyll-feed
+  - jekyll-paginate
+
+paginate: 3
+paginate_path: "guides/page:num/"
 
 include:
   - sitemap.xml

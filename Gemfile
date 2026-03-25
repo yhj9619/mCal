@@ -2,6 +2,7 @@ source "https://rubygems.org"
 
 group :jekyll_plugins do
   gem "github-pages"
+  gem "jekyll-paginate"
 end
 
 gem "jekyll", "~> 3.9" # GitHub Pages의 Jekyll 버전과 호환되도록 명시 (현재 3.9.x)
