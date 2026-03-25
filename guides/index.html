@@ -12,15 +12,13 @@ description: 메이플스토리 계산기 사용 및 게임 관련 유용한 가
         </header>
 
         <div class="board-container" id="post-list">
-            {% if paginator %}
-                {% assign guides = paginator.posts %}
-            {% else %}
-                {% assign guides = site.posts %}
-            {% endif %}
-
-            {% if guides.size > 0 %}
-                {% for post in guides %}
-                <article class="board-item post-entry">
+            {% comment %}
+                페이지네이션 에러 방지를 위해 모든 포스트를 불러온 뒤 자바스크립트로 제어합니다.
+            {% endcomment %}
+            {% assign all_posts = site.posts %}
+            {% if all_posts.size > 0 %}
+                {% for post in all_posts %}
+                <article class="board-item post-entry" style="display: none;">
                     <div class="board-date">
                         <i class="far fa-calendar-alt"></i> {{ post.date | date: "%Y-%m-%d" }}
                     </div>
@@ -29,7 +27,7 @@ description: 메이플스토리 계산기 사용 및 게임 관련 유용한 가
                             <a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a>
                         </h3>
                         <p class="board-excerpt">
-                            {{ post.excerpt | strip_html | truncate: 200 }}
+                            {{ post.excerpt | strip_html | truncate: 150 }}
                             <a href="{{ site.baseurl }}{{ post.url }}" style="color: #f5a623; font-weight: bold; margin-left: 5px;">더 보기 <i class="fas fa-chevron-right" style="font-size: 0.8em;"></i></a>
                         </p>
                     </div>
@@ -40,61 +38,22 @@ description: 메이플스토리 계산기 사용 및 게임 관련 유용한 가
             {% endif %}
         </div>
 
-        <!-- Pagination Links (Server-side or Client-side) -->
+        <!-- Pagination Controls -->
         <div id="pagination-controls" class="pagination">
-            {% if paginator and paginator.total_pages > 1 %}
-                <!-- Jekyll Pagination -->
-                {% if paginator.previous_page %}
-                    <a href="{{ paginator.previous_page_path | prepend: site.baseurl }}" class="previous"><i class="fas fa-chevron-left"></i> 이전</a>
-                {% else %}
-                    <span class="disabled"><i class="fas fa-chevron-left"></i> 이전</span>
-                {% endif %}
-
-                <div class="page-numbers" style="display: flex; gap: 5px;">
-                    {% for page in (1..paginator.total_pages) %}
-                        {% if page == paginator.page %}
-                            <span class="current-page">{{ page }}</span>
-                        {% elsif page == 1 %}
-                            <a href="{{ '/guides/' | prepend: site.baseurl }}">{{ page }}</a>
-                        {% else %}
-                            <a href="{{ site.paginate_path | replace: ':num', page | prepend: site.baseurl }}">{{ page }}</a>
-                        {% endif %}
-                    {% endfor %}
-                </div>
-
-                {% if paginator.next_page %}
-                    <a href="{{ paginator.next_page_path | prepend: site.baseurl }}" class="next">다음 <i class="fas fa-chevron-right"></i></a>
-                {% else %}
-                    <span class="disabled">다음 <i class="fas fa-chevron-right"></i></span>
-                {% endif %}
-            {% endif %}
+            <!-- 자바스크립트에 의해 버튼이 생성됩니다 -->
         </div>
 
     </div>
 </section>
 
-<!-- Client-side Pagination Script (Fallback) -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // Jekyll paginator가 작동했는지 확인 (Liquid 변수가 문자열로 출력됨)
-    const isJekyllPaginated = {{ paginator.posts | size | default: 0 }} > 0 && {{ paginator.total_pages | default: 0 }} > 1;
-    
-    // 만약 paginator가 실제로 유효한 데이터를 가지고 있다면 JS는 개입하지 않음
-    if (isJekyllPaginated) {
-        console.log("Jekyll Pagination Active");
-        return;
-    }
-
-    console.log("JS Pagination Active (Fallback)");
-    const posts = document.querySelectorAll('.post-entry');
-    const postsPerPage = 2;
+    const posts = Array.from(document.querySelectorAll('.post-entry'));
+    const postsPerPage = 2; // 한 페이지에 표시할 게시글 수
     const totalPages = Math.ceil(posts.length / postsPerPage);
     const paginationContainer = document.getElementById('pagination-controls');
     
-    if (posts.length <= postsPerPage) {
-        paginationContainer.innerHTML = '';
-        return;
-    }
+    if (posts.length === 0) return;
 
     function showPage(page) {
         const start = (page - 1) * postsPerPage;
@@ -108,15 +67,19 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
 
-        updateControls(page);
+        renderPagination(page);
+        // 페이지 상단으로 부드럽게 이동 (헤더 높이 고려)
+        if (page > 1 || window.scrollY > 300) {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
     }
 
-    function updateControls(currentPage) {
+    function renderPagination(currentPage) {
         let html = '';
         
         // 이전 버튼
         if (currentPage > 1) {
-            html += `<a href="javascript:void(0);" class="prev-btn"><i class="fas fa-chevron-left"></i> 이전</a>`;
+            html += `<a href="javascript:void(0);" class="prev-btn" onclick="return false;"><i class="fas fa-chevron-left"></i> 이전</a>`;
         } else {
             html += `<span class="disabled"><i class="fas fa-chevron-left"></i> 이전</span>`;
         }
@@ -127,27 +90,26 @@ document.addEventListener('DOMContentLoaded', function() {
             if (i === currentPage) {
                 html += `<span class="current-page">${i}</span>`;
             } else {
-                html += `<a href="javascript:void(0);" class="page-btn" data-page="${i}">${i}</a>`;
+                html += `<a href="javascript:void(0);" class="page-btn" data-page="${i}" onclick="return false;">${i}</a>`;
             }
         }
         html += '</div>';
 
         // 다음 버튼
         if (currentPage < totalPages) {
-            html += `<a href="javascript:void(0);" class="next-btn">다음 <i class="fas fa-chevron-right"></i></a>`;
+            html += `<a href="javascript:void(0);" class="next-btn" onclick="return false;">다음 <i class="fas fa-chevron-right"></i></a>`;
         } else {
             html += `<span class="disabled">다음 <i class="fas fa-chevron-right"></i></span>`;
         }
 
         paginationContainer.innerHTML = html;
 
-        // 이벤트 리스너 등록 (더 안전한 방식)
+        // 클릭 이벤트 바인딩
         paginationContainer.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', function(e) {
                 e.preventDefault();
-                e.stopPropagation();
-                
                 let targetPage = currentPage;
+                
                 if (this.classList.contains('page-btn')) {
                     targetPage = parseInt(this.dataset.page);
                 } else if (this.classList.contains('prev-btn')) {
@@ -157,13 +119,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
                 
                 showPage(targetPage);
-                window.scrollTo(0, 0);
-                return false;
             });
         });
     }
 
-    // 초기 실행
+    // 초기 첫 페이지 표시
     showPage(1);
 });
 </script>
