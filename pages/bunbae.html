@@ -10,63 +10,61 @@ stylesheets:
 
 <section id="bunbae" class="four">
     <div class="container">
-        <header class="bunbae-header">
-            <!-- 제목 중앙 배치 -->
-            <h2 class="accordion-header" style="cursor: pointer;">보상분배계산기 <span class="accordion-icon fa fa-chevron-down"></span></h2>
+        <!-- 헤더 영역: 사이드바 영향을 주지 않도록 표준 구조 사용 -->
+        <header style="text-align: center; position: relative; margin-bottom: 1.5em;">
+            <h2 class="accordion-header" style="cursor: pointer; display: inline-block;">보상분배계산기 <span class="accordion-icon fa fa-chevron-down"></span></h2>
             
-            <!-- 공유/복사 아이콘 그룹 -->
-            <div class="capture-hide icon-group">
-                <img src="{{ site.baseurl }}/images/share.png" alt="이미지 공유" style="width: 28px; height: 28px; cursor: pointer;" onclick="shareAsImage()" title="이미지 파일 공유/복사">
-                <img src="{{ site.baseurl }}/images/copy.png" alt="텍스트 복사" style="width: 28px; height: 28px; cursor: pointer;" onclick="copyResultText()" title="텍스트 복사">
+            <!-- 아이콘들을 헤더 내부에 절대 좌표로 배치 -->
+            <div class="capture-hide" style="position: absolute; right: 0; top: 50%; transform: translateY(-50%); display: flex; gap: 10px;">
+                <img src="{{ site.baseurl }}/images/share.png" alt="이미지 공유" style="width: 24px; height: 24px; cursor: pointer; filter: var(--icon-filter);" onclick="shareAsImage()">
+                <img src="{{ site.baseurl }}/images/copy.png" alt="텍스트 복사" style="width: 24px; height: 24px; cursor: pointer; filter: var(--icon-filter);" onclick="copyResultText()">
             </div>
 
-            <div class="accordion-content" style="display: none; width: 100%; text-align: left; position: absolute; top: 100%; left: 0; background: #fff; z-index: 20; padding: 1em; border: 1px solid #ddd; border-radius: 8px; margin-top: 10px;">
-                <p>
-                    메이플스토리에서 파티 플레이 후 얻은 보상을 파티원들에게 공정하게 분배하는 것은 매우 중요합니다.
-                    이 계산기는 레이드, 보스 처치 등으로 획득한 메소를 파티원 수에 따라 균등하게 나누거나,
-                    각자의 기여도에 따라 차등 분배하는 방식을 지원합니다.
-                    좌측의 공통 입력 항목 외에 판매 금액, 조각 금액, 파티원 수, 개별 분배 지분 등을 입력하여 활용하세요.
-                </p>
-                <hr style="margin: 1em 0;">
+            <div class="accordion-content" style="display: none; text-align: left; margin-top: 10px; border: 1px solid #ddd; padding: 1em; border-radius: 8px;">
+                <p style="margin-bottom: 0;">메이플스토리 파티 플레이 후 얻은 보상을 공정하게 분배하세요. 균등 및 차등 분배를 지원합니다.</p>
             </div>
         </header>
+
+        <style>
+            /* 이 페이지 전용 로컬 스타일 */
+            :root { --icon-filter: none; }
+            body.dark-mode { --icon-filter: invert(1); }
+            .local-input-container { display: flex; gap: 10px; margin-bottom: 10px; }
+            .local-input-box { flex: 1; display: flex; flex-direction: column; }
+            .local-input-box label { font-size: 0.85em; font-weight: bold; margin-bottom: 4px; color: #666; text-align: left; }
+            body.dark-mode .local-input-box label { color: #aaa; }
+            .local-input-box input { width: 100% !important; padding: 8px 12px !important; height: auto !important; text-align: right !important; }
+            .local-unit-helper { font-size: 0.75em; color: #f5a623; text-align: right; min-height: 1.2em; margin-top: 2px; font-weight: bold; }
+            .mTable td span { display: block; line-height: 1.3; }
+        </style>
 
         <div class="tab">
             <button id="equalBtn" class="active">균등 분배</button>
             <button id="customBtn">차등 분배</button>
         </div>
 
-        <div id="captureArea">
-            <div class="inputDiv">
-                <div class="inputClass tooltip-container">
-                    <label for="saleMeso" class="tooltip-label">판매금액</label>
-                    <input type="text" class="txt-input" name="saleMeso" id="saleMeso" 
-                    oninput="onlyNumberWithComma(this); updateKoreanUnitHelper(this, 'saleMesoHelper');" placeholder="수수료 제외 전 금액"/>
-                    <div id="saleMesoHelper" class="input-helper-text"></div>
-                    <span class="tooltip-text2">
-                        수수료를 제외하기 전 금액을 입력해주세요.<br>
-                        좌측에 선택된 경매장 수수료가 자동 적용됩니다.
-                    </span>
+        <div id="captureArea" style="background: var(--capture-bg, #fff); padding: 10px; border-radius: 8px;">
+            <style>
+                body.dark-mode #captureArea { --capture-bg: #1e1e1e; }
+            </style>
+            
+            <!-- 판매금액 / 조각금액 입력 영역 (독립 스타일 적용) -->
+            <div class="local-input-container">
+                <div class="local-input-box">
+                    <label for="saleMeso">판매금액</label>
+                    <input type="text" id="saleMeso" oninput="onlyNumberWithComma(this); updateKoreanUnitHelper(this, 'saleMesoHelper');" placeholder="수수료 제외 전">
+                    <div id="saleMesoHelper" class="local-unit-helper"></div>
                 </div>
-                <div class="inputClass ">
-                    <label for="dajoPrice" class="tooltip-label">조각금액</label>
-                    <input type="text" class="txt-input" name="dajoPrice" id="dajoPrice" 
-                    oninput="onlyNumberWithComma(this); updateKoreanUnitHelper(this, 'dajoPriceHelper');" placeholder="솔 에르다 조각당 가격"/>
-                    <div id="dajoPriceHelper" class="input-helper-text"></div>
-                    <span class="tooltip-text2">
-                        솔 에르다 조각을 현금화했을 때의 1개당 가격 (선택 사항)
-                    </span>
+                <div class="local-input-box">
+                    <label for="dajoPrice">조각금액</label>
+                    <input type="text" id="dajoPrice" oninput="onlyNumberWithComma(this); updateKoreanUnitHelper(this, 'dajoPriceHelper');" placeholder="조각당 가격">
+                    <div id="dajoPriceHelper" class="local-unit-helper"></div>
                 </div>
             </div>
+
             <div id="equalDiv">
                 <div class="flip-scroll">
                     <table class="mTable">
-                        <colgroup>
-                            <col width="30%" />
-                            <col width="20%" />
-                            <col width="20%" />
-                            <col width="30%" />
-                        </colgroup>
                         <thead>
                             <tr>
                                 <th scope="col">파티원 수</th>
@@ -77,113 +75,36 @@ stylesheets:
                         </thead>
                         <tbody>
                             <tr>	
-                                <td scope="row" data-label="파티원"><input type="text" name="memberCnt" id="memberCnt" 
-                                    oninput="onlyNumberWithComma(this);" placeholder="파티원 수"/></td>
-                                <td data-label="인당 분배금(메소)"><span id="equalBunbaeMeso"></span></td>
-                                <td data-label="인당 분배금(원)"><span id="equalBunbaeWon"></span></td>
-                                <td data-label="인당 분배금(조각)"><span id="equalBunbaeDajo"></span></td>
+                                <td data-label="파티원"><input type="text" id="memberCnt" oninput="onlyNumberWithComma(this);" placeholder="수"></td>
+                                <td data-label="분배금(메소)"><span id="equalBunbaeMeso"></span></td>
+                                <td data-label="분배금(원)"><span id="equalBunbaeWon"></span></td>
+                                <td data-label="분배금(조각)"><span id="equalBunbaeDajo"></span></td>
                             </tr>
                         </tbody>
                     </table>
-                </div>
-                <!-- 정보 아코디언 (캡처 시 숨길 수 있도록 클래스 추가) -->
-                <div class="capture-hide">
-                    <h4 class="accordion-header" style="cursor: pointer; margin-top: 1.5em; margin-bottom: 0.5em;">균등 분배 정보 <span class="accordion-icon fa fa-chevron-down"></span></h4>
-                    <div class="accordion-content" style="display: none;">
-                        <div class="flip-scroll">
-                            <table class="simpleTable">
-                                <thead>
-                                    <tr>
-                                        <th>구분</th>
-                                        <th>설명</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>**균등 분배**</td>
-                                        <td>파티원들에게 판매 금액을 동일하게 나누어 분배합니다. 모든 파티원의 기여도가 동일하다고 가정할 때 적합한 방식입니다.</td>
-                                    </tr>
-                                    <tr>
-                                        <td>**판매금액**</td>
-                                        <td>아이템 판매로 획득한 총 메소를 의미하며, 경매장 수수료를 제외하기 전의 금액을 입력합니다.</td>
-                                    </tr>
-                                    <tr>
-                                        <td>**조각금액**</td>
-                                        <td>솔 에르다 조각 1개당 인게임 메소 가치를 입력합니다. (선택 사항) 이 값을 입력하면 분배금을 조각 단위로도 확인할 수 있습니다.</td>
-                                    </tr>
-                                    <tr>
-                                        <td>**파티원 수**</td>
-                                        <td>보상을 분배할 총 파티원의 수입니다.</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
                 </div>
             </div>
         
             <div id="customDiv" style="display:none;">
                 <div class="flip-scroll">
                     <table class="mTable">
-                        <colgroup>
-                            <col width="15%" />
-                            <col width="15%" />
-                            <col width="30%" />
-                            <col width="20%" />
-                            <col width="20%" />
-                        </colgroup>
                         <thead>
                             <tr>
                                 <th scope="col">닉네임</th>
-                                <th scope="col">분배지분</th>
-                                <th scope="col">인당 분배금(메소)</th>
-                                <th scope="col">인당 분배금(원)</th>
-                                <th scope="col">인당 분배금(조각)</th>
+                                <th scope="col">지분</th>
+                                <th scope="col">분배금(메소)</th>
+                                <th scope="col">분배금(원)</th>
+                                <th scope="col">분배금(조각)</th>
                             </tr>
                         </thead>
-                        <tbody id="memberTable">
-                        </tbody>
+                        <tbody id="memberTable"></tbody>
                     </table>
-                </div>
-                <!-- 정보 아코디언 (캡처 시 숨길 수 있도록 클래스 추가) -->
-                <div class="capture-hide">
-                    <h4 class="accordion-header" style="cursor: pointer; margin-top: 1.5em; margin-bottom: 0.5em;">차등 분배 정보 <span class="accordion-icon fa fa-chevron-down"></span></h4>
-                    <div class="accordion-content" style="display: none;">
-                        <div class="flip-scroll">
-                            <table class="simpleTable">
-                                <thead>
-                                    <tr>
-                                        <th>구분</th>
-                                        <th>설명</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>**차등 분배**</td>
-                                        <td>파티원 각자의 기여도에 따라 분배 지분을 설정하여 보상을 다르게 나눕니다.</td>
-                                    </tr>
-                                    <tr>
-                                        <td>**판매금액**</td>
-                                        <td>아이템 판매로 획득한 총 메소를 의미하며, 경매장 수수료를 제외하기 전의 금액을 입력합니다.</td>
-                                    </tr>
-                                    <tr>
-                                        <td>**조각금액**</td>
-                                        <td>솔 에르다 조각 1개당 인게임 메소 가치를 입력합니다. (선택 사항) 이 값을 입력하면 분배금을 조각 단위로도 확인할 수 있습니다.</td>
-                                    </tr>
-                                    <tr>
-                                        <td>**분배 지분**</td>
-                                        <td>각 파티원이 받을 보상의 비율을 나타내는 상대적인 값입니다. 예를 들어, '2'와 '1'로 설정하면 2를 입력한 파티원이 1을 입력한 파티원보다 두 배의 보상을 받습니다.</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
+
+        <div class="capture-watermark">메산기 | mesangi.com</div>
     </div>
 </section>
 
-<!-- 라이브러리 추가 -->
 <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
-<script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.0/kakao.min.js" crossorigin="anonymous"></script>

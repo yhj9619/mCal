@@ -1,9 +1,9 @@
-/* 보상분배계산기 전용 스타일 */
+/* 보상분배계산기 전용 스타일 - 사이드바 간섭 최소화를 위해 탭 기능만 유지 */
 
 .tab { 
     display: flex; 
     gap: 10px; 
-    margin-bottom: 10px; 
+    margin-bottom: 15px; 
 }
 
 .tab button { 
@@ -23,54 +23,6 @@
     border-color: rgb(245, 162, 7);
 }
 
-/* 캡처 영역 기본 스타일 */
-#captureArea {
-    padding: 15px;
-    background: #ffffff;
-    border-radius: 8px;
-    border: 1px solid #eee;
-    transition: background-color 0.3s, border-color 0.3s;
-}
-
-/* 헤더 레이아웃 스타일 */
-.bunbae-header {
-    display: flex;
-    align-items: center;
-    position: relative;
-    margin-bottom: 2em;
-    width: 100%;
-}
-
-.bunbae-header h2 {
-    margin: 0 auto !important;
-    text-align: center;
-}
-
-.bunbae-header .icon-group {
-    position: absolute;
-    right: 0;
-    display: flex;
-    gap: 12px;
-    align-items: center;
-}
-
-.bunbae-header .accordion-content {
-    display: none; 
-    width: 100%; 
-    text-align: left; 
-    position: absolute; 
-    top: 100%; 
-    left: 0; 
-    background: #fff; 
-    z-index: 20; 
-    padding: 1.5em; 
-    border: 1px solid #ddd; 
-    border-radius: 8px; 
-    margin-top: 10px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-}
-
-/* 다크모드 대응 */
 body.dark-mode .tab button {
     background: #2d2d2d;
     color: #ccc;
@@ -83,105 +35,12 @@ body.dark-mode .tab button.active {
     border-color: #f5a623;
 }
 
-body.dark-mode #captureArea {
-    background: #1e1e1e;
-    border-color: #333;
-}
-
-body.dark-mode .bunbae-header .accordion-content {
-    background: #252525;
-    border-color: #444;
-    color: #eee;
-}
-
-body.dark-mode .bunbae-header .accordion-content hr {
-    border-top-color: #444;
-}
-
-body.dark-mode .bunbae-header .icon-group img {
-    filter: invert(1);
-}
-
-/* 입력창 레이아웃 보정 */
-.inputDiv {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 10px;
-}
-
-.inputClass {
-    width: calc(50% - 5px) !important;
-    margin: 5px 0 !important;
-    display: flex;
-    flex-direction: column;
-}
-
-/* 라벨과 인풋 간격 최적화 (침범 방지) */
-.inputClass label {
-    position: relative !important;
-    display: block !important;
-    font-size: 0.85em !important;
-    margin-bottom: 5px !important;
-    padding-left: 5px !important;
-    color: #666;
-    font-weight: bold;
-}
-
-.inputClass input {
-    margin-top: 0 !important;
-    padding: 10px 12px !important; /* 높이를 줄여서 영역 차지 최소화 */
-    height: auto !important;
-    font-size: 0.9em !important;
-}
-
-/* 입력창 한글 단위 도우미 텍스트 */
-.input-helper-text {
-    font-size: 0.75em;
-    color: #f5a623;
-    margin-top: 2px;
-    min-height: 1em;
-    font-weight: bold;
+/* 캡처 시 워터마크 스타일 */
+.capture-watermark {
     text-align: right;
-    padding-right: 5px;
+    margin-top: 10px;
+    font-size: 11px;
+    color: #bbb;
+    font-weight: bold;
 }
-
-body.dark-mode .input-helper-text {
-    color: #f39c12;
-}
-
-/* 결과 테이블 셀 줄바꿈 허용 */
-.mTable td span {
-    display: block;
-    word-break: break-all;
-    line-height: 1.4;
-}
-
-/* 모바일 화면 (736px 이하) 대응 */
-@media screen and (max-width: 736px) {
-    .bunbae-header {
-        flex-direction: column;
-        gap: 15px;
-    }
-    
-    .bunbae-header h2 {
-        margin: 0 !important;
-        width: 100%;
-    }
-    
-    .bunbae-header .icon-group {
-        position: static; 
-        justify-content: center;
-        width: 100%;
-    }
-    
-    .bunbae-header .accordion-content {
-        position: static; 
-        margin-top: 5px;
-    }
-
-    /* 모바일에서도 2열 유지 */
-    .inputClass {
-        width: calc(50% - 5px) !important;
-    }
-}
+body.dark-mode .capture-watermark { color: #555; }
