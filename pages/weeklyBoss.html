@@ -10,18 +10,41 @@ stylesheets:
 
 <section id="weeklyBoss" class="ten">
     <div class="container">
-        <header>
-            <h2 class="accordion-header" style="cursor: pointer;">주간보스 시급계산기 <span class="accordion-icon fa fa-chevron-down"></span></h2>
-            <div class="accordion-content" style="display: none;">
+        <!-- 헤더 영역: 공유 및 복사 기능 포함 -->
+        <header class="local-header">
+            <h2 class="accordion-header" style="cursor: pointer; display: inline-block;">주간보스 시급계산기 <span class="accordion-icon fa fa-chevron-down"></span></h2>
+            
+            <!-- 아이콘 그룹 -->
+            <div class="capture-hide local-icon-group">
+                <img src="{{ site.baseurl }}/images/share.png" alt="이미지 공유" onclick="shareAsImage('#bossCaptureArea', '메산기_주보시급결과', '주간보스 시급 계산결과')" title="이미지 파일 공유/복사">
+                <img src="{{ site.baseurl }}/images/copy.png" alt="텍스트 복사" onclick="copyWeeklyBossResult()" title="텍스트 복사">
+            </div>
+
+            <div class="accordion-content" style="display: none; text-align: left; margin-top: 10px; border: 1px solid #ddd; padding: 1em; border-radius: 8px;">
                 <p>
                     '주보돌이'는 메이플스토리의 중요한 수익 활동 중 하나입니다. 이 계산기는 다양한 주간보스를 선택하고,
                     각 보스마다 파티 인원수와 실제 클리어 타임을 개별적으로 설정하여 1인당 총 수익과 시급을 계산합니다.
-                    이를 통해 어떤 보스를 클리어하는 것이 가장 효율적인지 판단하고, 최적의 보스 레이드 순서를 계획하는 데 도움을 줍니다.
                 </p>
-                <p><strong>아래 보스목록에서 난이도, 인원, 클리어타임을 입력하고, 합산에 포함할 행을 선택하여 보스를 추가하세요.</strong></p>
-                <hr style="margin: 2em 0;">
+                <p style="margin-bottom: 0;"><strong>아래 보스목록에서 난이도, 인원, 클리어타임을 입력하고, 합산에 포함할 행을 선택하여 보스를 추가하세요.</strong></p>
             </div>
         </header>
+
+        <style>
+            /* 이 페이지 전용 로컬 스타일 */
+            :root { --icon-filter: none; }
+            body.dark-mode { --icon-filter: invert(1); }
+            
+            .local-header { text-align: center; position: relative; margin-bottom: 1.5em; }
+            .local-icon-group { position: absolute; right: 0; top: 50%; transform: translateY(-50%); display: flex; gap: 10px; }
+            .local-icon-group img { width: 24px; height: 24px; cursor: pointer; filter: var(--icon-filter); }
+
+            /* 모바일 대응 (736px 이하) */
+            @media screen and (max-width: 736px) {
+                .local-header { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+                .local-icon-group { position: static; transform: none; order: 2; }
+                .accordion-header { order: 1; }
+            }
+        </style>
 
         <!-- 캐릭터 관리 탭 -->
         <div class="character-management" id="character-tabs">
@@ -34,69 +57,78 @@ stylesheets:
             <input type="text" id="char-nickname" placeholder="닉네임 입력" onchange="updateNickname(this.value)">
         </div>
 
-        <!-- 결과 표시 영역 -->
-        <div class="summary-container">
-            <!-- 현재 캐릭터 요약 -->
-            <div class="summary-card">
-                <h3>현재 캐릭터 요약</h3>
-                <div class="row gtr-uniform">
-                    <div class="col-6 col-12-mobile">
-                        <strong>선택 보스:</strong>
-                        <div id="selected-boss-count">0 / 12</div>
-                    </div>
-                    <div class="col-6 col-12-mobile">
-                        <strong>메소 수익:</strong>
-                        <div id="weekly-profit">0 메소</div>
-                    </div>
-                    <div class="col-6 col-12-mobile">
-                        <strong>현금 수익:</strong>
-                        <div id="weekly-profit-won-val">0 원</div>
-                    </div>
-                    <div class="col-6 col-12-mobile">
-                        <strong>메포 수익:</strong>
-                        <div id="weekly-profit-mepo-val">0 p</div>
-                    </div>
-                    <div class="col-6 col-12-mobile">
-                        <strong>소요 시간:</strong>
-                        <div id="total-clear-time-hours">0분 (0시간)</div>
-                    </div>
-                    <div class="col-6 col-12-mobile">
-                        <strong>시급 환산:</strong>
-                        <div id="total-weekly-hourly-wage">0 원</div>
+        <div id="bossCaptureArea" style="background: var(--capture-bg, #fff); padding: 10px; border-radius: 8px;">
+            <style>
+                body.dark-mode #bossCaptureArea { --capture-bg: #1e1e1e; }
+            </style>
+            
+            <!-- 결과 표시 영역 -->
+            <div class="summary-container">
+                <!-- 현재 캐릭터 요약 -->
+                <div class="summary-card">
+                    <h3>현재 캐릭터 요약</h3>
+                    <div class="row gtr-uniform">
+                        <div class="col-6 col-12-mobile">
+                            <strong>선택 보스:</strong>
+                            <div id="selected-boss-count">0 / 12</div>
+                        </div>
+                        <div class="col-6 col-12-mobile">
+                            <strong>메소 수익:</strong>
+                            <div id="weekly-profit">0 메소</div>
+                        </div>
+                        <div class="col-6 col-12-mobile">
+                            <strong>현금 수익:</strong>
+                            <div id="weekly-profit-won-val">0 원</div>
+                        </div>
+                        <div class="col-6 col-12-mobile">
+                            <strong>메포 수익:</strong>
+                            <div id="weekly-profit-mepo-val">0 p</div>
+                        </div>
+                        <div class="col-6 col-12-mobile">
+                            <strong>소요 시간:</strong>
+                            <div id="total-clear-time-hours">0분 (0시간)</div>
+                        </div>
+                        <div class="col-6 col-12-mobile">
+                            <strong>시급 환산:</strong>
+                            <div id="total-weekly-hourly-wage">0 원</div>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- 계정 전체 요약 -->
-            <div class="summary-card account">
-                <h3>계정 전체 요약 (합산)</h3>
-                <div class="row gtr-uniform">
-                    <div class="col-6 col-12-mobile">
-                        <strong>총 캐릭터:</strong>
-                        <div id="total-char-count">0명</div>
-                    </div>
-                    <div class="col-6 col-12-mobile">
-                        <strong>메소 수익:</strong>
-                        <div id="account-total-profit">0 메소</div>
-                    </div>
-                    <div class="col-6 col-12-mobile">
-                        <strong>현금 수익:</strong>
-                        <div id="account-total-profit-won-val">0 원</div>
-                    </div>
-                    <div class="col-6 col-12-mobile">
-                        <strong>메포 수익:</strong>
-                        <div id="account-total-profit-mepo-val">0 p</div>
-                    </div>
-                    <div class="col-6 col-12-mobile">
-                        <strong>소요 시간:</strong>
-                        <div id="account-total-time">0분 (0시간)</div>
-                    </div>
-                    <div class="col-6 col-12-mobile">
-                        <strong>시급 환산:</strong>
-                        <div id="account-hourly-wage">0 원</div>
+                <!-- 계정 전체 요약 -->
+                <div class="summary-card account">
+                    <h3>계정 전체 요약 (합산)</h3>
+                    <div class="row gtr-uniform">
+                        <div class="col-6 col-12-mobile">
+                            <strong>총 캐릭터:</strong>
+                            <div id="total-char-count">0명</div>
+                        </div>
+                        <div class="col-6 col-12-mobile">
+                            <strong>메소 수익:</strong>
+                            <div id="account-total-profit">0 메소</div>
+                        </div>
+                        <div class="col-6 col-12-mobile">
+                            <strong>현금 수익:</strong>
+                            <div id="account-total-profit-won-val">0 원</div>
+                        </div>
+                        <div class="col-6 col-12-mobile">
+                            <strong>메포 수익:</strong>
+                            <div id="account-total-profit-mepo-val">0 p</div>
+                        </div>
+                        <div class="col-6 col-12-mobile">
+                            <strong>소요 시간:</strong>
+                            <div id="account-total-time">0분 (0시간)</div>
+                        </div>
+                        <div class="col-6 col-12-mobile">
+                            <strong>시급 환산:</strong>
+                            <div id="account-hourly-wage">0 원</div>
+                        </div>
                     </div>
                 </div>
             </div>
+            
+            <!-- 이미지 캡처용 워터마크 -->
+            <div class="capture-watermark">메산기 | mesangi.com</div>
         </div>
 
         <!-- 테이블 헤더 -->
@@ -163,3 +195,5 @@ stylesheets:
 
     </div>
 </section>
+
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>

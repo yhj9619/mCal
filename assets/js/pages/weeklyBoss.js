@@ -268,3 +268,30 @@ function updateUI() {
     let accountHourly = (accountTotalMinutes > 0) ? accountWon / (accountTotalMinutes / 60) : 0;
     $('#account-hourly-wage').text(`${Math.floor(accountHourly).toLocaleString()} 원`);
 }
+
+function copyWeeklyBossResult() {
+    const currentChar = mCalData.characters[mCalData.activeIndex];
+    let text = `[메산기 주간보스 시급 결과]\n`;
+    text += `캐릭터: ${currentChar.nickname}\n`;
+    text += `선택보스: ${$('#selected-boss-count').text()}\n`;
+    text += `메소수익: ${$('#weekly-profit').text()}\n`;
+    text += `현금수익: ${$('#weekly-profit-won-val').text()}\n`;
+    text += `메포수익: ${$('#weekly-profit-mepo-val').text()}\n`;
+    text += `소요시간: ${$('#total-clear-time-hours').text()}\n`;
+    text += `시급환산: ${$('#total-weekly-hourly-wage').text()}\n`;
+    
+    text += `\n--------------계정 합계--------------\n`;
+    text += `총 캐릭터: ${$('#total-char-count').text()}명\n`;
+    text += `총 메소수익: ${$('#account-total-profit').text()}\n`;
+    text += `총 현금수익: ${$('#account-total-profit-won-val').text()}\n`;
+    text += `총 메포수익: ${$('#account-total-profit-mepo-val').text()}\n`;
+    text += `총 소요시간: ${$('#account-total-time').text()}\n`;
+    text += `계정 시급: ${$('#account-hourly-wage').text()}\n`;
+    
+    text += `\n--------------시세 기준--------------\n`;
+    text += `1억당 ${vPresentMeso}원 / ${vPresentMepo}메포`;
+
+    navigator.clipboard.writeText(text).then(() => {
+        alert("주간보스 계산 결과가 복사되었습니다.");
+    });
+}
