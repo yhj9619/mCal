@@ -95,9 +95,10 @@
 
 .char-tab {
     padding: 3px 8px;
-    background: #f0f0f0;
+    background: #e9ecef;
+    color: #666;
     border: 1px solid #ddd;
-    border-radius: 6px; /* 탭 형태에서 버튼 형태로 변경하여 줄바꿈 시 어색함 감소 */
+    border-radius: 6px; 
     cursor: pointer;
     font-weight: bold;
     display: flex;

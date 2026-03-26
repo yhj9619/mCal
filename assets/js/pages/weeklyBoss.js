@@ -194,7 +194,8 @@ function updateBossConfig(bossIdx, key, val) {
 
 function updateUI() {
     // 전역 변수가 정의되지 않았을 경우를 대비한 방어 로직
-    const currentMeso = typeof vPresentMeso !== 'undefined' ? vPresentMeso : 0;
+    const currentMeso = typeof vPresentMeso !== 'undefined' ? Number(String(vPresentMeso).replace(/,/g, '')) : 0;
+    const currentMepo = typeof vPresentMepo !== 'undefined' ? Number(String(vPresentMepo).replace(/,/g, '')) : 0;
     const oneHunMilValue = typeof oneHunMil !== 'undefined' ? oneHunMil : 100000000;
 
     const MINIMUM_WAGE_PER_HOUR = 10320;
@@ -236,9 +237,16 @@ function updateUI() {
         if (charIdx === mCalData.activeIndex) {
             $('#selected-boss-count').text(`${char.selectedBosses.length} / 12`);
             $('#weekly-profit').text(`${Math.floor(charMeso).toLocaleString()} 메소`);
+            
+            // 현금 및 메포 계산 추가
+            let charWon = (charMeso / oneHunMilValue) * currentMeso;
+            let charMepo = (charMeso / oneHunMilValue) * currentMepo;
+            $('#weekly-profit-won-val').text(`${Math.floor(charWon).toLocaleString()} 원`);
+            $('#weekly-profit-mepo-val').text(`${Math.floor(charMepo).toLocaleString()} p`);
+
             $('#total-clear-time-hours').text(`${charMinutes}분 (${(charMinutes / 60).toFixed(1)}시간)`);
             
-            let charHourly = (charMinutes > 0) ? (charMeso / oneHunMilValue * currentMeso) / (charMinutes / 60) : 0;
+            let charHourly = (charMinutes > 0) ? charWon / (charMinutes / 60) : 0;
             $('#total-weekly-hourly-wage').text(`${Math.floor(charHourly).toLocaleString()} 원`);
         }
 
@@ -248,8 +256,15 @@ function updateUI() {
 
     $('#total-char-count').text(`${mCalData.characters.length}`);
     $('#account-total-profit').text(`${Math.floor(accountTotalMeso).toLocaleString()} 메소`);
+    
+    // 계정 합계 현금 및 메포 계산 추가
+    let accountWon = (accountTotalMeso / oneHunMilValue) * currentMeso;
+    let accountMepo = (accountTotalMeso / oneHunMilValue) * currentMepo;
+    $('#account-total-profit-won-val').text(`${Math.floor(accountWon).toLocaleString()} 원`);
+    $('#account-total-profit-mepo-val').text(`${Math.floor(accountMepo).toLocaleString()} p`);
+
     $('#account-total-time').text(`${accountTotalMinutes}분 (${(accountTotalMinutes / 60).toFixed(1)}시간)`);
     
-    let accountHourly = (accountTotalMinutes > 0) ? (accountTotalMeso / oneHunMilValue * currentMeso) / (accountTotalMinutes / 60) : 0;
+    let accountHourly = (accountTotalMinutes > 0) ? accountWon / (accountTotalMinutes / 60) : 0;
     $('#account-hourly-wage').text(`${Math.floor(accountHourly).toLocaleString()} 원`);
 }

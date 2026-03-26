@@ -260,6 +260,7 @@ DEPENDENCIES
   bigdecimal
   github-pages
   jekyll (~> 3.9)
+  jekyll-paginate
 
 CHECKSUMS
   activesupport (3.1.12) sha256=2c6e08f1650bae4ccb34800fedfbb775ce61df0d4aa635dbd91eb5b738e6716b
