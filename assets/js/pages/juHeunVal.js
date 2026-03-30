@@ -1,4 +1,4 @@
-// 주흔&아즈모스코인가치 페이지의 계산을 담당하는 함수
+// 주흔가치 페이지의 계산을 담당하는 함수
 function run_page_calculations() {
     fn_juHeunVal();
 
@@ -7,7 +7,7 @@ function run_page_calculations() {
     $('input[name="juHeun50Event"]').on("change", fn_juHeunVal);
 }
 
-// 주흔&아즈모스코인가치 계산 로직
+// 주흔 계산 로직
 function fn_juHeunVal(){
     var juHeun50Event = $("input:radio[name='juHeun50Event']:checked").val();
     var juHeunPrice = $("#juHeunPrice").val().replace(/,/g, '');
