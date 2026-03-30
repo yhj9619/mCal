@@ -3,7 +3,7 @@ var tenThsd  = 10000;
 var oneHunMil = 100000000;
 var vPresentMeso, vPresentMepo, vPercentMVP, vDiscountRate, vAuctionCharge;
 var discountRate, auctionRate, realMepo, moneyTransMepo;
-var for1MilWithPerson, for1MilWithMarket;
+var for1MilWithPerson, for1MilWithMarket, for1MilWithMarket2;
 
 // 페이지별 변수들
 var vJuhwaVal, vJuhwaCnt;
@@ -170,6 +170,7 @@ function setNumber(){
     moneyTransMepo = Math.round(tenThsd / realMepo / auctionRate * vPresentMeso);
     for1MilWithPerson = Math.round(1 / auctionRate * vPresentMeso);
     for1MilWithMarket = Math.round(vPresentMepo * discountRate);
+    for1MilWithMarket2 = Math.round(vPresentMepo * vPercentMVP / 10000);
 }
 
 // 초기 기본값 설정

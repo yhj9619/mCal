@@ -8,23 +8,24 @@ function run_page_calculations() {
 
 // 메소마켓 관련 계산 로직
 function fn_mesoMarket(){
-    vPresentMesoInMesoMarket = Number(vPresentMeso.replace(/,/g, ''));
+    var vPresentMesoNum = Number(vPresentMeso);
+    var vPercentMVPNum = Number(vPercentMVP);
+    var moneyTransMepoNum = Number(moneyTransMepo);
 
-    if(moneyTransMepo > vPercentMVP){
+    if(moneyTransMepoNum > vPercentMVPNum){
         $("#buyMepo").text("MVP작 메포판매자에게 구매하세요.");
-        $("#buyMepoProfit").text(Math.round(Number(moneyTransMepo)-Number(vPercentMVP)));
-        
+        $("#buyMepoProfit").text(Math.round(moneyTransMepoNum - vPercentMVPNum));
     }else{
         $("#buyMepo").text("메소마켓 이용을 권장합니다.");
-        $("#buyMepoProfit").text(Math.round(Number(vPercentMVP)-Number(moneyTransMepo)));
+        $("#buyMepoProfit").text(Math.round(vPercentMVPNum - moneyTransMepoNum));
     }
     
     //직작으로 1만원을 채우는데 드는 비용
-    var mvpCost = tenThsd*(discountRate-vPresentMesoInMesoMarket/vPresentMepo);
+    var mvpCost = tenThsd * (discountRate - vPresentMesoNum / vPresentMepo);
     //직작으로 캐시 1만원을 충전하고 돌려받을 수 있는 현금
-    var selfMVPReturn = tenThsd/vPresentMepo*vPresentMesoInMesoMarket;
+    var selfMVPReturn = tenThsd / vPresentMepo * vPresentMesoNum;
 
-    $("#sellMeso").html(customFormatNumber(moneyTransMepo));
+    $("#sellMeso").html(customFormatNumber(moneyTransMepoNum));
    
     $("#marketBuyMesoParam1").html(customFormatNumber(for1MilWithPerson));
     $("#marketBuyMesoParam2").html(customFormatNumber(for1MilWithMarket));
@@ -46,12 +47,11 @@ function fn_mesoMarket(){
     }
     
     //메포구매자
-    $("#marketBuyMepoParam1").html(customFormatNumber(vPercentMVP));
-    $("#marketBuyMepoParam2").html(customFormatNumber(moneyTransMepo));
+    $("#marketBuyMepoParam1").html(customFormatNumber(vPercentMVPNum));
+    $("#marketBuyMepoParam2").html(customFormatNumber(moneyTransMepoNum));
 
-    if(moneyTransMepo > vPercentMVP){
+    if(moneyTransMepoNum > vPercentMVPNum){
         $("#marketBuyMepoResult").text("선물식 사세요");
-        
     }else{
         $("#marketBuyMepoResult").text("메소마켓에서 사세요.");
     }
