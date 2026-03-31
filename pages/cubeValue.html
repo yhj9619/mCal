@@ -1,0 +1,193 @@
+---
+layout: default
+title: "메이플 큐브 현금가치 계산기 | 잠재능력 재설정 비용 환산"
+description: "메소로 변경된 메이플스토리 잠재능력 재설정(큐브) 비용을 현재 시세 기준 현금 및 메이플포인트 가치로 즉시 환산해 드립니다."
+scripts:
+  - pages/cubeValue.js
+---
+
+<section id="cubeValue" class="five">
+    <div class="container">
+        <!-- 헤더 영역 -->
+        <header class="local-header">
+            <h2 class="accordion-header" style="cursor: pointer; display: inline-block;">큐브(잠재능력) 현금가치 <span class="accordion-icon fa fa-chevron-down"></span></h2>
+            
+            <div class="capture-hide local-icon-group">
+                <img src="{{ site.baseurl }}/images/share.png" alt="이미지 공유" onclick="shareAsImage('#captureArea', '메산기_큐브가치', '큐브 현금가치 계산결과')" title="이미지 파일 공유/복사">
+            </div>
+
+            <div class="accordion-content" style="display: none; text-align: left; margin-top: 10px; border: 1px solid #ddd; padding: 1em; border-radius: 8px;">
+                <p style="margin-bottom: 0;">
+                    메이플스토리의 큐브 시스템이 삭제되고 메소로 잠재능력을 재설정하도록 변경되었습니다.
+                    이 페이지에서는 각 아이템 레벨 및 등급별 재설정 비용(1회 기준)을 현재 메소 시세와 메소마켓 시세에 맞춰 현금 및 메이플포인트 가치로 환산하여 보여줍니다.
+                </p>
+            </div>
+        </header>
+
+        <style>
+            :root { --icon-filter: none; }
+            body.dark-mode { --icon-filter: invert(1); }
+            
+            .local-header { text-align: center; position: relative; margin-bottom: 1.5em; }
+            .local-icon-group { position: absolute; right: 0; top: 50%; transform: translateY(-50%); display: flex; gap: 10px; }
+            .local-icon-group img { width: 24px; height: 24px; cursor: pointer; filter: var(--icon-filter); }
+
+            .cube-val-container { margin-bottom: 5px; font-weight: bold; }
+            .cube-val-meso { color: #555; font-size: 0.9em; }
+            .cube-val-cash { color: #e74c3c; font-size: 1em; }
+            .cube-val-mp { color: #3498db; font-size: 0.85em; }
+            
+            body.dark-mode .cube-val-meso { color: #bbb; }
+            body.dark-mode .cube-val-cash { color: #ff6b6b; }
+            body.dark-mode .cube-val-mp { color: #5dade2; }
+
+            .table-title { text-align: left; margin: 1.5em 0 0.5em 0; font-weight: bold; color: #f5a623; border-left: 4px solid #f5a623; padding-left: 10px; }
+            
+            @media screen and (max-width: 736px) {
+                .local-header { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+                .local-icon-group { position: static; transform: none; order: 2; }
+                .accordion-header { order: 1; }
+                .mTable td { padding: 10px 5px !important; }
+            }
+        </style>
+
+        <div id="captureArea" style="background: var(--capture-bg, #fff); padding: 15px; border-radius: 8px;">
+            <style>
+                body.dark-mode #captureArea { --capture-bg: #1e1e1e; }
+            </style>
+
+            <h3 class="table-title">기본 잠재능력 재설정 (구 블랙 큐브)</h3>
+            <div class="flip-scroll">
+                <table class="mTable" id="mainPotentialTable">
+                    <thead>
+                        <tr>
+                            <th>아이템 레벨</th>
+                            <th>Rare</th>
+                            <th>Epic</th>
+                            <th>Unique</th>
+                            <th>Legendary</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr data-level-range="250">
+                            <td data-label="레벨">250 ~ 300</td>
+                            <td data-label="Rare" class="calc-cell" data-base-meso="6000000"></td>
+                            <td data-label="Epic" class="calc-cell" data-base-meso="24000000"></td>
+                            <td data-label="Unique" class="calc-cell" data-base-meso="51000000"></td>
+                            <td data-label="Legendary" class="calc-cell" data-base-meso="50000000"></td>
+                        </tr>
+                        <tr data-level-range="200">
+                            <td data-label="레벨">200 ~ 249</td>
+                            <td data-label="Rare" class="calc-cell" data-base-meso="5400000"></td>
+                            <td data-label="Epic" class="calc-cell" data-base-meso="21600000"></td>
+                            <td data-label="Unique" class="calc-cell" data-base-meso="45900000"></td>
+                            <td data-label="Legendary" class="calc-cell" data-base-meso="54000000"></td>
+                        </tr>
+                        <tr data-level-range="160">
+                            <td data-label="레벨">160 ~ 199</td>
+                            <td data-label="Rare" class="calc-cell" data-base-meso="5100000"></td>
+                            <td data-label="Epic" class="calc-cell" data-base-meso="20400000"></td>
+                            <td data-label="Unique" class="calc-cell" data-base-meso="43350000"></td>
+                            <td data-label="Legendary" class="calc-cell" data-base-meso="51000000"></td>
+                        </tr>
+                        <tr data-level-range="0">
+                            <td data-label="레벨">1 ~ 159</td>
+                            <td data-label="Rare" class="calc-cell" data-base-meso="4800000"></td>
+                            <td data-label="Epic" class="calc-cell" data-base-meso="19200000"></td>
+                            <td data-label="Unique" class="calc-cell" data-base-meso="40800000"></td>
+                            <td data-label="Legendary" class="calc-cell" data-base-meso="48000000"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3 class="table-title">에디셔널 잠재능력 재설정 (구 화이트 에디셔널 큐브)</h3>
+            <div class="flip-scroll">
+                <table class="mTable" id="additionalPotentialTable">
+                    <thead>
+                        <tr>
+                            <th>아이템 레벨</th>
+                            <th>Rare</th>
+                            <th>Epic</th>
+                            <th>Unique</th>
+                            <th>Legendary</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr data-level-range="250">
+                            <td data-label="레벨">250 ~ 300</td>
+                            <td data-label="Rare" class="calc-cell" data-base-meso="20000000"></td>
+                            <td data-label="Epic" class="calc-cell" data-base-meso="56000000"></td>
+                            <td data-label="Unique" class="calc-cell" data-base-meso="68000000"></td>
+                            <td data-label="Legendary" class="calc-cell" data-base-meso="80000000"></td>
+                        </tr>
+                        <tr data-level-range="200">
+                            <td data-label="레벨">200 ~ 249</td>
+                            <td data-label="Rare" class="calc-cell" data-base-meso="18000000"></td>
+                            <td data-label="Epic" class="calc-cell" data-base-meso="50400000"></td>
+                            <td data-label="Unique" class="calc-cell" data-base-meso="61200000"></td>
+                            <td data-label="Legendary" class="calc-cell" data-base-meso="72000000"></td>
+                        </tr>
+                        <tr data-level-range="160">
+                            <td data-label="레벨">160 ~ 199</td>
+                            <td data-label="Rare" class="calc-cell" data-base-meso="17000000"></td>
+                            <td data-label="Epic" class="calc-cell" data-base-meso="47600000"></td>
+                            <td data-label="Unique" class="calc-cell" data-base-meso="57800000"></td>
+                            <td data-label="Legendary" class="calc-cell" data-base-meso="68000000"></td>
+                        </tr>
+                        <tr data-level-range="0">
+                            <td data-label="레벨">1 ~ 159</td>
+                            <td data-label="Rare" class="calc-cell" data-base-meso="16000000"></td>
+                            <td data-label="Epic" class="calc-cell" data-base-meso="44800000"></td>
+                            <td data-label="Unique" class="calc-cell" data-base-meso="54400000"></td>
+                            <td data-label="Legendary" class="calc-cell" data-base-meso="64000000"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- 이미지 캡처용 워터마크 -->
+            <div class="capture-watermark" style="text-align: right; margin-top: 15px; font-size: 11px; color: #bbb; font-weight: bold;">메산기 | mesangi.com</div>
+        </div>
+
+        <!-- 사용 순서 및 상세 가이드 섹션 추가 -->
+        <div style="text-align: left; margin-top: 3em; padding: 2em; background: #fdfdfd; border: 1px solid #eee; border-radius: 12px; line-height: 1.8;">
+            <h3 style="color: #333; border-bottom: 2px solid #f5a623; padding-bottom: 0.5em; margin-bottom: 1em;">사용 순서 및 방법</h3>
+            <ol style="margin-bottom: 2em; padding-left: 1.5em; color: #555;">
+                <li>좌측 사이드바에 본인이 확인한 <strong>메소 시세(라운지 가격)</strong>와 <strong>메소마켓 시세</strong>를 직접 입력해 주세요.</li>
+                <li>입력된 시세를 바탕으로 하단 표의 <strong>현금(원) 및 메이플포인트</strong> 수치가 즉시 계산되어 업데이트됩니다.</li>
+                <li>표에서 재설정하려는 <strong>아이템의 레벨 구간</strong>과 <strong>현재 등급</strong>을 찾아 비용을 확인합니다.</li>
+                <li>우측 상단 공유 아이콘을 클릭하여 계산된 표를 <strong>이미지로 저장</strong>하거나 공유할 수 있습니다.</li>
+            </ol>
+
+            <h3 style="color: #333; border-bottom: 2px solid #f5a623; padding-bottom: 0.5em; margin-bottom: 1em;">큐브 메소화와 실질 비용 가이드</h3>
+            
+            <p style="margin-bottom: 1.5em; color: #555;">
+                메이플스토리 잠재능력 재설정이 인게임 메소 소모 방식으로 전환됨에 따라, 1회 재설정 시 소모되는 정확한 현금 가치를 파악하는 것이 중요해졌습니다. 본 계산기는 사용자가 입력한 시세 정보를 기반으로 복잡한 메소 소모량을 직관적인 금액으로 환산해 줍니다.
+            </p>
+
+            <h4 style="color: #444; margin-bottom: 0.5em;">1. 사용자 맞춤형 시세 적용</h4>
+            <p style="margin-bottom: 1.5em; color: #666; font-size: 0.95em;">
+                메소 시세는 서버와 시간대에 따라 끊임없이 변동합니다. 본 계산기는 고정된 시세를 보여주는 것이 아니라, 사용자가 <strong>사이드바에 직접 입력한 시세</strong>를 실시간으로 연동하여 계산합니다. 이를 통해 현재 본인이 처한 시장 상황에 가장 적합한 비용을 즉시 확인할 수 있습니다.
+            </p>
+
+            <h4 style="color: #444; margin-bottom: 0.5em;">2. 메소 소모량의 체계적 분석</h4>
+            <p style="margin-bottom: 1.5em; color: #666; font-size: 0.95em;">
+                재설정 비용은 <strong>아이템의 레벨 구간</strong>과 <strong>현재 등급</strong>에 따라 고정되어 있습니다. 고레벨 레전드리 장비일수록 1회당 소모 메소량이 급격히 늘어나므로, 메산기의 표를 통해 각 구간별 비용 차이를 한눈에 비교하고 효율적인 재설정 계획을 세울 수 있습니다.
+            </p>
+
+            <h4 style="color: #444; margin-bottom: 0.5em;">3. 현금 및 메포 가치의 직관적 확인</h4>
+            <p style="margin-bottom: 1.5em; color: #666; font-size: 0.95em;">
+                단순히 메소 숫자만으로는 체감하기 어려운 실제 비용을 **현금(원)**과 **메이플포인트** 단위로 동시에 보여줍니다. 이를 통해 대량의 재설정을 시도할 때 예상되는 총 지출 규모를 미리 가늠해 보고, 어떤 재원(메소/메포)을 사용하는 것이 더 유리한지 판단할 수 있습니다.
+            </p>
+
+            <p style="font-size: 0.85em; color: #999; margin-top: 2em;">
+                * 본 가이드의 비용 정보는 최신 패치 노트를 기준으로 하며, 모든 금액은 사용자가 사이드바에 입력한 시세에 따라 즉시 계산된 결과입니다.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- 라이브러리 추가 -->
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+<script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.0/kakao.min.js" crossorigin="anonymous"></script>

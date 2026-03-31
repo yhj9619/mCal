@@ -1,0 +1,163 @@
+---
+layout: default
+title: "메이플 큐브 기댓값 계산기 | 잠재능력 목표 기댓값 환산"
+description: "목표 옵션 확률을 기반으로 메이플스토리 잠재능력 재설정(큐브)의 예상 수행 횟수와 소모 비용을 현금 및 메이플포인트로 계산해 드립니다."
+scripts:
+  - pages/cubeExpectancy.js
+---
+
+<section id="cubeExpectancy" class="five">
+    <div class="container">
+        <!-- 헤더 영역 -->
+        <header class="local-header">
+            <h2 class="accordion-header" style="cursor: pointer; display: inline-block;">큐브 기댓값 계산기 <span class="accordion-icon fa fa-chevron-down"></span></h2>
+            
+            <div class="capture-hide local-icon-group">
+                <img src="{{ site.baseurl }}/images/share.png" alt="이미지 공유" onclick="shareAsImage('#captureArea', '메산기_큐브기댓값', '큐브 기댓값 계산결과')" title="이미지 파일 공유/복사">
+            </div>
+
+            <div class="accordion-content" style="display: none; text-align: left; margin-top: 10px; border: 1px solid #ddd; padding: 1em; border-radius: 8px;">
+                <p style="margin-bottom: 0;">
+                    설정한 목표 옵션의 출현 확률을 기반으로, 해당 옵션을 뽑기까지 필요한 <strong>평균 수행 횟수(기댓값)</strong>와 그에 따른 <strong>소모 메소, 현금, 메이플포인트</strong>를 계산합니다.
+                    <br>확률 정보는 넥슨 공식 홈페이지의 <a href="https://maplestory.nexon.com/Guide/OtherProbability/cube/black" target="_blank" style="color: #f5a623; text-decoration: underline;">잠재능력 확률 공시</a>를 참고하여 입력해 주세요.
+                </p>
+            </div>
+        </header>
+
+        <style>
+            :root { --icon-filter: none; }
+            body.dark-mode { --icon-filter: invert(1); }
+            
+            .local-header { text-align: center; position: relative; margin-bottom: 1.5em; }
+            .local-icon-group { position: absolute; right: 0; top: 50%; transform: translateY(-50%); display: flex; gap: 10px; }
+            .local-icon-group img { width: 24px; height: 24px; cursor: pointer; filter: var(--icon-filter); }
+
+            .input-group { display: flex; flex-direction: column; gap: 15px; margin-bottom: 20px; text-align: left; }
+            .input-item { display: flex; flex-direction: column; gap: 5px; }
+            .input-item label { font-weight: bold; font-size: 0.9em; color: #555; }
+            body.dark-mode .input-item label { color: #bbb; }
+            
+            .input-item input, .input-item select { padding: 10px; border: 1px solid #ddd; border-radius: 6px; width: 100%; }
+            body.dark-mode .input-item input, body.dark-mode .input-item select { background: #2d2d2d; border-color: #444; color: #fff; }
+
+            .result-card-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-top: 20px; }
+            .result-card { background: #f9f9f9; padding: 15px; border-radius: 10px; border: 1px solid #eee; text-align: center; }
+            body.dark-mode .result-card { background: #252525; border-color: #333; }
+            
+            .result-label { font-size: 0.85em; color: #888; margin-bottom: 5px; }
+            .result-value { font-size: 1.2em; font-weight: bold; color: #333; }
+            body.dark-mode .result-value { color: #eee; }
+            .result-value.highlight { color: #f5a623; }
+
+            .preset-buttons { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+            .preset-btn { font-size: 0.8em; padding: 5px 12px; background: #eee; border: none; border-radius: 20px; cursor: pointer; transition: 0.2s; }
+            .preset-btn:hover { background: #f5a623; color: #fff; }
+            body.dark-mode .preset-btn { background: #333; color: #ccc; }
+
+            @media screen and (max-width: 600px) {
+                .result-card-grid { grid-template-columns: 1fr; }
+            }
+        </style>
+
+        <div id="captureArea" style="background: var(--capture-bg, #fff); padding: 20px; border-radius: 12px; border: 1px solid #eee;">
+            <style>
+                body.dark-mode #captureArea { --capture-bg: #1e1e1e; }
+            </style>
+
+            <div class="input-group">
+                <div class="input-item">
+                    <label>아이템 레벨 및 재설정 종류</label>
+                    <select id="cubeType" onchange="fn_cubeExpectancy()">
+                        <optgroup label="기본 잠재 (구 블랙)">
+                            <option value="6000000" data-cube-kind="black">Lv.250~300 (600만)</option>
+                            <option value="5400000" data-cube-kind="black">Lv.200~249 (540만)</option>
+                            <option value="5100000" data-cube-kind="black">Lv.160~199 (510만)</option>
+                            <option value="4800000" data-cube-kind="black">Lv.1~159 (480만)</option>
+                        </optgroup>
+                        <optgroup label="에디셔널 (구 화에디)">
+                            <option value="20000000" data-cube-kind="addi">Lv.250~300 (2,000만)</option>
+                            <option value="18000000" data-cube-kind="addi">Lv.200~249 (1,800만)</option>
+                            <option value="17000000" data-cube-kind="addi">Lv.160~199 (1,700만)</option>
+                            <option value="16000000" data-cube-kind="addi">Lv.1~159 (1,600만)</option>
+                        </optgroup>
+                    </select>
+                </div>
+
+                <div class="input-item">
+                    <label>아이템 분류</label>
+                    <select id="itemCategory" onchange="updateTargetOptions(); fn_cubeExpectancy();">
+                        <option value="weapon">무기</option>
+                        <option value="subWeapon">보조무기</option>
+                        <option value="emblem">엠블렘</option>
+                        <option value="hat">모자 (쿨감)</option>
+                        <option value="gloves">장갑 (크뎀)</option>
+                        <option value="topOverall">상의 / 한벌옷</option>
+                        <option value="bottom">하의</option>
+                        <option value="shoesCapeShoulder">신발 / 망토 / 어깨장식</option>
+                        <option value="accessory">액세서리 (드메/스탯)</option>
+                        <option value="heart">기계심장 / 벨트</option>
+                        <option value="custom">직접 입력 (확률 %)</option>
+                    </select>
+                </div>
+
+                <div id="smartOptions">
+                    <div class="input-item">
+                        <label>1번째 줄 목표</label>
+                        <select id="line1Option" onchange="fn_cubeExpectancy()"></select>
+                    </div>
+                    <div class="input-item">
+                        <label>2번째 줄 목표</label>
+                        <select id="line2Option" onchange="fn_cubeExpectancy()"></select>
+                    </div>
+                    <div class="input-item">
+                        <label>3번째 줄 목표</label>
+                        <select id="line3Option" onchange="fn_cubeExpectancy()"></select>
+                    </div>
+                    <p style="font-size: 0.8em; color: #f5a623; margin-top: 5px;">* '상관없음'을 선택하면 해당 줄은 어떤 옵션이 나와도 무시합니다.</p>
+                </div>
+
+                <div id="customOption" style="display: none;">
+                    <div class="input-item">
+                        <label>목표 옵션 출현 확률 (%)</label>
+                        <input type="number" id="targetProb" value="0.1" step="0.0001" oninput="fn_cubeExpectancy()">
+                    </div>
+                </div>
+            </div>
+
+            <div class="result-card-grid">
+                <div class="result-card">
+                    <div class="result-label">평균 수행 횟수</div>
+                    <div class="result-value highlight"><span id="expectCount">0</span>회</div>
+                </div>
+                <div class="result-card">
+                    <div class="result-label">평균 소모 메소</div>
+                    <div class="result-value"><span id="expectMeso">0</span></div>
+                </div>
+                <div class="result-card">
+                    <div class="result-label">현금 환산 (라운지)</div>
+                    <div class="result-value" style="color: #e74c3c;"><span id="expectCash">0</span>원</div>
+                </div>
+                <div class="result-card">
+                    <div class="result-label">메포 환산 (메소마켓)</div>
+                    <div class="result-value" style="color: #3498db;"><span id="expectMp">0</span>메포</div>
+                </div>
+            </div>
+
+            <!-- 이미지 캡처용 워터마크 -->
+            <div class="capture-watermark" style="text-align: right; margin-top: 20px; font-size: 11px; color: #bbb; font-weight: bold;">메산기 | mesangi.com</div>
+        </div>
+
+        <div style="text-align: left; margin-top: 2em; padding: 1.5em; background: rgba(245, 166, 35, 0.05); border-radius: 8px; border: 1px dashed #f5a623;">
+            <p style="margin-bottom: 0.5em; font-weight: bold; color: #f5a623;">📢 확률 정보 활용 팁</p>
+            <ul style="margin-bottom: 0; font-size: 0.9em; color: #666; padding-left: 1.2em;">
+                <li>넥슨 홈페이지의 확률 공시에서 본인이 원하는 <strong>옵션 조합의 합계 확률</strong>을 입력하세요.</li>
+                <li>기댓값(평균)은 통계적인 수치일 뿐, 실제 결과는 이보다 빠르거나 늦게 나올 수 있습니다.</li>
+                <li><strong>천장 시스템</strong>: 현재 메소 재설정은 등급 상승(Rank Up)에 대해서만 천장이 존재하며, 특정 옵션을 뽑는 것에는 천장이 없습니다.</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<!-- 라이브러리 추가 -->
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+<script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.0/kakao.min.js" crossorigin="anonymous"></script>
