@@ -3043,6 +3043,19 @@ body.dark-mode {
 	background-color: rgba(255, 255, 255, 0.03);
 }
 
+/* 어두운 배경에서의 호버: 밝은 배경 대신 포인트 컬러로 은은하게 + 글씨 강조 */
+#main > section.dark table.simpleTable tbody tr:hover {
+	background-color: rgba(245, 166, 35, 0.15);
+	transition: background-color 0.2s ease-in-out;
+}
+#main > section.dark table.simpleTable tbody tr:hover td {
+	color: #fff;
+	font-weight: 600;
+}
+#main > section.dark table.simpleTable tbody tr:hover td .pointSpan {
+	color: #f5a623;
+}
+
 /* 어두운 배경의 모바일 simpleTable 대응 */
 @media screen and (max-width: 960px) {
 	#main > section.dark table.simpleTable td:nth-child(1) {

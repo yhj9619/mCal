@@ -3,6 +3,7 @@
 	<head>
 		<title>{{ page.title | default: site.title }}</title>
 		<meta name="description" content="{{ page.description | default: site.description }}">
+		{% if page.noindex %}<meta name="robots" content="noindex, nofollow">{% endif %}
 
 		<!--구글 애드센스-->
 		<script async

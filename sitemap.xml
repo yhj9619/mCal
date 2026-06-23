@@ -72,6 +72,12 @@ layout: null
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
+  <url>
+    <loc>https://mesangi.com/pages/cubeValue.html</loc>
+    <lastmod>{{ site.time | date_to_xmlschema }}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
 
   <!-- 블로그 포스트들 (자동 순회) -->
   {% for post in site.posts %}
