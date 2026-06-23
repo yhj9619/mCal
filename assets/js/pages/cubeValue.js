@@ -1,9 +1,9 @@
-// 큐브 현금가치 페이지의 계산을 담당하는 함수
+// 큐브 현실가치 페이지의 계산을 담당하는 함수
 function run_page_calculations() {
     fn_cubeValue();
 }
 
-// 큐브 현금가치 계산 로직
+// 큐브 현실가치 계산 로직
 function fn_cubeValue() {
     var psm = Number(vPresentMeso); // 1억당 현금
     var pmp = Number(vPresentMepo); // 1억당 메포
@@ -11,7 +11,7 @@ function fn_cubeValue() {
     $(".calc-cell").each(function() {
         var baseMeso = Number($(this).data("base-meso"));
         
-        // 현금 가치 계산
+        // 현실 가치 계산
         var cashVal = (baseMeso / oneHunMil) * psm;
         // 메포 가치 계산 (메소마켓 기준)
         var mpVal = (baseMeso / oneHunMil) * pmp;

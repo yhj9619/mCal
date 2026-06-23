@@ -1,4 +1,4 @@
-// 아이템의 현금가치 페이지의 계산을 담당하는 함수
+// 아이템의 현실가치 페이지의 계산을 담당하는 함수
 function run_page_calculations() {
     fn_mesoToWon();
 
@@ -12,7 +12,7 @@ function run_page_calculations() {
     updateKoreanUnitHelper(document.getElementById('itemMesoVal'), 'itemMesoValHelper');
 }
 
-// 아이템의 현금가치 계산 로직
+// 아이템의 현실가치 계산 로직
 function fn_mesoToWon(){
     var itemMesoVal = $("#itemMesoVal").val() ? $("#itemMesoVal").val().replace(/,/g, '') : 0;
     var psm = Number(vPresentMeso); 
@@ -25,7 +25,7 @@ function fn_mesoToWon(){
 // 결과 텍스트 복사 기능
 function copyResultText() {
     let itemMeso = $("#itemMesoVal").val() || "0";
-    let text = `[메산기 아이템 현금가치 결과]\n` +
+    let text = `[메산기 아이템 현실가치 결과]\n` +
                `아이템 가격: ${itemMeso} 메소\n` +
                `--------------------------------\n` +
                `판매자 기준: ${$("#mesoToWon1").text()} 원\n` +

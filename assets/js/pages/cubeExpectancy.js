@@ -1,133 +1,345 @@
 // 큐브 데이터 (넥슨 공식 공시 및 전문 사이트 확률 기반)
 const OPTION_DETAILS = {
-    "atk": { name: "공격력/마력", leg: "12%", uni: "9%" },
-    "boss": { name: "보스 데미지", leg: "35/40% 합산", uni: "30%" },
-    "ignore": { name: "방어율 무시", leg: "35/40% 합산", uni: "30%" },
-    "stat": { name: "주스탯", leg: "12%", uni: "9%" },
-    "allStat": { name: "올스탯", leg: "9%", uni: "6%" },
-    "critDmg": { name: "크리티컬 데미지", leg: "8%", uni: "N/A" },
-    "cooldown2": { name: "쿨타임 감소", leg: "2초", uni: "N/A" },
-    "cooldown1": { name: "쿨타임 감소", leg: "1초", uni: "1초" },
-    "drop": { name: "아이템 드롭률", leg: "20%", uni: "N/A" },
-    "meso": { name: "메소 획득량", leg: "20%", uni: "N/A" }
+    "atk": "공격력/마력",
+    "dmg": "데미지",
+    "boss": "보스 데미지",
+    "ignore": "방어율 무시",
+    "stat": "주스탯",
+    "allStat": "올스탯",
+    "criDmg": "크리티컬 데미지",
+    "cooldown": "쿨타임 감소",
+    "drop": "아이템 드롭률",
+    "meso": "메소 획득량"
 };
 
-const CUBE_DATA = {
-    "weapon": {
-        "atk": { "leg": 5.0, "uni": 6.25 },
-        "boss": { "leg": 5.0, "uni": 6.25 },
-        "ignore": { "leg": 5.0, "uni": 6.25 }
+const ITEM_DETAILS = {
+    "weapon": "무기",
+    "emblem": "엠블렘",
+    "subWeapon": "보조무기",
+    "hat": "모자",
+    "gloves": "장갑",
+    "shoes": "신발",
+    "capeShoulderBelt": "망토/어깨/벨트",
+    "top": "상의",
+    "bottom": "하의",
+    "accessory": "악세서리",
+    "heart": "하트"
+}
+
+const normal_figures_120_200 = {
+    leg: {
+        "atk": { "max": 12 },
+        "dmg": { "max": 12 },
+        "boss": { "min": 35, "max": 40 },
+        "ignore": { "min": 35, "max": 40 },
+        "criDmg": { "max": 8 },
+        "cooldown": { "min": 1, "max": 2 },
+        "stat": { "max": 12 },
+        "allStat": { "max": 9 },
+        "drop": { "max": 20 },
+        "meso": { "max": 20 }
     },
-    "subWeapon": {
-        "atk": { "leg": 5.0, "uni": 6.25 },
-        "boss": { "leg": 5.0, "uni": 6.25 },
-        "ignore": { "leg": 5.0, "uni": 6.25 }
+    uni: {
+        "atk": { "max": 9 },
+        "dmg": { "max": 9 },
+        "boss": { "max": 30 },
+        "ignore": { "max": 30 },
+        "stat": { "max": 9 },
+        "allStat": { "max": 6 }
+    }
+}
+
+const normal_figures_201_250 = {
+    leg: {
+        "atk": { "max": 13 },
+        "dmg": { "max": 13 },
+        "boss": { "min": 40, "max": 45 },
+        "ignore": { "min": 40, "max": 45 },
+        "criDmg": { "max": 8 },
+        "cooldown": { "min": 1, "max": 2 },
+        "stat": { "max": 13 },
+        "allStat": { "max": 10 },
+        "drop": { "max": 20 },
+        "meso": { "max": 20 }
+    },
+    uni: {
+        "atk": { "max": 10 },
+        "dmg": { "max": 10 },
+        "boss": { "max": 35 },
+        "ignore": { "max": 35 },
+        "stat": { "max": 10 },
+        "allStat": { "max": 7 }
+    }
+}
+
+const additional_figures_120_200 = {
+    leg: {
+        "atk": { "max": 12 },
+        "dmg": { "max": 12 },
+        "boss": { "max": 18 },
+        "ignore": { "max": 5 },
+        "criDmg": { "max": 1, "max": 3 },
+        "cooldown": { "min": 1, "max": 2 },
+        "stat": { "max": 8 },
+        "allStat": { "max": 6 },
+        "drop": { "max": 5 },
+        "meso": { "max": 5 }
+    },
+    uni: {
+        "atk": { "max": 9 },
+        "dmg": { "max": 9 },
+        "boss": { "max": 12 },
+        "ignore": { "max": 4 },
+        "stat": { "max": 6 },
+        "allStat": { "max": 5 }
+    }
+}
+
+const additional_figures_201_250 = {
+    leg: {
+        "atk": { "max": 13 },
+        "dmg": { "max": 13 },
+        "boss": { "max": 20 },
+        "ignore": { "max": 7 },
+        "criDmg": { "max": 1, "max": 3 },
+        "cooldown": { "min": 1, "max": 2 },
+        "stat": { "max": 9 },
+        "allStat": { "max": 7 },
+        "drop": { "max": 5 },
+        "meso": { "max": 5 }
+    },
+    uni: {
+        "atk": { "max": 10 },
+        "dmg": { "max": 10 },
+        "boss": { "max": 14 },
+        "ignore": { "max": 6 },
+        "stat": { "max": 7 },
+        "allStat": { "max": 6 }
+    }
+}
+
+const legGrade = {
+    "weapon": {
+        "1": { leg: { "atk": { "max": 4.8780 }, "dmg": { "max": 4.8780 }, "boss": { "min": 9.7561, "max": 4.8780 }, "ignore": { "min": 4.8780, "max": 4.8780 } } },
+        "2": { 
+            leg: { "atk": { "max": 0.9756 }, "dmg": { "max": 0.9756 }, "boss": { "min": 1.9512, "max": 0.9756 }, "ignore": { "min": 0.9756, "max": 0.9756 } },
+            uni: { "atk": { "max": 5.5814 }, "dmg": { "max": 5.5814 }, "boss": { "max": 5.5814 }, "ignore": { "max": 5.5814 } }
+        },
+        "3": { 
+            leg: { "atk": { "max": 0.2439 }, "dmg": { "max": 0.2439 }, "boss": { "min": 0.4878, "max": 0.2439 }, "ignore": { "min": 0.2439, "max": 0.2439 } },
+            uni: { "atk": { "max": 6.6279 }, "dmg": { "max": 6.6279 }, "boss": { "max": 6.6279 }, "ignore": { "max": 6.6279 } }
+        }
     },
     "emblem": {
-        "atk": { "leg": 10.0, "uni": 10.0 },
-        "ignore": { "leg": 10.0, "uni": 10.0 }
+        "1": { leg: { "atk": { "max": 5.7143 }, "dmg": { "max": 5.7143 }, "ignore": { "min": 5.7143, "max": 5.7143 } } },
+        "2": { 
+            leg: { "atk": { "max": 1.1429 }, "dmg": { "max": 1.1429 }, "ignore": { "min": 1.1429, "max": 1.1429 } },
+            uni: { "atk": { "max": 6 }, "dmg": { "max": 6 }, "ignore": { "max": 6 } }
+        },
+        "3": { 
+            leg: { "atk": { "max": 0.2857 }, "dmg": { "max": 0.2857 }, "ignore": { "min": 0.2857, "max": 0.2857 } },
+            uni: { "atk": { "max": 7.1250 }, "dmg": { "max": 7.1250 }, "ignore": { "max": 7.1250 } }
+        }
+    },
+    "subWeapon": {
+        "1": { leg: { "atk": { "max": 4.2553 }, "dmg": { "max": 4.2553 }, "boss": { "min": 8.5106, "max": 4.2553 }, "ignore": { "min": 4.2553, "max": 4.2553 } } },
+        "2": { 
+            leg: { "atk": { "max": 0.8511 }, "dmg": { "max": 0.8511 }, "boss": { "min": 1.9512, "max": 0.8511 }, "ignore": { "min": 0.8511, "max": 0.8511 } },
+            uni: { "atk": { "max": 4.7059 }, "dmg": { "max": 4.7059 }, "boss": { "max": 4.7059 }, "ignore": { "max": 4.7059 } }
+        },
+        "3": { 
+            leg: { "atk": { "max": 0.2128 }, "dmg": { "max": 0.2128 }, "boss": { "min": 0.4255, "max": 0.2128 }, "ignore": { "min": 0.2128, "max": 0.2128 } },
+            uni: { "atk": { "max": 5.5882 }, "dmg": { "max": 5.5882 }, "boss": { "max": 5.5882 }, "ignore": { "max": 5.5882 } }
+        }
     },
     "hat": {
-        "cooldown2": { "leg": 5.0, "uni": 0 },
-        "cooldown1": { "leg": 10.0, "uni": 10.0 },
-        "stat": { "leg": 10.0, "uni": 10.0 }
+        "1": { leg: { "cooldown": { "min": 7.3171, "max": 4.8780 }, "stat": { "max": 9.7561 }, "allStat": { "max": 7.3171 } } },
+        "2": { 
+            leg: { "cooldown": { "min": 1.4634, "max": 0.9756 }, "stat": { "max": 1.9512 }, "allStat": { "max": 1.4634 } },
+            uni: { "stat": { "max": 7.6923 }, "allStat": { "max": 6.1538 } }
+        },
+        "3": { 
+            leg: { "cooldown": { "min": 0.3659, "max": 0.2439 }, "stat": { "max": 0.4878 }, "allStat": { "max": 0.3659 } },
+            uni: { "stat": { "max": 9.1346 }, "allStat": { "max": 7.3077 } }
+        }
     },
     "gloves": {
-        "critDmg": { "leg": 10.0, "uni": 0 },
-        "stat": { "leg": 10.0, "uni": 10.0 }
+        "1": { leg: { "criDmg": { "max": 10 }, "stat": { "max": 10 }, "allStat": { "max": 7.5 } } },
+        "2": { 
+            leg: { "criDmg": { "max": 2.0000 }, "stat": { "max": 2.0000 }, "allStat": { "max": 1.5000 } },
+            uni: { "stat": { "max": 7.1429 }, "allStat": { "max": 5.7143 } }
+        },
+        "3": { 
+            leg: { "criDmg": { "max": 0.5000 }, "stat": { "max": 0.5000 }, "allStat": { "max": 0.3750 } },
+            uni: { "stat": { "max": 8.4821 }, "allStat": { "max": 6.7857 } }
+        }
     },
-    "topOverall": {
-        "stat": { "leg": 10.0, "uni": 10.0 },
-        "allStat": { "leg": 5.0, "uni": 5.0 }
+    "shoes": {
+        "1": { leg: { "stat": { "max": 11.1111 }, "allStat": { "max": 8.3333 } } },
+        "2": { 
+            leg: { "stat": { "max": 2.2222 }, "allStat": { "max": 1.6667 } },
+            uni: { "stat": { "max": 7.6923 }, "allStat": { "max": 6.1538 } }
+        },
+        "3": { 
+            leg: { "stat": { "max": 0.5556 }, "allStat": { "max": 0.4167 } },
+            uni: { "stat": { "max": 9.1346 }, "allStat": { "max": 7.3077 } }
+        }
+    },
+    "capeShoulderBelt": {
+        "1": { leg: { "stat": { "max": 12.1212 }, "allStat": { "max": 9.09091 } } },
+        "2": { 
+            leg: { "stat": { "max": 2.4242 }, "allStat": { "max": 1.8182 } },
+            uni: { "stat": { "max": 8.3333 }, "allStat": { "max": 6.6667 } }
+        },
+        "3": { 
+            leg: { "stat": { "max": 0.6061 }, "allStat": { "max": 0.4545 } },
+            uni: { "stat": { "max": 9.8958 }, "allStat": { "max": 7.9167 } }
+        }
+    },
+    "top": {
+        "1": { leg: { "stat": { "max": 10.2564 }, "allStat": { "max": 7.6923 } } },
+        "2": { 
+            leg: { "stat": { "max": 2.05128 }, "allStat": { "max": 1.5385 } },
+            uni: { "stat": { "max": 6.4516 }, "allStat": { "max": 5.1613 } }
+        },
+        "3": { 
+            leg: { "stat": { "max": 0.5128 }, "allStat": { "max": 0.3846 } },
+            uni: { "stat": { "max": 7.6613 }, "allStat": { "max": 6.1290 } }
+        }
     },
     "bottom": {
-        "stat": { "leg": 10.0, "uni": 10.0 },
-        "allStat": { "leg": 5.0, "uni": 5.0 }
-    },
-    "shoesCapeShoulder": {
-        "stat": { "leg": 10.0, "uni": 10.0 },
-        "allStat": { "leg": 5.0, "uni": 5.0 }
+        "1": { leg: { "stat": { "max": 12.1212 }, "allStat": { "max": 9.09091 } } },
+        "2": { 
+            leg: { "stat": { "max": 2.4242 }, "allStat": { "max": 1.8182 } },
+            uni: { "stat": { "max": 7.6923 }, "allStat": { "max": 6.1538 } }
+        },
+        "3": { 
+            leg: { "stat": { "max": 0.6061 }, "allStat": { "max": 0.4545 } },
+            uni: { "stat": { "max": 9.1346 }, "allStat": { "max": 7.3077 } }
+        }
     },
     "accessory": {
-        "stat": { "leg": 10.0, "uni": 10.0 },
-        "drop": { "leg": 10.0, "uni": 0 },
-        "meso": { "leg": 10.0, "uni": 0 }
+        "1": { leg: { "drop": { "max": 7.6923 }, "meso": { "max": 7.6923 }, "stat": { "max": 10.2567 }, "allStat": { "max": 7.6923 } } },
+        "2": { 
+            leg: { "drop": { "max": 1.5385 }, "meso": { "max": 1.5385 }, "stat": { "max": 2.05128 }, "allStat": { "max": 1.5385 } },
+            uni: { "stat": { "max": 10 }, "allStat": { "max": 8.0000 } }
+        },
+        "3": { 
+            leg: { "drop": { "max": 0.3846 }, "meso": { "max": 0.3846 }, "stat": { "max": 0.5128 }, "allStat": { "max": 0.3846 } },
+            uni: { "stat": { "max": 11.8750 }, "allStat": { "max": 9.5000 } }
+        }
     },
     "heart": {
-        "stat": { "leg": 10.0, "uni": 10.0 },
-        "allStat": { "leg": 5.0, "uni": 5.0 }
+        "1": { leg: { "stat": { "max": 14.8148 }, "allStat": { "max": 11.1111 } } },
+        "2": { 
+            leg: { "stat": { "max": 2.9630 }, "allStat": { "max": 2.2222 } },
+            uni: { "stat": { "max": 10 }, "allStat": { "max": 8.0000 } }
+        },
+        "3": { 
+            leg: { "stat": { "max": 0.7407 }, "allStat": { "max": 0.5556 } },
+            uni: { "stat": { "max": 11.8750 }, "allStat": { "max": 9.5000 } }
+        }
     }
 };
 
-// 페이지 로드 시 초기화
-$(document).ready(function() {
+const CATEGORY_MAP = {
+    "weapon": "weapon",
+    "subWeapon": "subWeapon",
+    "emblem": "emblem",
+    "hat": "hat",
+    "gloves": "gloves",
+    "topOverall": "top",
+    "bottom": "bottom",
+    "shoesCapeShoulder": "capeShoulderBelt",
+    "accessory": "accessory",
+    "heart": "heart"
+};
+
+$(document).ready(function () {
     updateTargetOptions();
     fn_cubeExpectancy();
 });
 
+function run_page_calculations() {
+    fn_cubeExpectancy();
+}
+
 function updateTargetOptions() {
-    const category = $("#itemCategory").val();
+    const htmlCategory = $("#itemCategory").val();
     const selects = ["#line1Option", "#line2Option", "#line3Option"];
+
+    if (htmlCategory === "custom") {
+        $("#smartOptions").hide();
+        $("#customOption").show();
+        return;
+    }
+
+    $("#smartOptions").show();
+    $("#customOption").hide();
+
+    const category = CATEGORY_MAP[htmlCategory];
+    const itemData = legGrade[category];
+    const cubeTypeVal = Number($("#cubeType").val());
     
+    // 사용자가 제공한 두 가지 범위만 사용 (Lv.200 이상은 모두 figures_201_250 적용)
+    let figures = figures_120_200;
+    if (cubeTypeVal >= 5400000) figures = figures_201_250;
+
     selects.forEach((selId, index) => {
         const $sel = $(selId);
         const prevVal = $sel.val();
         $sel.empty();
 
-        if (category === "custom") {
-            $("#smartOptions").hide();
-            $("#customOption").show();
-        } else {
-            $("#smartOptions").show();
-            $("#customOption").hide();
-            
-            $sel.append(`<option value="any">상관없음</option>`);
-            const options = CUBE_DATA[category];
-            for (let optKey in options) {
-                const det = OPTION_DETAILS[optKey];
-                const weight = options[optKey];
-                
-                if (weight.leg > 0) {
-                    const suffix = (index === 0) ? "" : " (레전/이탈)";
-                    $sel.append(`<option value="${optKey}_leg">${det.name} ${det.leg}${suffix}</option>`);
-                }
-                if (index > 0 && weight.uni > 0) {
-                    $sel.append(`<option value="${optKey}_uni">${det.name} ${det.uni} (유니크/정옵)</option>`);
+        $sel.append(`<option value="any">상관없음</option>`);
+
+        const lineData = itemData[(index + 1).toString()];
+
+        if (lineData.leg) {
+            for (let optKey in lineData.leg) {
+                const optName = OPTION_DETAILS[optKey];
+                const optWeights = lineData.leg[optKey];
+
+                for (let weightKey in optWeights) {
+                    let valDisplay = "";
+                    if (weightKey === "max") valDisplay = figures.leg[optKey].max;
+                    else if (weightKey === "min") valDisplay = figures.leg[optKey].min;
+                    
+                    if (optKey === "cooldown") valDisplay += "초";
+                    else valDisplay += "%";
+
+                    $sel.append(`<option value="${optKey}_leg_${weightKey}">${optName} ${valDisplay} (레전)</option>`);
                 }
             }
         }
+
+        if (index > 0 && lineData.uni) {
+            for (let optKey in lineData.uni) {
+                const optName = OPTION_DETAILS[optKey];
+                const valDisplay = figures.uni[optKey].max + "%";
+                $sel.append(`<option value="${optKey}_uni_max">${optName} ${valDisplay} (유니크)</option>`);
+            }
+        }
+
         if (prevVal) $sel.val(prevVal);
     });
 }
 
 function fn_cubeExpectancy() {
-    const category = $("#itemCategory").val();
-    const cubeKind = $("#cubeType option:selected").data("cube-kind");
+    const htmlCategory = $("#itemCategory").val();
     const cubeCost = Number($("#cubeType").val());
     
     let totalProb = 0;
 
-    if (category === "custom") {
+    if (htmlCategory === "custom") {
         totalProb = Number($("#targetProb").val()) / 100;
     } else {
+        const category = CATEGORY_MAP[htmlCategory];
+        const itemData = legGrade[category];
         const lineChoices = [
             $("#line1Option").val(),
             $("#line2Option").val(),
             $("#line3Option").val()
         ];
-        
-        const weights = CUBE_DATA[category];
-        
-        let legTierProbs = [];
-        let uniTierProbs = [];
-        
-        if (cubeKind === "black") {
-            legTierProbs = [1.0, 0.2, 0.05];
-            uniTierProbs = [0.0, 0.8, 0.95];
-        } else {
-            legTierProbs = [1.0, 0.004975, 0.004975];
-            uniTierProbs = [0.0, 0.995025, 0.995025];
-        }
 
         let p_match = [1.0, 1.0, 1.0];
 
@@ -138,20 +350,15 @@ function fn_cubeExpectancy() {
                 continue;
             }
 
-            const [optKey, tier] = choice.split('_');
-            const w = weights[optKey];
-
-            if (!w) {
-                p_match[i] = 0;
+            const [optKey, tier, weightKey] = choice.split('_');
+            const lineData = itemData[(i + 1).toString()];
+            
+            if (lineData[tier] && lineData[tier][optKey]) {
+                p_match[i] = lineData[tier][optKey][weightKey || "max"] / 100;
             } else {
-                if (tier === "leg") {
-                    p_match[i] = legTierProbs[i] * (w.leg / 100);
-                } else {
-                    p_match[i] = uniTierProbs[i] * (w.uni / 100);
-                }
+                p_match[i] = 0;
             }
         }
-
         totalProb = p_match[0] * p_match[1] * p_match[2];
     }
 

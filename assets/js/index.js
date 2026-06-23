@@ -118,7 +118,7 @@ function firstValSetting(){
     $("#presentItem").val('0');
     $("#pastItem").val('0');
 
-    //아이템의 현금가치
+    //아이템의 현실가치
     $("#itemMesoVal").val('0');
 
     //주흔&아즈모스코인가치
@@ -336,7 +336,7 @@ function fn_collection(thisId){
     fn_pcRoom();
     //과거와 현재 메소가치
     fn_valueOf();
-    //아이템의 현금가치
+    //아이템의 현실가치
     fn_mesoToWon();
     //주흔계산기
     fn_juHeunVal();
@@ -740,15 +740,15 @@ function createGrid1(){
             name: 'price'
             }
             ,{
-            header: '판매자기준 현금가치(원)',
+            header: '판매자기준 현실가치(원)',
             name: 'val1'
             }
             ,{
-            header: '구매자(메소보유) 기준 현금가치(원)',
+            header: '구매자(메소보유) 기준 현실가치(원)',
             name: 'val2'
             }
             ,{
-            header: '구매자(메소구매)기준 현금가치(원)',
+            header: '구매자(메소구매)기준 현실가치(원)',
             name: 'val3'
             }
         ]
